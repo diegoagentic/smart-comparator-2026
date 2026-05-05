@@ -6,6 +6,7 @@ import { useAuth } from './context/AuthContext'
 import { validatePassword, getDomainError, isAllowedDomain } from './lib/auth-utils'
 import type { PasswordValidation } from './lib/auth-utils'
 import { useToast, ToastContainer } from './components/AuthToast'
+import NoAccessModal from './components/auth/NoAccessModal'
 
 type ViewMode = 'login' | 'register' | 'forgot-password';
 
@@ -14,6 +15,8 @@ export default function Login() {
     const { toasts, addToast, dismissToast } = useToast()
 
     const [viewMode, setViewMode] = useState<ViewMode>('login')
+    const [showNoAccess, setShowNoAccess] = useState(false)
+    const [noAccessEmail, setNoAccessEmail] = useState<string | undefined>(undefined)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [fullName, setFullName] = useState('')
@@ -146,6 +149,15 @@ export default function Login() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [viewMode])
 
+    // Dev/QA: open the NoAccess modal via `?preview=noaccess[&email=foo@bar.com]`
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search)
+        if (params.get('preview') === 'noaccess') {
+            setNoAccessEmail(params.get('email') ?? 'unauthorized@example.com')
+            setShowNoAccess(true)
+        }
+    }, [])
+
     // Real-time password validation
     const handlePasswordChange = (value: string) => {
         setPassword(value)
@@ -173,6 +185,15 @@ export default function Login() {
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault()
+
+        // Authorization check (domain) is distinct from credential validation:
+        // unauthorized email → blocking modal with support contact, not a toast.
+        if (email && email.includes('@') && !isAllowedDomain(email)) {
+            setNoAccessEmail(email)
+            setShowNoAccess(true)
+            return
+        }
+
         setIsSubmitting(true)
 
         // Validate credentials first without logging in
@@ -199,6 +220,12 @@ export default function Login() {
 
         if (!fullName.trim()) {
             addToast('error', 'Full name is required.')
+            return
+        }
+
+        if (email && email.includes('@') && !isAllowedDomain(email)) {
+            setNoAccessEmail(email)
+            setShowNoAccess(true)
             return
         }
 
@@ -247,7 +274,8 @@ export default function Login() {
         }
 
         if (!isAllowedDomain(email)) {
-            addToast('error', 'Access is restricted to authorized organization emails only.')
+            setNoAccessEmail(email)
+            setShowNoAccess(true)
             return
         }
 
@@ -299,6 +327,34 @@ export default function Login() {
         <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2 font-sans bg-background transition-colors duration-300">
             {/* Toast Notifications */}
             <ToastContainer toasts={toasts} onDismiss={dismissToast} />
+
+            {/* No-Access Modal (unauthorized organization domain) */}
+            <NoAccessModal
+                isOpen={showNoAccess}
+                email={noAccessEmail}
+                onClose={() => {
+                    setShowNoAccess(false)
+                    setNoAccessEmail(undefined)
+                }}
+            />
+
+            {/* Dev harness: only visible during `vite dev`. Lets devs/QA preview
+                auth modals without needing a real unauthorized email. */}
+            {import.meta.env.DEV && (
+                <div className="fixed bottom-3 left-3 z-[200] flex items-center gap-2 rounded-full bg-zinc-900/80 dark:bg-white/10 backdrop-blur px-3 py-1.5 text-[11px] font-mono text-white shadow-lg pointer-events-auto">
+                    <span className="opacity-70">dev:</span>
+                    <button
+                        type="button"
+                        onClick={() => {
+                            setNoAccessEmail('unauthorized@example.com')
+                            setShowNoAccess(true)
+                        }}
+                        className="rounded-full bg-white/20 hover:bg-white/30 px-2 py-0.5 transition-colors"
+                    >
+                        Preview NoAccess
+                    </button>
+                </div>
+            )}
 
             {/* Access Selection Modal (Tenant → Role) */}
             {showAccess && (
