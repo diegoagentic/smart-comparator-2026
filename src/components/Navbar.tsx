@@ -2,9 +2,10 @@ import { useState, useRef, useEffect } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { useTheme } from 'strata-design-system'
 import { useTenant } from '../TenantContext'
-import { ScanEye, FileOutput, Banknote, Bell, Moon, Sun, LogOut, ChevronDown, Building2, Check } from 'lucide-react'
+import { ScanEye, FileOutput, Banknote, Bell, Moon, Sun, LogOut, ChevronDown, Building2, Check, KeyRound } from 'lucide-react'
 import logoLightBrand from '../assets/logo-light-brand.png'
 import logoDarkBrand from '../assets/logo-dark-brand.png'
+import ChangePasswordModal from './auth/ChangePasswordModal'
 
 type NavTab = 'Transactions' | 'OCR' | 'DocumentConversion'
 
@@ -20,6 +21,7 @@ export default function Navbar({ onLogout, activeTab = 'Transactions', onNavigat
     const { user } = useAuth()
     const { selectedTenants, tenants, toggleTenant, selectAll } = useTenant()
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
+    const [showChangePassword, setShowChangePassword] = useState(false)
     const [isTenantOpen, setIsTenantOpen] = useState(false)
     const tenantRef = useRef<HTMLDivElement>(null)
 
@@ -188,6 +190,13 @@ export default function Navbar({ onLogout, activeTab = 'Transactions', onNavigat
                                             <div className="text-xs text-muted-foreground">{user?.email || 'sara.chen@strata.com'}</div>
                                         </div>
                                         <button
+                                            onClick={() => { setIsUserMenuOpen(false); setShowChangePassword(true); }}
+                                            className="w-full flex items-center gap-2 px-3 py-2 text-sm text-foreground hover:bg-muted rounded-lg transition-colors"
+                                        >
+                                            <KeyRound className="h-4 w-4" />
+                                            Change Password
+                                        </button>
+                                        <button
                                             onClick={() => { setIsUserMenuOpen(false); onLogout(); }}
                                             className="w-full flex items-center gap-2 px-3 py-2 text-sm text-error hover:bg-error-light dark:hover:bg-error/10 rounded-lg transition-colors"
                                         >
@@ -202,6 +211,10 @@ export default function Navbar({ onLogout, activeTab = 'Transactions', onNavigat
                 </div>
             </div>
 
+            <ChangePasswordModal
+                isOpen={showChangePassword}
+                onClose={() => setShowChangePassword(false)}
+            />
         </>
     )
 }

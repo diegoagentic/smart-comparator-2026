@@ -54,6 +54,7 @@ interface AuthActions {
   dismissSessionWarning: () => void;
   clearError: () => void;
   resetPassword: (email: string) => Promise<{ success: boolean; error?: string }>;
+  changePassword: (currentPassword: string, newPassword: string) => Promise<{ success: boolean; error?: string }>;
 }
 
 type AuthContextType = AuthState & AuthActions;
@@ -180,6 +181,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return { success: true };
   };
 
+  const changePassword = async (currentPassword: string, newPassword: string) => {
+    if (!user) return { success: false, error: 'Not authenticated.' };
+    const account = DEMO_ACCOUNTS[user.email];
+    if (!account || account.password !== currentPassword) {
+      return { success: false, error: 'Current password is incorrect.' };
+    }
+    const validation = validatePassword(newPassword);
+    if (!validation.isValid) {
+      return { success: false, error: 'New password does not meet all requirements.' };
+    }
+    account.password = newPassword;
+    return { success: true };
+  };
+
   return (
     <AuthContext.Provider value={{
       session: user ? { user } : null,
@@ -189,7 +204,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       showSessionWarning: false,
       authEvent: null,
       signIn, validateCredentials, completeMfaLogin, signUp, signInWithMicrosoft, signOut, refreshSession,
-      dismissSessionWarning, clearError, resetPassword,
+      dismissSessionWarning, clearError, resetPassword, changePassword,
     }}>
       {children}
     </AuthContext.Provider>
