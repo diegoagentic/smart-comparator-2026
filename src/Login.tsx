@@ -252,19 +252,6 @@ export default function Login() {
         }
     }
 
-    const handleMicrosoftLogin = async () => {
-        setIsSubmitting(true)
-        // Microsoft auto-uses goavanto account — show access selection
-        setMfaEmail('test@goavanto.com')
-        setIsSubmitting(false)
-        setShowAccess(true)
-        setAccessPhase('tenants')
-        setSelectedTenant(null)
-        setSelectedRole(null)
-        setTenantSearch('')
-        setRoleSearch('')
-    }
-
     const handleForgotPassword = async (e: React.FormEvent) => {
         e.preventDefault()
 
@@ -969,28 +956,6 @@ export default function Login() {
                                 </div>
 
                                 <div className="space-y-5">
-                                    {viewMode === 'login' && (
-                                        <>
-                                            <button
-                                                onClick={handleMicrosoftLogin}
-                                                disabled={isSubmitting}
-                                                className="w-full h-12 flex items-center justify-center gap-3 bg-white/10 border border-white/20 text-white rounded-xl hover:bg-white/20 transition-colors disabled:opacity-50"
-                                            >
-                                                <svg className="w-5 h-5" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg"><path fill="#f25022" d="M1 1h9v9H1z" /><path fill="#7fba00" d="M11 1h9v9h-9z" /><path fill="#00a4ef" d="M1 11h9v9H1z" /><path fill="#ffb900" d="M11 11h9v9h-9z" /></svg>
-                                                Login with Microsoft
-                                            </button>
-
-                                            <div className="relative">
-                                                <div className="absolute inset-0 flex items-center">
-                                                    <span className="w-full border-t border-white/20" />
-                                                </div>
-                                                <div className="relative flex justify-center text-xs uppercase">
-                                                    <span className="bg-transparent px-2 text-zinc-300 font-medium tracking-wider">Or login with email</span>
-                                                </div>
-                                            </div>
-                                        </>
-                                    )}
-
                                     <form className="space-y-4" onSubmit={viewMode === 'register' ? handleRegister : handleLogin}>
                                         {/* Full Name (Register only) */}
                                         {viewMode === 'register' && (
