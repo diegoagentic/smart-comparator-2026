@@ -27,9 +27,9 @@ export default function ChangePasswordModal({ isOpen, onClose }: Props) {
     const { changePassword } = useAuth()
 
     const [phase, setPhase] = useState<'form' | 'success'>('form')
-    const [currentPassword, setCurrentPassword] = useState('')
-    const [newPassword, setNewPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
+    const [currentPassword, setCurrentPassword] = useState('StrataDemo2026!')
+    const [newPassword, setNewPassword] = useState('StrataDemo2027!')
+    const [confirmPassword, setConfirmPassword] = useState('StrataDemo2027!')
     const [showCurrent, setShowCurrent] = useState(false)
     const [showNew, setShowNew] = useState(false)
     const [showConfirm, setShowConfirm] = useState(false)
@@ -51,9 +51,9 @@ export default function ChangePasswordModal({ isOpen, onClose }: Props) {
 
     const handleClose = () => {
         setPhase('form')
-        setCurrentPassword('')
-        setNewPassword('')
-        setConfirmPassword('')
+        setCurrentPassword('StrataDemo2026!')
+        setNewPassword('StrataDemo2027!')
+        setConfirmPassword('StrataDemo2027!')
         setShowCurrent(false)
         setShowNew(false)
         setShowConfirm(false)
@@ -96,10 +96,10 @@ export default function ChangePasswordModal({ isOpen, onClose }: Props) {
 
                 {/* Header */}
                 <div className="px-8 pt-8 pb-4 text-center">
-                    <div className={`mx-auto w-14 h-14 rounded-full flex items-center justify-center mb-4 ${phase === 'success' ? 'bg-green-100 dark:bg-green-500/20' : 'bg-indigo-100 dark:bg-indigo-500/20'}`}>
+                    <div className={`mx-auto w-14 h-14 rounded-full flex items-center justify-center mb-4 ${phase === 'success' ? 'bg-green-100 dark:bg-green-500/20' : 'bg-primary/20'}`}>
                         {phase === 'success'
                             ? <CheckCircleIcon className="w-7 h-7 text-green-500 dark:text-green-400" />
-                            : <LockClosedIcon className="w-7 h-7 text-indigo-600 dark:text-indigo-400" />
+                            : <LockClosedIcon className="w-7 h-7 text-foreground" />
                         }
                     </div>
                     <h3 className="text-xl font-bold text-zinc-900 dark:text-white">
