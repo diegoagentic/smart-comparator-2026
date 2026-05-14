@@ -179,7 +179,6 @@ const PAGE_WRAP_CLOSE = `</div>`
 /** Slim page header shown on pages 2+ */
 function continuationHeader(doc: OcrDocument, page: number, total: number): string {
     return `
-    <div style="height:4px;background:linear-gradient(90deg,#E6F993,#C3E433);"></div>
     <div style="padding:14px 48px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e5e7eb;">
         <div style="display:flex;align-items:center;gap:12px;">
             <img src="${logoLight}" style="height:18px;object-fit:contain;" />
@@ -208,8 +207,6 @@ function page1Header(doc: OcrDocument, allFields: FieldEntry[], total: number): 
     const msg = STATUS_MSG[key]?.(doc) ?? ''
 
     return `
-    <div style="height:4px;background:linear-gradient(90deg,#E6F993,#C3E433);"></div>
-
     <div style="padding:22px 48px 16px;display:flex;align-items:flex-start;justify-content:space-between;border-bottom:1px solid #e5e7eb;">
         <div style="display:flex;align-items:center;gap:14px;">
             <img src="${logoLight}" style="height:22px;object-fit:contain;" />
@@ -353,11 +350,11 @@ export async function exportOcrPdf(doc: OcrDocument): Promise<void> {
     const FOOTER_H    = 40     // position:absolute footer height
     const CONTENT_H   = PAGE_H - FOOTER_H  // 1083 available rows
 
-    // Fixed heights: brand bar + header rows + padding before first section
-    // Page1: ~4 + 60 + 88 + 61 + 50 (status banner) + 20 (section top pad) = ~283
-    const PAGE1_HEADER_H = 283
-    // PageN: ~4 + 44 (slim header) + 20 (section top pad) = ~68
-    const PAGEN_HEADER_H = 68
+    // Fixed heights: header rows + padding before first section (no brand bar)
+    // Page1: 60 + 88 + 61 + 50 (status banner) + 20 (section top pad) = ~279
+    const PAGE1_HEADER_H = 279
+    // PageN: 44 (slim header) + 20 (section top pad) = ~64
+    const PAGEN_HEADER_H = 64
 
 
     const pageGroups = distributeToPages(
