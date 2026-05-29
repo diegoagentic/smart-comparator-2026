@@ -78,7 +78,7 @@ export const DEPRECATION_REASON_META: Record<DeprecationReason, ReasonMeta> = {
     merged: {
         label: 'Merged',
         description: 'Merged with another document',
-        badge: 'bg-purple-50 text-purple-700 dark:bg-purple-500/15 dark:text-purple-400 ring-1 ring-inset ring-purple-600/20 dark:ring-purple-400/30',
+        badge: 'bg-purple-50 text-purple-700 dark:bg-ai/15 dark:text-purple-400 ring-1 ring-inset ring-purple-600/20 dark:ring-purple-400/30',
         icon: 'GitMerge',
     },
     failed_processing: {
@@ -96,19 +96,19 @@ export const DEPRECATION_REASON_META: Record<DeprecationReason, ReasonMeta> = {
     manually_archived: {
         label: 'Manually archived',
         description: 'Archived by a user',
-        badge: 'bg-zinc-100 text-zinc-700 dark:bg-zinc-700/40 dark:text-zinc-300 ring-1 ring-inset ring-zinc-300 dark:ring-zinc-700',
+        badge: 'bg-zinc-100 text-muted-foreground dark:bg-zinc-700/40 dark:text-zinc-300 ring-1 ring-inset ring-zinc-300 dark:ring-zinc-700',
         icon: 'Archive',
     },
     obsolete: {
         label: 'Obsolete',
         description: 'Auto-archived per retention policy',
-        badge: 'bg-zinc-100 text-zinc-700 dark:bg-zinc-700/40 dark:text-zinc-300 ring-1 ring-inset ring-zinc-300 dark:ring-zinc-700',
+        badge: 'bg-zinc-100 text-muted-foreground dark:bg-zinc-700/40 dark:text-zinc-300 ring-1 ring-inset ring-zinc-300 dark:ring-zinc-700',
         icon: 'Clock',
     },
     other: {
         label: 'Other',
         description: 'Custom reason',
-        badge: 'bg-zinc-100 text-zinc-700 dark:bg-zinc-700/40 dark:text-zinc-300 ring-1 ring-inset ring-zinc-300 dark:ring-zinc-700',
+        badge: 'bg-zinc-100 text-muted-foreground dark:bg-zinc-700/40 dark:text-zinc-300 ring-1 ring-inset ring-zinc-300 dark:ring-zinc-700',
         icon: 'MessageSquare',
     },
 }

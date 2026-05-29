@@ -84,20 +84,20 @@ export default function ResolveInconsistencyModal({ isOpen, onClose, document, o
                 <div className="fixed inset-0 overflow-y-auto">
                     <div className="flex min-h-full items-center justify-center p-4">
                         <TransitionChild as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0 scale-95" enterTo="opacity-100 scale-100" leave="ease-in duration-200" leaveFrom="opacity-100 scale-100" leaveTo="opacity-0 scale-95">
-                            <DialogPanel className="w-full max-w-[640px] transform overflow-hidden rounded-2xl bg-white dark:bg-zinc-900 text-left shadow-2xl transition-all border border-zinc-200 dark:border-zinc-800">
+                            <DialogPanel className="w-full max-w-[640px] transform overflow-hidden rounded-2xl bg-card text-left shadow-2xl transition-all border border-border">
 
                                 {/* Header */}
                                 <div className="px-6 pt-6 pb-4">
                                     <div className="flex justify-between items-start">
                                         <div>
-                                            <DialogTitle as="h3" className="text-xl font-bold text-zinc-900 dark:text-white">
+                                            <DialogTitle as="h3" className="text-xl font-bold text-foreground">
                                                 Resolve Item Inconsistency
                                             </DialogTitle>
-                                            <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
+                                            <p className="text-sm text-muted-foreground mt-1">
                                                 Review the issue and confirm the correct information
                                             </p>
                                         </div>
-                                        <button onClick={onClose} className="p-1.5 rounded-lg text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" title="Close">
+                                        <button onClick={onClose} className="p-1.5 rounded-lg text-muted-foreground hover:text-muted-foreground dark:hover:text-zinc-300 hover:bg-muted transition-colors" title="Close">
                                             <X className="h-5 w-5" />
                                         </button>
                                     </div>
@@ -136,11 +136,11 @@ export default function ResolveInconsistencyModal({ isOpen, onClose, document, o
                                                     {/* Accordion Header */}
                                                     <button
                                                         onClick={() => setExpandedItem(isExpanded ? -1 : idx)}
-                                                        className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-zinc-50/50 dark:hover:bg-white/5 transition-colors"
+                                                        className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-muted/50 dark:hover:bg-white/5 transition-colors"
                                                     >
                                                         <div>
                                                             <div className="flex items-center gap-2">
-                                                                <span className="text-sm font-bold text-zinc-900 dark:text-white">{item.ackNumber} — {item.vendor}</span>
+                                                                <span className="text-sm font-bold text-foreground">{item.ackNumber} — {item.vendor}</span>
                                                                 {!isResolved && (
                                                                     <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-red-500 text-white flex items-center gap-1">
                                                                         <AlertTriangle className="h-2.5 w-2.5" /> Inconsistency
@@ -152,9 +152,9 @@ export default function ResolveInconsistencyModal({ isOpen, onClose, document, o
                                                                     </span>
                                                                 )}
                                                             </div>
-                                                            <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">{item.linesScanned} lines scanned | {item.totalAmount}</p>
+                                                            <p className="text-xs text-muted-foreground mt-0.5">{item.linesScanned} lines scanned | {item.totalAmount}</p>
                                                         </div>
-                                                        {isExpanded ? <ChevronUp className="h-4 w-4 text-zinc-400" /> : <ChevronDown className="h-4 w-4 text-zinc-400" />}
+                                                        {isExpanded ? <ChevronUp className="h-4 w-4 text-muted-foreground" /> : <ChevronDown className="h-4 w-4 text-muted-foreground" />}
                                                     </button>
 
                                                     {/* Expanded Content */}
@@ -166,7 +166,7 @@ export default function ResolveInconsistencyModal({ isOpen, onClose, document, o
                                                                     Line {item.lineNumber}: {item.itemName}
                                                                 </p>
                                                                 <div className="flex justify-between mt-1 text-xs">
-                                                                    <span className="text-zinc-600 dark:text-zinc-400">PO Spec: <strong className="text-zinc-900 dark:text-white">{item.poSpec}</strong></span>
+                                                                    <span className="text-muted-foreground">PO Spec: <strong className="text-foreground">{item.poSpec}</strong></span>
                                                                     <span className="text-red-600 dark:text-red-400 font-medium">Acknowledgement: <strong>{item.ackStatus}</strong></span>
                                                                 </div>
                                                             </div>
@@ -176,7 +176,7 @@ export default function ResolveInconsistencyModal({ isOpen, onClose, document, o
                                                                 {item.fields.map((field, fIdx) => (
                                                                     <div key={fIdx} className="space-y-1">
                                                                         <div className="flex items-center gap-2">
-                                                                            <label className={`text-xs font-medium ${field.isMissing ? 'text-red-500' : 'text-zinc-500 dark:text-zinc-400'}`}>
+                                                                            <label className={`text-xs font-medium ${field.isMissing ? 'text-red-500' : 'text-muted-foreground'}`}>
                                                                                 {field.name} {field.isMissing && <span className="text-red-500 italic">(Missing)</span>}
                                                                             </label>
                                                                             {field.aiSuggestion && (
@@ -188,13 +188,13 @@ export default function ResolveInconsistencyModal({ isOpen, onClose, document, o
                                                                         <div className="flex items-center gap-1.5">
                                                                             <div className={`flex-1 px-3 py-2 rounded-lg text-sm border ${
                                                                                 field.isMissing
-                                                                                    ? 'border-red-300 dark:border-red-700 bg-red-50 dark:bg-red-500/10 text-zinc-900 dark:text-white'
-                                                                                    : 'border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-white'
+                                                                                    ? 'border-red-300 dark:border-red-700 bg-red-50 dark:bg-red-500/10 text-foreground'
+                                                                                    : 'border-border bg-muted dark:bg-zinc-800 text-foreground'
                                                                             }`}>
                                                                                 {field.aiSuggestion && field.isMissing ? (
                                                                                     <span className="flex items-center gap-1.5">
-                                                                                        <span className="text-zinc-400 line-through text-xs">$ {field.value}</span>
-                                                                                        <span className="text-zinc-400">→</span>
+                                                                                        <span className="text-muted-foreground line-through text-xs">$ {field.value}</span>
+                                                                                        <span className="text-muted-foreground">→</span>
                                                                                         <span className="font-semibold">$ {field.aiSuggestion}</span>
                                                                                     </span>
                                                                                 ) : (
@@ -209,7 +209,7 @@ export default function ResolveInconsistencyModal({ isOpen, onClose, document, o
                                                                                     >
                                                                                         <Check className="h-3 w-3" /> Accept
                                                                                     </button>
-                                                                                    <button className="flex items-center gap-1 px-2 py-1.5 text-[11px] font-semibold border border-zinc-300 dark:border-zinc-600 text-zinc-600 dark:text-zinc-300 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+                                                                                    <button className="flex items-center gap-1 px-2 py-1.5 text-[11px] font-semibold border border-border text-muted-foreground dark:text-zinc-300 rounded-md hover:bg-muted transition-colors">
                                                                                         <Pencil className="h-3 w-3" /> Edit
                                                                                     </button>
                                                                                 </div>
@@ -222,8 +222,8 @@ export default function ResolveInconsistencyModal({ isOpen, onClose, document, o
 
                                                             {/* Total */}
                                                             <div className="space-y-1">
-                                                                <label className="text-xs font-medium text-zinc-500 dark:text-zinc-400">Total</label>
-                                                                <div className="px-3 py-2 rounded-lg text-sm border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-white">
+                                                                <label className="text-xs font-medium text-muted-foreground">Total</label>
+                                                                <div className="px-3 py-2 rounded-lg text-sm border border-border bg-muted dark:bg-zinc-800 text-foreground">
                                                                     $ {item.total}
                                                                 </div>
                                                             </div>
@@ -236,10 +236,10 @@ export default function ResolveInconsistencyModal({ isOpen, onClose, document, o
                                 </div>
 
                                 {/* Footer — sticky */}
-                                <div className="px-6 py-4 border-t border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 flex items-center justify-between">
+                                <div className="px-6 py-4 border-t border-border bg-muted flex items-center justify-between">
                                     <button
                                         onClick={onClose}
-                                        className="text-sm font-bold text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors"
+                                        className="text-sm font-bold text-muted-foreground hover:text-zinc-900 dark:text-muted-foreground dark:hover:text-white transition-colors"
                                     >
                                         Cancel
                                     </button>
@@ -249,7 +249,7 @@ export default function ResolveInconsistencyModal({ isOpen, onClose, document, o
                                         className={`px-6 py-2.5 rounded-xl font-bold text-sm flex items-center gap-2 transition-all active:scale-[0.97] ${
                                             allResolved
                                                 ? 'bg-brand-300 dark:bg-brand-500 text-zinc-900 hover:bg-brand-400 dark:hover:bg-brand-600 shadow-sm'
-                                                : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-400 dark:text-zinc-600 cursor-not-allowed'
+                                                : 'bg-muted text-muted-foreground dark:text-muted-foreground cursor-not-allowed'
                                         }`}
                                     >
                                         Resolve Inconsistencies

@@ -15,11 +15,11 @@ const PasswordCheck = ({ met, label }: { met: boolean; label: string }) => (
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
             </svg>
         ) : (
-            <svg className="w-3 h-3 text-zinc-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-3 h-3 text-muted-foreground shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
             </svg>
         )}
-        <span className={met ? 'text-green-400' : 'text-zinc-500'}>{label}</span>
+        <span className={met ? 'text-green-400' : 'text-muted-foreground'}>{label}</span>
     </li>
 )
 
@@ -92,7 +92,7 @@ export default function ChangePasswordModal({ isOpen, onClose }: Props) {
 
     return (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm">
-            <div className="w-full max-w-md mx-4 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-white/10 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            <div className="w-full max-w-md mx-4 rounded-2xl bg-card border border-zinc-200 dark:border-white/10 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
 
                 {/* Header */}
                 <div className="px-8 pt-8 pb-4 text-center">
@@ -102,10 +102,10 @@ export default function ChangePasswordModal({ isOpen, onClose }: Props) {
                             : <LockClosedIcon className="w-7 h-7 text-foreground" />
                         }
                     </div>
-                    <h3 className="text-xl font-bold text-zinc-900 dark:text-white">
+                    <h3 className="text-xl font-bold text-foreground">
                         {phase === 'success' ? 'Password Updated' : 'Change Password'}
                     </h3>
-                    <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
+                    <p className="text-sm text-muted-foreground mt-1">
                         {phase === 'success'
                             ? 'Your password has been updated successfully.'
                             : 'Enter your current password and choose a new one.'}
@@ -125,17 +125,17 @@ export default function ChangePasswordModal({ isOpen, onClose }: Props) {
                         <form className="space-y-4 mt-2" onSubmit={handleSubmit}>
                             {/* Current password */}
                             <div>
-                                <label className="text-zinc-700 dark:text-zinc-300 text-sm font-medium mb-1.5 block">Current Password</label>
+                                <label className="text-muted-foreground text-sm font-medium mb-1.5 block">Current Password</label>
                                 <div className="relative">
                                     <input
                                         type={showCurrent ? 'text' : 'password'}
                                         value={currentPassword}
                                         onChange={(e) => { setCurrentPassword(e.target.value); setCurrentError(null) }}
                                         placeholder="Enter current password"
-                                        className={`w-full bg-zinc-50 dark:bg-white/5 border text-zinc-900 dark:text-white rounded-lg h-12 px-4 pr-10 placeholder:text-zinc-400 dark:placeholder:text-zinc-500 outline-none transition-colors ${currentError ? 'border-red-400 dark:border-red-500/50' : 'border-zinc-200 dark:border-white/15 focus:border-zinc-400 dark:focus:border-white/30'}`}
+                                        className={`w-full bg-muted dark:bg-white/5 border text-foreground rounded-lg h-12 px-4 pr-10 placeholder:text-muted-foreground dark:placeholder:text-muted-foreground outline-none transition-colors ${currentError ? 'border-red-400 dark:border-red-500/50' : 'border-zinc-200 dark:border-white/15 focus:border-zinc-400 dark:focus:border-white/30'}`}
                                     />
                                     <button type="button" onClick={() => setShowCurrent(!showCurrent)}
-                                        className="absolute right-3 top-3.5 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">
+                                        className="absolute right-3 top-3.5 text-muted-foreground hover:text-muted-foreground dark:hover:text-zinc-300 transition-colors">
                                         {showCurrent ? <EyeSlashIcon className="w-5 h-5" /> : <EyeIcon className="w-5 h-5" />}
                                     </button>
                                 </div>
@@ -144,22 +144,22 @@ export default function ChangePasswordModal({ isOpen, onClose }: Props) {
 
                             {/* New password */}
                             <div>
-                                <label className="text-zinc-700 dark:text-zinc-300 text-sm font-medium mb-1.5 block">New Password</label>
+                                <label className="text-muted-foreground text-sm font-medium mb-1.5 block">New Password</label>
                                 <div className="relative">
                                     <input
                                         type={showNew ? 'text' : 'password'}
                                         value={newPassword}
                                         onChange={(e) => setNewPassword(e.target.value)}
                                         placeholder="Enter new password"
-                                        className="w-full bg-zinc-50 dark:bg-white/5 border border-zinc-200 dark:border-white/15 text-zinc-900 dark:text-white rounded-lg h-12 px-4 pr-10 placeholder:text-zinc-400 dark:placeholder:text-zinc-500 outline-none focus:border-zinc-400 dark:focus:border-white/30 transition-colors"
+                                        className="w-full bg-muted dark:bg-white/5 border border-zinc-200 dark:border-white/15 text-foreground rounded-lg h-12 px-4 pr-10 placeholder:text-muted-foreground dark:placeholder:text-muted-foreground outline-none focus:border-zinc-400 dark:focus:border-white/30 transition-colors"
                                     />
                                     <button type="button" onClick={() => setShowNew(!showNew)}
-                                        className="absolute right-3 top-3.5 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">
+                                        className="absolute right-3 top-3.5 text-muted-foreground hover:text-muted-foreground dark:hover:text-zinc-300 transition-colors">
                                         {showNew ? <EyeSlashIcon className="w-5 h-5" /> : <EyeIcon className="w-5 h-5" />}
                                     </button>
                                 </div>
                                 {newPassword.length > 0 && (
-                                    <div className={`mt-2 rounded-lg p-3 border text-xs ${pwValidation.isValid ? 'bg-green-50 dark:bg-green-500/10 border-green-200 dark:border-green-500/20' : 'bg-zinc-50 dark:bg-white/5 border-zinc-200 dark:border-white/10'}`}>
+                                    <div className={`mt-2 rounded-lg p-3 border text-xs ${pwValidation.isValid ? 'bg-green-50 dark:bg-green-500/10 border-green-200 dark:border-green-500/20' : 'bg-muted dark:bg-white/5 border-zinc-200 dark:border-white/10'}`}>
                                         <ul className="space-y-1 ml-1">
                                             <PasswordCheck met={pwValidation.hasMinLength} label="Minimum 8 characters" />
                                             <PasswordCheck met={pwValidation.hasUppercase} label="At least one uppercase letter" />
@@ -172,14 +172,14 @@ export default function ChangePasswordModal({ isOpen, onClose }: Props) {
 
                             {/* Confirm password */}
                             <div>
-                                <label className="text-zinc-700 dark:text-zinc-300 text-sm font-medium mb-1.5 block">Confirm New Password</label>
+                                <label className="text-muted-foreground text-sm font-medium mb-1.5 block">Confirm New Password</label>
                                 <div className="relative">
                                     <input
                                         type={showConfirm ? 'text' : 'password'}
                                         value={confirmPassword}
                                         onChange={(e) => { setConfirmPassword(e.target.value); setConfirmError(null) }}
                                         placeholder="Repeat new password"
-                                        className={`w-full bg-zinc-50 dark:bg-white/5 border text-zinc-900 dark:text-white rounded-lg h-12 px-4 pr-10 placeholder:text-zinc-400 dark:placeholder:text-zinc-500 outline-none transition-colors ${
+                                        className={`w-full bg-muted dark:bg-white/5 border text-foreground rounded-lg h-12 px-4 pr-10 placeholder:text-muted-foreground dark:placeholder:text-muted-foreground outline-none transition-colors ${
                                             confirmMismatch || confirmError
                                                 ? 'border-red-400 dark:border-red-500/50'
                                                 : confirmPassword.length > 0 && confirmPassword === newPassword
@@ -188,7 +188,7 @@ export default function ChangePasswordModal({ isOpen, onClose }: Props) {
                                         }`}
                                     />
                                     <button type="button" onClick={() => setShowConfirm(!showConfirm)}
-                                        className="absolute right-3 top-3.5 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">
+                                        className="absolute right-3 top-3.5 text-muted-foreground hover:text-muted-foreground dark:hover:text-zinc-300 transition-colors">
                                         {showConfirm ? <EyeSlashIcon className="w-5 h-5" /> : <EyeIcon className="w-5 h-5" />}
                                     </button>
                                 </div>
@@ -202,7 +202,7 @@ export default function ChangePasswordModal({ isOpen, onClose }: Props) {
                                 <button
                                     type="button"
                                     onClick={handleClose}
-                                    className="flex-1 px-4 py-2.5 rounded-lg border border-zinc-300 dark:border-white/20 text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-white/5 transition-colors"
+                                    className="flex-1 px-4 py-2.5 rounded-lg border border-zinc-300 dark:border-white/20 text-sm font-semibold text-muted-foreground hover:bg-zinc-100 dark:hover:bg-white/5 transition-colors"
                                 >
                                     Cancel
                                 </button>
@@ -212,7 +212,7 @@ export default function ChangePasswordModal({ isOpen, onClose }: Props) {
                                     className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-semibold transition-colors flex items-center justify-center gap-2 ${
                                         canSubmit && !isSubmitting
                                             ? 'bg-primary text-primary-foreground hover:opacity-90'
-                                            : 'bg-zinc-200 dark:bg-white/10 text-zinc-400 dark:text-zinc-600 cursor-not-allowed'
+                                            : 'bg-zinc-200 dark:bg-white/10 text-muted-foreground dark:text-muted-foreground cursor-not-allowed'
                                     }`}
                                 >
                                     {isSubmitting ? (

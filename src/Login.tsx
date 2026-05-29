@@ -294,11 +294,11 @@ export default function Login() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                 </svg>
             ) : (
-                <svg className="w-3 h-3 text-zinc-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-3 h-3 text-muted-foreground shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
                 </svg>
             )}
-            <span className={met ? 'text-green-400' : 'text-zinc-500'}>{label}</span>
+            <span className={met ? 'text-green-400' : 'text-muted-foreground'}>{label}</span>
         </li>
     )
 
@@ -346,22 +346,22 @@ export default function Login() {
             {/* Access Selection Modal (Tenant → Role) */}
             {showAccess && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm">
-                    <div className="w-full max-w-md mx-4 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-white/10 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+                    <div className="w-full max-w-md mx-4 rounded-2xl bg-card border border-zinc-200 dark:border-white/10 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
                         {/* Header */}
                         <div className="px-8 pt-8 pb-2">
-                            <h3 className="text-2xl font-brand font-bold text-zinc-900 dark:text-white mb-1">Access</h3>
+                            <h3 className="text-2xl font-brand font-bold text-foreground mb-1">Access</h3>
                             {accessPhase === 'tenants' ? (
-                                <p className="text-sm font-bold text-zinc-700 dark:text-zinc-300">Tenants</p>
+                                <p className="text-sm font-bold text-muted-foreground">Tenants</p>
                             ) : (
                                 <div className="flex items-center gap-2">
                                     <button
                                         onClick={handleAccessBack}
-                                        className="p-1 rounded-lg text-zinc-400 hover:text-zinc-700 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/10 transition-colors"
+                                        className="p-1 rounded-lg text-muted-foreground hover:text-muted-foreground dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/10 transition-colors"
                                     >
                                         <ChevronLeftIcon className="w-4 h-4" />
                                     </button>
-                                    <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                                        {selectedTenant} <span className="mx-1">{'>'}</span> <span className="font-bold text-zinc-700 dark:text-zinc-300">Roles</span>
+                                    <p className="text-sm text-muted-foreground">
+                                        {selectedTenant} <span className="mx-1">{'>'}</span> <span className="font-bold text-muted-foreground">Roles</span>
                                     </p>
                                 </div>
                             )}
@@ -370,13 +370,13 @@ export default function Login() {
                         {/* Search */}
                         <div className="px-8 py-3">
                             <div className="relative">
-                                <MagnifyingGlassIcon className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                                <MagnifyingGlassIcon className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
                                 <input
                                     type="text"
                                     placeholder="Find in list"
                                     value={accessPhase === 'tenants' ? tenantSearch : roleSearch}
                                     onChange={(e) => accessPhase === 'tenants' ? setTenantSearch(e.target.value) : setRoleSearch(e.target.value)}
-                                    className="w-full bg-zinc-50 dark:bg-white/5 border border-zinc-200 dark:border-white/15 text-zinc-900 dark:text-white rounded-lg h-10 pl-9 pr-4 text-sm placeholder:text-zinc-400 dark:placeholder:text-zinc-500 outline-none focus:border-zinc-400 dark:focus:border-white/30 transition-colors"
+                                    className="w-full bg-muted dark:bg-white/5 border border-zinc-200 dark:border-white/15 text-foreground rounded-lg h-10 pl-9 pr-4 text-sm placeholder:text-muted-foreground dark:placeholder:text-muted-foreground outline-none focus:border-zinc-400 dark:focus:border-white/30 transition-colors"
                                 />
                             </div>
                         </div>
@@ -394,21 +394,21 @@ export default function Login() {
                                             <div className={`w-5 h-5 rounded-full border-2 shrink-0 flex items-center justify-center ${
                                                 selectedTenant === tenant.name
                                                     ? 'border-indigo-500 bg-indigo-500'
-                                                    : 'border-zinc-300 dark:border-zinc-600'
+                                                    : 'border-border'
                                             }`}>
                                                 {selectedTenant === tenant.name && (
                                                     <div className="w-2 h-2 rounded-full bg-white" />
                                                 )}
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <span className="text-sm text-zinc-900 dark:text-white font-medium">{tenant.name}</span>
-                                                <span className="text-sm text-zinc-400 dark:text-zinc-500"> — {tenant.description}</span>
+                                                <span className="text-sm text-foreground font-medium">{tenant.name}</span>
+                                                <span className="text-sm text-muted-foreground dark:text-muted-foreground"> — {tenant.description}</span>
                                             </div>
-                                            <ChevronRightIcon className="w-4 h-4 text-zinc-300 dark:text-zinc-600 group-hover:text-zinc-500 dark:group-hover:text-zinc-400 transition-colors shrink-0" />
+                                            <ChevronRightIcon className="w-4 h-4 text-zinc-300 dark:text-muted-foreground group-hover:text-muted-foreground dark:group-hover:text-muted-foreground transition-colors shrink-0" />
                                         </button>
                                     ))}
                                     {filteredTenants.length === 0 && (
-                                        <p className="text-sm text-zinc-400 text-center py-6">No tenants found</p>
+                                        <p className="text-sm text-muted-foreground text-center py-6">No tenants found</p>
                                     )}
                                 </div>
                             ) : (
@@ -422,17 +422,17 @@ export default function Login() {
                                             <div className={`w-5 h-5 rounded-full border-2 shrink-0 flex items-center justify-center ${
                                                 selectedRole === role
                                                     ? 'border-indigo-500 bg-indigo-500'
-                                                    : 'border-zinc-300 dark:border-zinc-600'
+                                                    : 'border-border'
                                             }`}>
                                                 {selectedRole === role && (
                                                     <div className="w-2 h-2 rounded-full bg-white" />
                                                 )}
                                             </div>
-                                            <span className="text-sm text-zinc-900 dark:text-white font-medium">{role}</span>
+                                            <span className="text-sm text-foreground font-medium">{role}</span>
                                         </button>
                                     ))}
                                     {filteredRoles.length === 0 && (
-                                        <p className="text-sm text-zinc-400 text-center py-6">No roles found</p>
+                                        <p className="text-sm text-muted-foreground text-center py-6">No roles found</p>
                                     )}
                                 </div>
                             )}
@@ -442,7 +442,7 @@ export default function Login() {
                         <div className="px-8 py-5 flex items-center justify-center gap-3 border-t border-zinc-100 dark:border-white/10">
                             <button
                                 onClick={handleAccessBack}
-                                className="px-6 py-2.5 rounded-lg border border-zinc-300 dark:border-white/20 text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-white/5 transition-colors"
+                                className="px-6 py-2.5 rounded-lg border border-zinc-300 dark:border-white/20 text-sm font-semibold text-muted-foreground hover:bg-zinc-100 dark:hover:bg-white/5 transition-colors"
                             >
                                 Back
                             </button>
@@ -452,7 +452,7 @@ export default function Login() {
                                 className={`px-6 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
                                     (accessPhase === 'tenants' ? selectedTenant : selectedRole)
                                         ? 'bg-primary text-primary-foreground hover:opacity-90'
-                                        : 'bg-zinc-200 dark:bg-white/10 text-zinc-400 dark:text-zinc-600 cursor-not-allowed'
+                                        : 'bg-zinc-200 dark:bg-white/10 text-muted-foreground dark:text-muted-foreground cursor-not-allowed'
                                 }`}
                             >
                                 Login
@@ -465,7 +465,7 @@ export default function Login() {
             {/* MFA Modal */}
             {showMfa && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm">
-                    <div className="w-full max-w-md mx-4 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-white/10 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+                    <div className="w-full max-w-md mx-4 rounded-2xl bg-card border border-zinc-200 dark:border-white/10 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
                         {/* Header */}
                         <div className="px-8 pt-8 pb-4 text-center">
                             {mfaPhase !== 'welcome' && mfaPhase !== 'totp-setup' && (
@@ -479,10 +479,10 @@ export default function Login() {
                                     )}
                                 </div>
                             )}
-                            <h3 className="text-xl font-bold text-zinc-900 dark:text-white">
+                            <h3 className="text-xl font-bold text-foreground">
                                 {mfaPhase === 'welcome' ? 'Welcome!' : mfaPhase === 'method-select' ? 'Choose Verification Method' : mfaPhase === 'totp-setup' ? '' : mfaPhase === 'totp-qr' ? 'Set up MFA' : mfaPhase === 'success' ? 'Verification Complete' : 'Multi-Factor Authentication'}
                             </h3>
-                            <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
+                            <p className="text-sm text-muted-foreground mt-1">
                                 {mfaPhase === 'welcome' && ''}
                                 {mfaPhase === 'method-select' && 'Select how you want to verify your identity.'}
                                 {mfaPhase === 'phone' && 'Verify your identity with a one-time code sent to your phone.'}
@@ -500,8 +500,8 @@ export default function Login() {
                             {/* Welcome phase */}
                             {mfaPhase === 'welcome' && (
                                 <div className="space-y-6 mt-2">
-                                    <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
-                                        To enhance the security of your account, we require an extra layer of protection. This additional step ensures that only you can access your account. Thank you for helping us keep your information safe and secure! Let us help you setting up your <span className="font-semibold text-zinc-900 dark:text-white">Multi-Factor Authentication (MFA)</span>.
+                                    <p className="text-sm text-muted-foreground dark:text-zinc-300 leading-relaxed">
+                                        To enhance the security of your account, we require an extra layer of protection. This additional step ensures that only you can access your account. Thank you for helping us keep your information safe and secure! Let us help you setting up your <span className="font-semibold text-foreground">Multi-Factor Authentication (MFA)</span>.
                                     </p>
                                     <button
                                         onClick={() => setMfaPhase('method-select')}
@@ -511,7 +511,7 @@ export default function Login() {
                                     </button>
                                     <button
                                         onClick={handleMfaSkip}
-                                        className="w-full text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white underline underline-offset-2 transition-colors"
+                                        className="w-full text-sm text-muted-foreground hover:text-foreground underline underline-offset-2 transition-colors"
                                     >
                                         Skip MFA for now
                                     </button>
@@ -521,28 +521,28 @@ export default function Login() {
                             {/* Method select phase */}
                             {mfaPhase === 'method-select' && (
                                 <div className="space-y-4 mt-2">
-                                    <p className="text-sm text-zinc-500 dark:text-zinc-400 text-center">Choose your preferred verification method</p>
+                                    <p className="text-sm text-muted-foreground text-center">Choose your preferred verification method</p>
                                     <div className="grid grid-cols-2 gap-3">
                                         <button
                                             onClick={() => setMfaPhase('phone')}
-                                            className="p-5 rounded-xl border-2 border-zinc-200 dark:border-white/15 hover:border-primary dark:hover:border-primary bg-zinc-50 dark:bg-white/5 hover:bg-primary/5 dark:hover:bg-primary/10 transition-all text-center group"
+                                            className="p-5 rounded-xl border-2 border-zinc-200 dark:border-white/15 hover:border-primary dark:hover:border-primary bg-muted dark:bg-white/5 hover:bg-primary/5 dark:hover:bg-primary/10 transition-all text-center group"
                                         >
-                                            <DevicePhoneMobileIcon className="w-8 h-8 mx-auto mb-3 text-zinc-400 group-hover:text-primary transition-colors" />
-                                            <div className="text-sm font-bold text-zinc-900 dark:text-white mb-1">Text Message (SMS)</div>
-                                            <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">Receive a one-time code via SMS to your phone</p>
+                                            <DevicePhoneMobileIcon className="w-8 h-8 mx-auto mb-3 text-muted-foreground group-hover:text-primary transition-colors" />
+                                            <div className="text-sm font-bold text-foreground mb-1">Text Message (SMS)</div>
+                                            <p className="text-xs text-muted-foreground leading-relaxed">Receive a one-time code via SMS to your phone</p>
                                         </button>
                                         <button
                                             onClick={() => setMfaPhase('totp-setup')}
-                                            className="p-5 rounded-xl border-2 border-zinc-200 dark:border-white/15 hover:border-primary dark:hover:border-primary bg-zinc-50 dark:bg-white/5 hover:bg-primary/5 dark:hover:bg-primary/10 transition-all text-center group"
+                                            className="p-5 rounded-xl border-2 border-zinc-200 dark:border-white/15 hover:border-primary dark:hover:border-primary bg-muted dark:bg-white/5 hover:bg-primary/5 dark:hover:bg-primary/10 transition-all text-center group"
                                         >
-                                            <QrCodeIcon className="w-8 h-8 mx-auto mb-3 text-zinc-400 group-hover:text-primary transition-colors" />
-                                            <div className="text-sm font-bold text-zinc-900 dark:text-white mb-1">Authenticator App</div>
-                                            <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">Use an app to generate time-based codes</p>
+                                            <QrCodeIcon className="w-8 h-8 mx-auto mb-3 text-muted-foreground group-hover:text-primary transition-colors" />
+                                            <div className="text-sm font-bold text-foreground mb-1">Authenticator App</div>
+                                            <p className="text-xs text-muted-foreground leading-relaxed">Use an app to generate time-based codes</p>
                                         </button>
                                     </div>
                                     <button
                                         onClick={handleMfaSkip}
-                                        className="w-full text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white underline underline-offset-2 transition-colors"
+                                        className="w-full text-sm text-muted-foreground hover:text-foreground underline underline-offset-2 transition-colors"
                                     >
                                         Skip MFA for now
                                     </button>
@@ -552,7 +552,7 @@ export default function Login() {
                             {/* TOTP setup phase — step 1: install app */}
                             {mfaPhase === 'totp-setup' && (
                                 <div className="space-y-6 mt-2">
-                                    <div className="text-lg font-bold text-zinc-900 dark:text-white">Set up MFA</div>
+                                    <div className="text-lg font-bold text-foreground">Set up MFA</div>
 
                                     {/* Vertical stepper */}
                                     <div className="space-y-0">
@@ -563,10 +563,10 @@ export default function Login() {
                                                 <div className="w-0.5 flex-1 bg-zinc-200 dark:bg-white/20 my-1" />
                                             </div>
                                             <div className="pb-5">
-                                                <p className="text-sm text-zinc-900 dark:text-white font-medium leading-relaxed">
+                                                <p className="text-sm text-foreground font-medium leading-relaxed">
                                                     Install the compatible app on your mobile device or computer. Or select an already installed one.
                                                 </p>
-                                                <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-2">
+                                                <p className="text-sm text-muted-foreground mt-2">
                                                     Select an MFA App from the{' '}
                                                     <button onClick={() => setShowAppList(true)} className="text-indigo-600 dark:text-indigo-400 hover:underline font-medium">
                                                         list of compatible applications
@@ -578,21 +578,21 @@ export default function Login() {
                                         {/* Step 2 — dimmed */}
                                         <div className="flex gap-3">
                                             <div className="flex flex-col items-center">
-                                                <div className="w-7 h-7 rounded-full bg-zinc-200 dark:bg-white/15 text-zinc-500 dark:text-zinc-400 flex items-center justify-center text-xs font-bold shrink-0">2</div>
+                                                <div className="w-7 h-7 rounded-full bg-zinc-200 dark:bg-white/15 text-muted-foreground flex items-center justify-center text-xs font-bold shrink-0">2</div>
                                                 <div className="w-0.5 flex-1 bg-zinc-200 dark:bg-white/20 my-1" />
                                             </div>
                                             <div className="pb-5">
-                                                <p className="text-sm text-zinc-400 dark:text-zinc-500">Use your MFA App and your device's camera to scan the QR code</p>
+                                                <p className="text-sm text-muted-foreground dark:text-muted-foreground">Use your MFA App and your device's camera to scan the QR code</p>
                                             </div>
                                         </div>
 
                                         {/* Step 3 — dimmed */}
                                         <div className="flex gap-3">
                                             <div className="flex flex-col items-center">
-                                                <div className="w-7 h-7 rounded-full bg-zinc-200 dark:bg-white/15 text-zinc-500 dark:text-zinc-400 flex items-center justify-center text-xs font-bold shrink-0">3</div>
+                                                <div className="w-7 h-7 rounded-full bg-zinc-200 dark:bg-white/15 text-muted-foreground flex items-center justify-center text-xs font-bold shrink-0">3</div>
                                             </div>
                                             <div>
-                                                <p className="text-sm text-zinc-400 dark:text-zinc-500">Type the MFA Code displayed in the App</p>
+                                                <p className="text-sm text-muted-foreground dark:text-muted-foreground">Type the MFA Code displayed in the App</p>
                                             </div>
                                         </div>
                                     </div>
@@ -605,7 +605,7 @@ export default function Login() {
                                     </button>
                                     <button
                                         onClick={handleMfaSkip}
-                                        className="w-full text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white underline underline-offset-2 transition-colors"
+                                        className="w-full text-sm text-muted-foreground hover:text-foreground underline underline-offset-2 transition-colors"
                                     >
                                         Skip MFA for now
                                     </button>
@@ -613,14 +613,14 @@ export default function Login() {
                                     {/* Compatible apps modal */}
                                     {showAppList && (
                                         <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/30 rounded-2xl">
-                                            <div className="w-full max-w-sm mx-6 bg-white dark:bg-zinc-800 rounded-xl shadow-2xl border border-zinc-200 dark:border-white/10 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+                                            <div className="w-full max-w-sm mx-6 bg-card rounded-xl shadow-2xl border border-zinc-200 dark:border-white/10 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
                                                 <div className="px-5 pt-5 pb-3 flex items-start justify-between">
                                                     <div>
-                                                        <h4 className="text-base font-bold text-zinc-900 dark:text-white">List of compatible Apps</h4>
-                                                        <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1 leading-relaxed">Click on the app you will be using. A barcode will be displayed on the next screen that you will use to complete the process.</p>
+                                                        <h4 className="text-base font-bold text-foreground">List of compatible Apps</h4>
+                                                        <p className="text-xs text-muted-foreground mt-1 leading-relaxed">Click on the app you will be using. A barcode will be displayed on the next screen that you will use to complete the process.</p>
                                                     </div>
                                                     <button onClick={() => setShowAppList(false)} className="p-1 rounded-lg hover:bg-zinc-100 dark:hover:bg-white/10 transition-colors shrink-0 ml-2" title="Close">
-                                                        <XMarkIcon className="w-5 h-5 text-zinc-400" />
+                                                        <XMarkIcon className="w-5 h-5 text-muted-foreground" />
                                                     </button>
                                                 </div>
                                                 <div className="px-5 pb-5 space-y-1">
@@ -646,7 +646,7 @@ export default function Login() {
                                     {/* Step 2 header */}
                                     <div className="flex items-center gap-2">
                                         <div className="w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-[10px] font-bold shrink-0">2</div>
-                                        <span className="text-sm font-medium text-zinc-900 dark:text-white">Use your MFA App and your device's camera to scan the QR code</span>
+                                        <span className="text-sm font-medium text-foreground">Use your MFA App and your device's camera to scan the QR code</span>
                                     </div>
 
                                     {/* QR code placeholder */}
@@ -696,7 +696,7 @@ export default function Login() {
 
                                     {/* Secret key toggle */}
                                     <div className="text-center">
-                                        <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                                        <p className="text-xs text-muted-foreground">
                                             <span className="underline decoration-dotted">Alternatively</span>, you can type the secret key.
                                         </p>
                                         <button
@@ -708,9 +708,9 @@ export default function Login() {
                                         {showSecretKey && (
                                             <div className="mt-2 flex items-center justify-center gap-2">
                                                 <div className="px-3 py-2 bg-zinc-100 dark:bg-white/10 rounded-lg border border-zinc-200 dark:border-white/20">
-                                                    <code className="text-sm font-mono font-bold text-zinc-900 dark:text-white tracking-wider">{TOTP_SECRET}</code>
+                                                    <code className="text-sm font-mono font-bold text-foreground tracking-wider">{TOTP_SECRET}</code>
                                                 </div>
-                                                <KeyIcon className="w-4 h-4 text-zinc-400" />
+                                                <KeyIcon className="w-4 h-4 text-muted-foreground" />
                                             </div>
                                         )}
                                     </div>
@@ -719,7 +719,7 @@ export default function Login() {
                                     <div>
                                         <div className="flex items-center gap-2 mb-3">
                                             <div className="w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-[10px] font-bold shrink-0">3</div>
-                                            <span className="text-sm font-medium text-zinc-900 dark:text-white">Type the MFA Code displayed in the App</span>
+                                            <span className="text-sm font-medium text-foreground">Type the MFA Code displayed in the App</span>
                                         </div>
                                         <div className="flex gap-2 justify-center">
                                             {TOTP_CODE.map((digit, i) => (
@@ -728,7 +728,7 @@ export default function Login() {
                                                     type="text"
                                                     value={digit}
                                                     readOnly
-                                                    className="w-12 h-14 text-center text-xl font-bold bg-zinc-50 dark:bg-white/10 border border-zinc-200 dark:border-white/20 text-zinc-900 dark:text-white rounded-lg outline-none cursor-default"
+                                                    className="w-12 h-14 text-center text-xl font-bold bg-muted dark:bg-white/10 border border-zinc-200 dark:border-white/20 text-foreground rounded-lg outline-none cursor-default"
                                                 />
                                             ))}
                                         </div>
@@ -742,7 +742,7 @@ export default function Login() {
                                     </button>
                                     <button
                                         onClick={handleMfaSkip}
-                                        className="w-full text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white underline underline-offset-2 transition-colors"
+                                        className="w-full text-sm text-muted-foreground hover:text-foreground underline underline-offset-2 transition-colors"
                                     >
                                         Skip MFA for now
                                     </button>
@@ -753,14 +753,14 @@ export default function Login() {
                             {mfaPhase === 'phone' && (
                                 <div className="space-y-5 mt-2">
                                     <div>
-                                        <label className="text-zinc-700 dark:text-zinc-300 text-sm font-medium mb-1.5 block">Mobile Phone Number</label>
+                                        <label className="text-muted-foreground text-sm font-medium mb-1.5 block">Mobile Phone Number</label>
                                         <input
                                             type="text"
                                             value={MFA_PHONE}
                                             readOnly
-                                            className="w-full bg-zinc-50 dark:bg-white/10 border border-zinc-200 dark:border-white/20 text-zinc-900 dark:text-white rounded-lg h-12 px-4 outline-none cursor-default"
+                                            className="w-full bg-muted dark:bg-white/10 border border-zinc-200 dark:border-white/20 text-foreground rounded-lg h-12 px-4 outline-none cursor-default"
                                         />
-                                        <p className="text-xs text-zinc-500 mt-1.5">A verification code will be sent via SMS to this number.</p>
+                                        <p className="text-xs text-muted-foreground mt-1.5">A verification code will be sent via SMS to this number.</p>
                                     </div>
                                     <button
                                         onClick={handleMfaSendCode}
@@ -778,7 +778,7 @@ export default function Login() {
                                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                                     </svg>
-                                    <p className="text-zinc-600 dark:text-zinc-300 text-sm">Sending SMS to {MFA_PHONE}...</p>
+                                    <p className="text-muted-foreground dark:text-zinc-300 text-sm">Sending SMS to {MFA_PHONE}...</p>
                                 </div>
                             )}
 
@@ -790,7 +790,7 @@ export default function Login() {
                                         <p className="text-sm text-green-700 dark:text-green-300">Code sent to {MFA_PHONE}</p>
                                     </div>
                                     <div>
-                                        <label className="text-zinc-700 dark:text-zinc-300 text-sm font-medium mb-2 block">Verification Code</label>
+                                        <label className="text-muted-foreground text-sm font-medium mb-2 block">Verification Code</label>
                                         <div className="flex gap-2 justify-center">
                                             {MFA_CODE.map((digit, i) => (
                                                 <input
@@ -798,7 +798,7 @@ export default function Login() {
                                                     type="text"
                                                     value={digit}
                                                     readOnly
-                                                    className="w-12 h-14 text-center text-xl font-bold bg-zinc-50 dark:bg-white/10 border border-zinc-200 dark:border-white/20 text-zinc-900 dark:text-white rounded-lg outline-none cursor-default"
+                                                    className="w-12 h-14 text-center text-xl font-bold bg-muted dark:bg-white/10 border border-zinc-200 dark:border-white/20 text-foreground rounded-lg outline-none cursor-default"
                                                 />
                                             ))}
                                         </div>
@@ -819,7 +819,7 @@ export default function Login() {
                                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                                     </svg>
-                                    <p className="text-zinc-600 dark:text-zinc-300 text-sm">Verifying code...</p>
+                                    <p className="text-muted-foreground dark:text-zinc-300 text-sm">Verifying code...</p>
                                 </div>
                             )}
 
@@ -911,9 +911,9 @@ export default function Login() {
                                                 onChange={(e) => handleEmailChange(e.target.value)}
                                                 onBlur={handleEmailBlur}
                                                 placeholder="you@company.com"
-                                                className="w-full bg-white/10 border border-white/20 text-white focus:border-white/40 focus:ring-0 rounded-lg h-12 px-4 pl-10 placeholder:text-zinc-500 outline-none transition-colors"
+                                                className="w-full bg-white/10 border border-white/20 text-white focus:border-white/40 focus:ring-0 rounded-lg h-12 px-4 pl-10 placeholder:text-muted-foreground outline-none transition-colors"
                                             />
-                                            <EnvelopeIcon className="w-5 h-5 text-zinc-400 absolute left-3 top-3.5" />
+                                            <EnvelopeIcon className="w-5 h-5 text-muted-foreground absolute left-3 top-3.5" />
                                         </div>
                                     </div>
 
@@ -966,7 +966,7 @@ export default function Login() {
                                                     value={fullName}
                                                     onChange={(e) => setFullName(e.target.value)}
                                                     placeholder="John Doe"
-                                                    className="w-full bg-white/10 border border-white/20 text-white focus:border-white/40 focus:ring-0 rounded-lg h-12 px-4 placeholder:text-zinc-500 outline-none transition-colors"
+                                                    className="w-full bg-white/10 border border-white/20 text-white focus:border-white/40 focus:ring-0 rounded-lg h-12 px-4 placeholder:text-muted-foreground outline-none transition-colors"
                                                 />
                                             </div>
                                         )}
@@ -983,11 +983,11 @@ export default function Login() {
                                                 onChange={(e) => handleEmailChange(e.target.value)}
                                                 onBlur={handleEmailBlur}
                                                 placeholder="you@company.com"
-                                                className={`w-full bg-white/10 border text-white focus:border-white/40 focus:ring-0 rounded-lg h-12 px-4 placeholder:text-zinc-500 outline-none transition-colors ${
+                                                className={`w-full bg-white/10 border text-white focus:border-white/40 focus:ring-0 rounded-lg h-12 px-4 placeholder:text-muted-foreground outline-none transition-colors ${
                                                     domainError ? 'border-red-500/50' : 'border-white/20'
                                                 }`}
                                             />
-                                            <p className="text-xs text-zinc-500 mt-1">
+                                            <p className="text-xs text-muted-foreground mt-1">
                                                 Access restricted to @agenticdream.com and @goavanto.com
                                             </p>
                                         </div>
@@ -1001,7 +1001,7 @@ export default function Login() {
                                                     value={password}
                                                     onChange={(e) => handlePasswordChange(e.target.value)}
                                                     placeholder="Enter your password"
-                                                    className="w-full bg-white/10 border border-white/20 text-white focus:border-white/40 focus:ring-0 rounded-lg h-12 px-4 pr-10 placeholder:text-zinc-500 outline-none transition-colors"
+                                                    className="w-full bg-white/10 border border-white/20 text-white focus:border-white/40 focus:ring-0 rounded-lg h-12 px-4 pr-10 placeholder:text-muted-foreground outline-none transition-colors"
                                                 />
                                                 <button
                                                     type="button"

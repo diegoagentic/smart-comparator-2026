@@ -22,14 +22,14 @@ function cn(...inputs: (string | undefined | null | false)[]) {
 }
 
 const items = [
-    { id: "T-RCR306029HLG2", name: "TBL, REC, 30Dx60Wx29H", category: "Tables", tag: "A", qtyOrd: 4, qtyShip: 4, qtyBO: 0, listPrice: 1261.00, discPct: 62.0, netPrice: 479.18, amount: 1916.72, configs: ["Finish: LG2-Loft Gray", "Edge: SE-Straight Edge"], status: "Confirmed", statusColor: "bg-zinc-100 text-zinc-700" },
-    { id: "X-BBFPFS182812", name: "CBX Full Depth BBF Ped", category: "Storage", tag: "A", qtyOrd: 4, qtyShip: 4, qtyBO: 0, listPrice: 1048.00, discPct: 62.0, netPrice: 398.24, amount: 1592.96, configs: ["Finish: LG2-Loft Gray", "Lock: KA-Keyed Alike"], status: "Confirmed", statusColor: "bg-zinc-100 text-zinc-700" },
-    { id: "W-WS3072", name: "WORKSURFACE RECT 30Dx72W", category: "Worksurfaces", tag: "B", qtyOrd: 6, qtyShip: 6, qtyBO: 0, listPrice: 656.00, discPct: 62.0, netPrice: 249.28, amount: 1495.68, configs: ["Finish: LG2-Loft Gray", "Edge: SE-Straight Edge"], status: "Confirmed", statusColor: "bg-zinc-100 text-zinc-700" },
-    { id: "S-LATJJ2D36", name: 'LATERAL FILE 2 DRAWER 36"', category: "Storage", tag: "C", qtyOrd: 3, qtyShip: 3, qtyBO: 0, listPrice: 1492.00, discPct: 62.0, netPrice: 566.96, amount: 1700.88, configs: ["Finish: LG2-Loft Gray", "Lock: KA-Keyed Alike"], status: "Confirmed", statusColor: "bg-zinc-100 text-zinc-700" },
+    { id: "T-RCR306029HLG2", name: "TBL, REC, 30Dx60Wx29H", category: "Tables", tag: "A", qtyOrd: 4, qtyShip: 4, qtyBO: 0, listPrice: 1261.00, discPct: 62.0, netPrice: 479.18, amount: 1916.72, configs: ["Finish: LG2-Loft Gray", "Edge: SE-Straight Edge"], status: "Confirmed", statusColor: "bg-zinc-100 text-muted-foreground" },
+    { id: "X-BBFPFS182812", name: "CBX Full Depth BBF Ped", category: "Storage", tag: "A", qtyOrd: 4, qtyShip: 4, qtyBO: 0, listPrice: 1048.00, discPct: 62.0, netPrice: 398.24, amount: 1592.96, configs: ["Finish: LG2-Loft Gray", "Lock: KA-Keyed Alike"], status: "Confirmed", statusColor: "bg-zinc-100 text-muted-foreground" },
+    { id: "W-WS3072", name: "WORKSURFACE RECT 30Dx72W", category: "Worksurfaces", tag: "B", qtyOrd: 6, qtyShip: 6, qtyBO: 0, listPrice: 656.00, discPct: 62.0, netPrice: 249.28, amount: 1495.68, configs: ["Finish: LG2-Loft Gray", "Edge: SE-Straight Edge"], status: "Confirmed", statusColor: "bg-zinc-100 text-muted-foreground" },
+    { id: "S-LATJJ2D36", name: 'LATERAL FILE 2 DRAWER 36"', category: "Storage", tag: "C", qtyOrd: 3, qtyShip: 3, qtyBO: 0, listPrice: 1492.00, discPct: 62.0, netPrice: 566.96, amount: 1700.88, configs: ["Finish: LG2-Loft Gray", "Lock: KA-Keyed Alike"], status: "Confirmed", statusColor: "bg-zinc-100 text-muted-foreground" },
     { id: "F-SSC346030C", name: 'LB LOUNGE 2 SEAT 34"H', category: "Seating", tag: "D", qtyOrd: 2, qtyShip: 0, qtyBO: 2, listPrice: 4836.00, discPct: 58.0, netPrice: 2031.12, amount: 4062.24, configs: ["Fabric: CF-6036 Ocean Blue", "Finish: LG2-Loft Gray"], status: "Exception: Finish", statusColor: "bg-amber-50 text-amber-700 ring-amber-600/20", aiStatus: "warning" },
-    { id: "7730", name: "AUBURN GRAY CONFERENCE CHAIR", category: "Seating", tag: "D", qtyOrd: 12, qtyShip: 12, qtyBO: 0, listPrice: 1048.00, discPct: 55.0, netPrice: 471.60, amount: 5659.20, configs: ["Fabric: GR-5505 Charcoal", "Arms: ADJ-Adjustable"], status: "Confirmed", statusColor: "bg-zinc-100 text-zinc-700" },
+    { id: "7730", name: "AUBURN GRAY CONFERENCE CHAIR", category: "Seating", tag: "D", qtyOrd: 12, qtyShip: 12, qtyBO: 0, listPrice: 1048.00, discPct: 55.0, netPrice: 471.60, amount: 5659.20, configs: ["Fabric: GR-5505 Charcoal", "Arms: ADJ-Adjustable"], status: "Confirmed", statusColor: "bg-zinc-100 text-muted-foreground" },
     { id: "X-LTD661218L", name: "CBX Triple Door Locker", category: "Storage", tag: "E", qtyOrd: 8, qtyShip: 6, qtyBO: 2, listPrice: 1836.00, discPct: 62.0, netPrice: 697.68, amount: 5581.44, configs: ["Finish: LG2-Loft Gray", "Lock: KA-Keyed Alike", "Shelf: 1-One Adjustable"], status: "Exception: Date", statusColor: "bg-amber-50 text-amber-700 ring-amber-600/20", aiStatus: "warning" },
-    { id: "P-PN60HBF", name: "PANEL 60Hx48W FABRIC BOTH", category: "Panels", tag: "F", qtyOrd: 10, qtyShip: 10, qtyBO: 0, listPrice: 892.00, discPct: 62.0, netPrice: 338.96, amount: 3389.60, configs: ["Fabric: CF-6036 Ocean Blue", "Frame: LG2-Loft Gray"], status: "Confirmed", statusColor: "bg-zinc-100 text-zinc-700" },
+    { id: "P-PN60HBF", name: "PANEL 60Hx48W FABRIC BOTH", category: "Panels", tag: "F", qtyOrd: 10, qtyShip: 10, qtyBO: 0, listPrice: 892.00, discPct: 62.0, netPrice: 338.96, amount: 3389.60, configs: ["Fabric: CF-6036 Ocean Blue", "Frame: LG2-Loft Gray"], status: "Confirmed", statusColor: "bg-zinc-100 text-muted-foreground" },
 ]
 
 interface Message {
@@ -95,7 +95,7 @@ const InconsistencyResolutionFlow = () => {
                 </div>
 
                 {/* Side-by-Side Comparison UI for Delta 1 */}
-                <div className="border border-zinc-200 dark:border-zinc-700/50 rounded-xl overflow-hidden bg-white dark:bg-zinc-800/50 my-2">
+                <div className="border border-border/50 rounded-xl overflow-hidden bg-card/50 my-2">
                     <div className="px-3 py-2 bg-muted/30 border-b border-border text-xs font-bold text-foreground flex items-center gap-2">
                         <ExclamationTriangleIcon className="w-4 h-4 text-amber-500" />
                         Exception 1: Finish Backordered / Substitution Proposed
@@ -124,7 +124,7 @@ const InconsistencyResolutionFlow = () => {
                 </div>
 
                 {/* Side-by-Side Comparison UI for Delta 2 */}
-                <div className="border border-zinc-200 dark:border-zinc-700/50 rounded-xl overflow-hidden bg-white dark:bg-zinc-800/50 mb-2">
+                <div className="border border-border/50 rounded-xl overflow-hidden bg-card/50 mb-2">
                     <div className="px-3 py-2 bg-muted/30 border-b border-border text-xs font-bold text-foreground flex items-center gap-2">
                         <ClockIcon className="w-4 h-4 text-amber-500" />
                         Exception 2: Ship Date Slipped
@@ -152,10 +152,10 @@ const InconsistencyResolutionFlow = () => {
                     <span className="text-[10px] text-amber-700 dark:text-amber-400">12-day slip impacts project timeline. Expedite available at +$800. Consider alternative vendor for faster delivery. Confidence: 76%</span>
                 </div>
 
-                <div className="bg-zinc-50 dark:bg-zinc-900/30 p-3 rounded-lg border border-zinc-200 dark:border-zinc-800 mt-2 mb-2">
-                    <label className="block text-xs font-semibold text-zinc-900 dark:text-white mb-2">Select Resolution for Ship Date Slip:</label>
+                <div className="bg-muted/30 p-3 rounded-lg border border-border mt-2 mb-2">
+                    <label className="block text-xs font-semibold text-foreground mb-2">Select Resolution for Ship Date Slip:</label>
                     <select
-                        className="w-full text-sm p-2 rounded-md border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white focus:ring-2 ring-primary outline-none"
+                        className="w-full text-sm p-2 rounded-md border border-zinc-300 dark:border-zinc-700 bg-card text-foreground focus:ring-2 ring-primary outline-none"
                         value={shipmentResolution}
                         onChange={(e) => setShipmentResolution(e.target.value)}
                     >
@@ -174,7 +174,7 @@ const InconsistencyResolutionFlow = () => {
                     </button>
                     <button
                         onClick={() => setStatus('requesting')}
-                        className="flex items-center justify-center gap-1.5 px-3 py-2 border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 text-xs font-medium rounded-lg hover:bg-muted transition-colors"
+                        className="flex items-center justify-center gap-1.5 px-3 py-2 border border-border text-muted-foreground dark:text-zinc-300 text-xs font-medium rounded-lg hover:bg-muted transition-colors"
                     >
                         <PencilIcon className="w-3.5 h-3.5" /> Request Revisions
                     </button>
@@ -186,22 +186,22 @@ const InconsistencyResolutionFlow = () => {
     if (status === 'requesting') {
         return (
             <div className="flex flex-col gap-3 animate-in fade-in slide-in-from-bottom-2">
-                <p className="text-sm font-medium text-zinc-900 dark:text-white">Describe required changes:</p>
+                <p className="text-sm font-medium text-foreground">Describe required changes:</p>
                 <textarea
-                    className="w-full text-sm p-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white focus:ring-2 ring-primary outline-none transition-all placeholder:text-zinc-400"
+                    className="w-full text-sm p-3 rounded-lg border border-border bg-card text-foreground focus:ring-2 ring-primary outline-none transition-all placeholder:text-muted-foreground"
                     rows={3}
                     placeholder="E.g., Update weight for ORD-2054 to 48kg..."
                     value={requestText}
                     onChange={(e) => setRequestText(e.target.value)}
                 />
                 <div className="flex justify-between items-center">
-                    <button className="flex items-center gap-1 text-xs text-zinc-500 hover:text-primary transition-colors">
+                    <button className="flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors">
                         <PaperClipIcon className="w-4 h-4" /> Attach File
                     </button>
                     <div className="flex gap-2">
                         <button
                             onClick={() => setStatus('initial')}
-                            className="px-3 py-1.5 text-xs text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors"
+                            className="px-3 py-1.5 text-xs text-muted-foreground hover:text-zinc-900 dark:text-muted-foreground dark:hover:text-white transition-colors"
                         >
                             Cancel
                         </button>
@@ -234,24 +234,24 @@ const InconsistencyResolutionFlow = () => {
                 <div className="flex items-start gap-2 text-green-600 dark:text-green-400 font-medium bg-green-50 dark:bg-green-900/10 p-3 rounded-lg border border-green-100 dark:border-green-900/30">
                     <CheckCircleIcon className="h-5 w-5 mt-0.5 flex-shrink-0" />
                     <div className="text-sm">
-                        <p className="text-zinc-900 dark:text-zinc-100 font-bold mb-1">Exceptions approved. Records updated.</p>
-                        <p className="text-zinc-700 dark:text-zinc-300">The Delivery Date has been updated to <span className="font-bold underline decoration-green-300 underline-offset-2">{shipmentResolution === 'expedite' ? 'Nov 20, 2025' : shipmentResolution === 'cancel' ? 'N/A' : 'Nov 27, 2025'}</span>.</p>
+                        <p className="text-foreground font-bold mb-1">Exceptions approved. Records updated.</p>
+                        <p className="text-muted-foreground">The Delivery Date has been updated to <span className="font-bold underline decoration-green-300 underline-offset-2">{shipmentResolution === 'expedite' ? 'Nov 20, 2025' : shipmentResolution === 'cancel' ? 'N/A' : 'Nov 27, 2025'}</span>.</p>
                     </div>
                 </div>
 
-                <div className="bg-white dark:bg-zinc-800/50 rounded-xl border border-zinc-200 dark:border-zinc-700/50 overflow-hidden shadow-sm">
+                <div className="bg-card/50 rounded-xl border border-border/50 overflow-hidden shadow-sm">
                     {status === 'sent' ? (
-                        <div className="p-6 flex flex-col items-center justify-center gap-2 text-center text-zinc-900 dark:text-white animate-in zoom-in duration-300">
+                        <div className="p-6 flex flex-col items-center justify-center gap-2 text-center text-foreground animate-in zoom-in duration-300">
                             <div className="h-10 w-10 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center text-green-600 dark:text-green-400">
                                 <PaperAirplaneIcon className="h-5 w-5" />
                             </div>
                             <p className="font-bold">Client Update Sent</p>
-                            <p className="text-xs text-zinc-500 dark:text-zinc-400 max-w-[280px]">The client has been notified of the adjustments and new estimated delivery date.</p>
+                            <p className="text-xs text-muted-foreground max-w-[280px]">The client has been notified of the adjustments and new estimated delivery date.</p>
                         </div>
                     ) : status === 'sending' ? (
                         <div className="p-10 flex flex-col items-center justify-center gap-3 animate-in fade-in">
                             <ArrowPathIcon className="w-6 h-6 animate-spin text-primary" />
-                            <p className="text-sm font-medium text-zinc-600 dark:text-zinc-400">Sending Client Update...</p>
+                            <p className="text-sm font-medium text-muted-foreground">Sending Client Update...</p>
                         </div>
                     ) : (
                         <>
@@ -262,14 +262,14 @@ const InconsistencyResolutionFlow = () => {
                                 </div>
                                 <span className="bg-primary/10 text-primary-foreground px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-wide">Ready to Send</span>
                             </div>
-                            <div className="p-3 text-xs text-zinc-700 dark:text-zinc-300 space-y-2">
-                                <p><span className="font-semibold text-zinc-900 dark:text-white">To:</span> client@automanufacture.com</p>
-                                <p><span className="font-semibold text-zinc-900 dark:text-white">Subject:</span> Update regarding your recent order #ORD-2055</p>
-                                <div className="p-3 bg-zinc-50 dark:bg-zinc-900/50 rounded border border-zinc-100 dark:border-zinc-800 font-serif leading-relaxed italic text-zinc-600 dark:text-zinc-400">
+                            <div className="p-3 text-xs text-muted-foreground space-y-2">
+                                <p><span className="font-semibold text-foreground">To:</span> client@automanufacture.com</p>
+                                <p><span className="font-semibold text-foreground">Subject:</span> Update regarding your recent order #ORD-2055</p>
+                                <div className="p-3 bg-muted/50 rounded border border-zinc-100 dark:border-zinc-800 font-serif leading-relaxed italic text-muted-foreground">
                                     "Hi Team, just a quick update on Order #ORD-2055. The manufacturer noted that the Navy fabric for your Conference Room Chairs is currently backordered. We've proactively substituted it with the identical fabric in 'Azure', which is in stock, to ensure no delays. {shipmentResolution === 'expedite' ? "We've also upgraded the shipping to expedite the order, and your estimated ship date is now Nov 20, 2025." : shipmentResolution === 'accept' ? "Also, please note your estimated ship date has been updated to Nov 27, 2025." : "We've removed the backordered Lounge Chair from the order as it was severely delayed."} Let us know if you have any questions!"
                                 </div>
                                 <div className="flex gap-2 pt-2">
-                                    <button className="flex-1 flex items-center justify-center gap-1.5 px-3 py-1.5 border border-zinc-200 dark:border-zinc-700 hover:bg-muted text-foreground text-xs font-medium rounded transition-all">
+                                    <button className="flex-1 flex items-center justify-center gap-1.5 px-3 py-1.5 border border-border hover:bg-muted text-foreground text-xs font-medium rounded transition-all">
                                         <PencilSquareIcon className="w-3.5 h-3.5" /> Edit Draft
                                     </button>
                                 </div>
@@ -278,13 +278,13 @@ const InconsistencyResolutionFlow = () => {
                     )}
                 </div>
 
-                <div className="bg-zinc-50 dark:bg-white/5 rounded-xl border border-zinc-200 dark:border-white/10 p-3 flex items-center gap-3">
+                <div className="bg-muted dark:bg-white/5 rounded-xl border border-zinc-200 dark:border-white/10 p-3 flex items-center gap-3">
                     <div className="h-10 w-10 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center text-red-600 dark:text-red-400">
                         <DocumentTextIcon className="h-6 w-6" />
                     </div>
                     <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-zinc-900 dark:text-white truncate">ACK_Revised_ORD-2055.pdf</p>
-                        <p className="text-xs text-zinc-500 dark:text-zinc-400">Updated just now</p>
+                        <p className="text-sm font-medium text-foreground truncate">ACK_Revised_ORD-2055.pdf</p>
+                        <p className="text-xs text-muted-foreground">Updated just now</p>
                     </div>
                 </div>
             </div>
@@ -310,7 +310,7 @@ const InconsistencyActionCard = ({ msg }: { msg: Message }) => {
     if (status === 'pending') {
         return (
             <div className={cn(
-                "rounded-2xl p-4 shadow-sm bg-green-50 dark:bg-green-900/20 text-zinc-900 dark:text-zinc-100 border border-green-100 dark:border-green-800"
+                "rounded-2xl p-4 shadow-sm bg-green-50 dark:bg-green-900/20 text-foreground border border-green-100 dark:border-green-800"
             )}>
                 <div className="flex items-center gap-2">
                     <ArrowPathIcon className="h-5 w-5 text-green-600 dark:text-green-400 animate-spin" />
@@ -323,11 +323,11 @@ const InconsistencyActionCard = ({ msg }: { msg: Message }) => {
     if (status === 'approved') {
         return (
             <div className={cn(
-                "rounded-2xl p-4 shadow-sm bg-green-50 dark:bg-green-900/20 text-zinc-900 dark:text-zinc-100 border border-green-100 dark:border-green-800"
+                "rounded-2xl p-4 shadow-sm bg-green-50 dark:bg-green-900/20 text-foreground border border-green-100 dark:border-green-800"
             )}>
                 <div className="flex items-center justify-between mb-1">
                     <span className="text-sm font-semibold text-green-700 dark:text-green-400">{msg.sender}</span>
-                    <span className="text-xs text-zinc-400">{msg.time}</span>
+                    <span className="text-xs text-muted-foreground">{msg.time}</span>
                 </div>
                 <div className="flex items-center gap-2 mb-2">
                     <span className="text-xs font-medium text-green-600 dark:text-green-400 uppercase tracking-wide">Action Updated</span>
@@ -336,15 +336,15 @@ const InconsistencyActionCard = ({ msg }: { msg: Message }) => {
                     <CheckCircleIcon className="h-5 w-5" />
                     <p>Changes approved. PO updated.</p>
                 </div>
-                <div className="flex items-center gap-3 bg-white dark:bg-zinc-800/50 p-3 rounded-xl border border-green-200 dark:border-green-800/50 shadow-sm">
+                <div className="flex items-center gap-3 bg-card/50 p-3 rounded-xl border border-green-200 dark:border-green-800/50 shadow-sm">
                     <div className="h-10 w-10 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center border border-red-100 dark:border-red-800/30">
                         <DocumentTextIcon className="h-5 w-5 text-red-500" />
                     </div>
                     <div className="flex-1">
-                        <p className="text-sm font-medium text-zinc-900 dark:text-white">PO_Revised_Final.pdf</p>
-                        <p className="text-xs text-zinc-500">2.4 MB • Generated just now</p>
+                        <p className="text-sm font-medium text-foreground">PO_Revised_Final.pdf</p>
+                        <p className="text-xs text-muted-foreground">2.4 MB • Generated just now</p>
                     </div>
-                    <button className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg text-zinc-400 hover:text-zinc-600 transition-colors">
+                    <button className="p-2 hover:bg-muted rounded-lg text-muted-foreground hover:text-muted-foreground transition-colors">
                         <ArrowDownTrayIcon className="h-5 w-5" />
                     </button>
                 </div>
@@ -355,30 +355,30 @@ const InconsistencyActionCard = ({ msg }: { msg: Message }) => {
     return (
         <div className={cn(
             "rounded-2xl p-4 shadow-sm transition-all duration-300",
-            isRequesting ? "ring-2 ring-indigo-500/20 bg-white dark:bg-zinc-800" : "bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-800"
+            isRequesting ? "ring-2 ring-indigo-500/20 bg-card" : "bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-800"
         )}>
             {!isRequesting ? (
                 <>
                     <div className="flex items-center justify-between mb-1">
                         <span className="text-sm font-semibold text-green-700 dark:text-green-400">{msg.sender}</span>
-                        <span className="text-xs text-zinc-400">{msg.time}</span>
+                        <span className="text-xs text-muted-foreground">{msg.time}</span>
                     </div>
                     <div className="flex items-center gap-2 mb-2">
                         <span className="text-xs font-medium text-green-600 dark:text-green-400 uppercase tracking-wide">Action Completed</span>
                     </div>
-                    <p className="text-sm leading-relaxed text-zinc-900 dark:text-zinc-100">{msg.content}</p>
+                    <p className="text-sm leading-relaxed text-foreground">{msg.content}</p>
 
                     <div className="mt-3 space-y-3">
                         {/* PDF File */}
-                        <div className="flex items-center gap-3 bg-white dark:bg-zinc-800/50 p-3 rounded-xl border border-green-200 dark:border-green-800/50 shadow-sm">
+                        <div className="flex items-center gap-3 bg-card/50 p-3 rounded-xl border border-green-200 dark:border-green-800/50 shadow-sm">
                             <div className="h-10 w-10 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center border border-red-100 dark:border-red-800/30">
                                 <DocumentTextIcon className="h-5 w-5 text-red-500" />
                             </div>
                             <div className="flex-1">
-                                <p className="text-sm font-medium text-zinc-900 dark:text-white">PO_ORD-2055_Final.pdf</p>
-                                <p className="text-xs text-zinc-500">2.4 MB • Generated just now</p>
+                                <p className="text-sm font-medium text-foreground">PO_ORD-2055_Final.pdf</p>
+                                <p className="text-xs text-muted-foreground">2.4 MB • Generated just now</p>
                             </div>
-                            <button className="p-2 hover:bg-primary hover:text-zinc-900 dark:hover:bg-primary dark:hover:text-zinc-900 rounded-lg text-zinc-400 transition-colors group">
+                            <button className="p-2 hover:bg-primary hover:text-primary-foreground dark:hover:bg-primary dark:hover:text-primary-foreground rounded-lg text-muted-foreground transition-colors group">
                                 <ArrowDownTrayIcon className="h-5 w-5 group-hover:text-zinc-900" />
                             </button>
                         </div>
@@ -387,22 +387,22 @@ const InconsistencyActionCard = ({ msg }: { msg: Message }) => {
                         <div className="pl-4 border-l-4 border-amber-500 py-2 my-4">
                             <div className="flex items-start gap-3">
                                 <div className="flex-1">
-                                    <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+                                    <p className="text-sm font-semibold text-foreground flex items-center gap-2">
                                         <ExclamationTriangleIcon className="h-4 w-4 text-amber-500" />
                                         Attention Needed
                                     </p>
                                     <p className="text-sm text-zinc-900 dark:text-zinc-300 mt-1">
-                                        Inconsistency detected for <span className="font-semibold text-zinc-900 dark:text-white">SKU-OFF-2025-003</span>:
+                                        Inconsistency detected for <span className="font-semibold text-foreground">SKU-OFF-2025-003</span>:
                                     </p>
                                     <div className="mt-2 flex items-center gap-4 text-xs font-medium">
                                         <div className="flex items-center gap-2">
-                                            <span className="text-zinc-500 uppercase tracking-wider text-[10px]">Warehouse</span>
-                                            <span className="text-zinc-900 dark:text-white font-mono text-sm bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded">42</span>
+                                            <span className="text-muted-foreground uppercase tracking-wider text-[10px]">Warehouse</span>
+                                            <span className="text-foreground font-mono text-sm bg-muted px-1.5 py-0.5 rounded">42</span>
                                         </div>
                                         <div className="h-4 w-px bg-zinc-200 dark:bg-zinc-700"></div>
                                         <div className="flex items-center gap-2">
-                                            <span className="text-zinc-500 uppercase tracking-wider text-[10px]">Local</span>
-                                            <span className="text-zinc-900 dark:text-white font-mono text-sm bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded">35</span>
+                                            <span className="text-muted-foreground uppercase tracking-wider text-[10px]">Local</span>
+                                            <span className="text-foreground font-mono text-sm bg-muted px-1.5 py-0.5 rounded">35</span>
                                         </div>
                                     </div>
                                 </div>
@@ -414,12 +414,12 @@ const InconsistencyActionCard = ({ msg }: { msg: Message }) => {
                             <button className="px-4 py-2 bg-zinc-900 hover:bg-zinc-800 dark:bg-white dark:hover:bg-zinc-100 text-white dark:text-zinc-900 text-xs font-semibold rounded-lg shadow-sm transition-colors">
                                 Sync Database
                             </button>
-                            <button className="px-4 py-2 bg-white dark:bg-transparent border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:bg-primary hover:text-zinc-900 dark:hover:bg-primary dark:hover:text-zinc-900 text-xs font-medium rounded-lg transition-colors">
+                            <button className="px-4 py-2 bg-white dark:bg-transparent border border-border text-muted-foreground hover:bg-primary hover:text-primary-foreground dark:hover:bg-primary dark:hover:text-primary-foreground text-xs font-medium rounded-lg transition-colors">
                                 Resolve Manually
                             </button>
                             <button
                                 onClick={() => setIsRequesting(true)}
-                                className="px-3 py-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-900 hover:bg-primary dark:hover:bg-primary rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 ml-auto group"
+                                className="px-3 py-2 text-muted-foreground hover:text-zinc-900 dark:hover:text-primary-foreground hover:bg-primary dark:hover:bg-primary rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 ml-auto group"
                             >
                                 <PencilIcon className="w-3.5 h-3.5" />
                                 Request Changes
@@ -430,14 +430,14 @@ const InconsistencyActionCard = ({ msg }: { msg: Message }) => {
             ) : (
                 <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2">
                     <div className="flex items-center justify-between">
-                        <h4 className="text-sm font-semibold text-zinc-900 dark:text-white">Describe required changes:</h4>
-                        <button onClick={() => setIsRequesting(false)} className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200">
+                        <h4 className="text-sm font-semibold text-foreground">Describe required changes:</h4>
+                        <button onClick={() => setIsRequesting(false)} className="text-muted-foreground hover:text-muted-foreground dark:hover:text-zinc-200">
                             <span className="sr-only">Close</span>
                             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
                         </button>
                     </div>
                     <textarea
-                        className="w-full text-sm bg-zinc-50 dark:bg-zinc-800 border-0 rounded-lg p-3 text-zinc-900 dark:text-white placeholder:text-zinc-500 focus:ring-2 focus:ring-indigo-500/20"
+                        className="w-full text-sm bg-muted dark:bg-zinc-800 border-0 rounded-lg p-3 text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-indigo-500/20"
                         placeholder="E.g., Update weight for ORD-2054 to 48kg..."
                         rows={3}
                         autoFocus
@@ -445,14 +445,14 @@ const InconsistencyActionCard = ({ msg }: { msg: Message }) => {
                         onChange={(e) => setRequestText(e.target.value)}
                     />
                     <div className="flex items-center justify-between">
-                        <button className="text-xs font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-200 flex items-center gap-1.5 px-2 py-1.5 rounded hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+                        <button className="text-xs font-medium text-muted-foreground hover:text-zinc-900 dark:hover:text-zinc-200 flex items-center gap-1.5 px-2 py-1.5 rounded hover:bg-muted transition-colors">
                             <PaperClipIcon className="w-3.5 h-3.5" />
                             Attach File
                         </button>
                         <div className="flex items-center gap-2">
                             <button
                                 onClick={() => setIsRequesting(false)}
-                                className="px-3 py-1.5 text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
+                                className="px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
                             >
                                 Cancel
                             </button>
@@ -524,7 +524,7 @@ export default function AckDetail({ onBack, onLogout, onNavigateToWorkspace, onN
             {/* Page Header (moved from original header, adjusted for floating nav) */}
             <div className="pt-24 px-4 pb-4 max-w-7xl mx-auto w-full border-b border-border bg-transparent transition-colors duration-200">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <button onClick={onBack} className="p-1 hover:bg-primary hover:text-zinc-900 dark:hover:text-zinc-900 rounded-md transition-colors">
+                    <button onClick={onBack} className="p-1 hover:bg-primary hover:text-primary-foreground dark:hover:text-primary-foreground rounded-md transition-colors">
                         <ChevronRightIcon className="h-4 w-4 rotate-180" />
                     </button>
                     <Breadcrumbs
@@ -541,9 +541,9 @@ export default function AckDetail({ onBack, onLogout, onNavigateToWorkspace, onN
                 {/* Collapsible Summary — hidden for demo build */}
                 {false && (isSummaryExpanded ? (
                     <>
-                        <div className="bg-white dark:bg-zinc-800 p-6 rounded-2xl shadow-sm border border-zinc-200 dark:border-white/10 ring-1 ring-black/5 dark:ring-0 transition-all duration-300">
+                        <div className="bg-card p-6 rounded-2xl shadow-sm border border-zinc-200 dark:border-white/10 ring-1 ring-black/5 dark:ring-0 transition-all duration-300">
                             <div className="flex justify-end mb-4">
-                                <button onClick={() => setIsSummaryExpanded(false)} className="flex items-center gap-1.5 text-xs font-medium text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-900 transition-colors bg-zinc-100 dark:bg-zinc-800 hover:bg-primary dark:hover:bg-primary px-2.5 py-1.5 rounded-lg">
+                                <button onClick={() => setIsSummaryExpanded(false)} className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-zinc-900 dark:text-muted-foreground dark:hover:text-primary-foreground transition-colors bg-muted hover:bg-primary dark:hover:bg-primary px-2.5 py-1.5 rounded-lg">
                                     Hide Details <ChevronUpIcon className="w-3.5 h-3.5" />
                                 </button>
                             </div>
@@ -556,16 +556,16 @@ export default function AckDetail({ onBack, onLogout, onNavigateToWorkspace, onN
                                     { label: 'SHIP VIA', value: 'Best Way' },
                                     { label: 'EXCEPTIONS', value: '2', color: 'text-amber-600 dark:text-amber-400' },
                                 ].map((stat, i) => (
-                                    <div key={i} className="bg-zinc-50 dark:bg-zinc-800/50 p-4 rounded-xl border border-zinc-100 dark:border-white/5">
-                                        <p className="text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider mb-1">{stat.label}</p>
-                                        <p className={cn("text-2xl font-bold tracking-tight", stat.color || "text-zinc-900 dark:text-white")}>{stat.value}</p>
+                                    <div key={i} className="bg-muted dark:bg-zinc-800/50 p-4 rounded-xl border border-border">
+                                        <p className="text-[10px] font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-wider mb-1">{stat.label}</p>
+                                        <p className={cn("text-2xl font-bold tracking-tight", stat.color || "text-foreground")}>{stat.value}</p>
                                     </div>
                                 ))}
                             </div>
 
                             {/* Integrated Stepper - Matched to Dashboard */}
                             <div className="mt-8 pt-6 border-t border-zinc-100 dark:border-white/10 animate-in fade-in slide-in-from-top-4 duration-500">
-                                <h4 className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mb-4 ml-1">Workflow Progress</h4>
+                                <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-4 ml-1">Workflow Progress</h4>
                                 <div className="relative pb-2">
                                     <div className="absolute top-3 left-0 w-full h-0.5 bg-zinc-200 dark:bg-zinc-700" />
                                     <div className="relative z-10 flex justify-between w-full max-w-4xl mx-auto px-4">
@@ -582,7 +582,7 @@ export default function AckDetail({ onBack, onLogout, onNavigateToWorkspace, onN
                                             // Dashboard uses index logic (i <= 1), here we use status.
                                             // Dashboard classes: h-6 w-6 rounded-full flex items-center justify-center
                                             // Active/Completed: bg-primary text-primary-foreground
-                                            // Pending: bg-gray-200 dark:bg-zinc-700 text-gray-400
+                                            // Pending: bg-gray-200 dark:bg-zinc-700 text-muted-foreground
 
                                             // However, for correct visual flow in this context:
                                             // Completed: Primary Background, Check Icon
@@ -590,12 +590,12 @@ export default function AckDetail({ onBack, onLogout, onNavigateToWorkspace, onN
                                             // Pending: Gray Background
 
                                             return (
-                                                <div key={i} className="flex flex-col items-center bg-white dark:bg-zinc-800 px-1 group cursor-default">
+                                                <div key={i} className="flex flex-col items-center bg-card px-1 group cursor-default">
                                                     <div className={cn(
                                                         "h-6 w-6 rounded-full flex items-center justify-center transition-all duration-300",
                                                         isCompleted || isCurrent
                                                             ? 'bg-primary text-primary-foreground'
-                                                            : 'bg-zinc-200 dark:bg-zinc-700 text-zinc-400'
+                                                            : 'bg-zinc-200 dark:bg-zinc-700 text-muted-foreground'
                                                     )}>
                                                         {isCompleted ? <CheckIcon className="w-4 h-4" /> :
                                                             isCurrent ? <div className="w-2 h-2 rounded-full bg-primary-foreground" /> :
@@ -603,11 +603,11 @@ export default function AckDetail({ onBack, onLogout, onNavigateToWorkspace, onN
                                                     </div>
                                                     <span className={cn(
                                                         "mt-2 text-xs font-medium transition-colors duration-300",
-                                                        isCompleted || isCurrent ? 'text-zinc-900 dark:text-zinc-100' : 'text-zinc-500 dark:text-zinc-500'
+                                                        isCompleted || isCurrent ? 'text-foreground' : 'text-muted-foreground dark:text-muted-foreground'
                                                     )}>
                                                         {step.name.split(' ')[0]}
                                                     </span>
-                                                    <p className="text-[10px] text-zinc-400 dark:text-zinc-600 mt-0.5">{step.name.split(' ').slice(1).join(' ')}</p>
+                                                    <p className="text-[10px] text-muted-foreground dark:text-muted-foreground mt-0.5">{step.name.split(' ').slice(1).join(' ')}</p>
                                                 </div>
                                             )
                                         })}
@@ -617,7 +617,7 @@ export default function AckDetail({ onBack, onLogout, onNavigateToWorkspace, onN
                         </div>
                     </>
                 ) : (
-                    <div className="bg-white dark:bg-zinc-800 p-4 rounded-xl shadow-sm ring-1 ring-zinc-900/5 dark:ring-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 animate-in fade-in slide-in-from-top-4 duration-300">
+                    <div className="bg-card p-4 rounded-xl shadow-sm ring-1 ring-zinc-900/5 dark:ring-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 animate-in fade-in slide-in-from-top-4 duration-300">
                         <div className="flex items-center gap-6 overflow-x-auto scrollbar-hide">
                             {[
                                 { label: 'Match Rate', value: '95%' },
@@ -627,8 +627,8 @@ export default function AckDetail({ onBack, onLogout, onNavigateToWorkspace, onN
                             ].map((stat, i) => (
                                 <Fragment key={i}>
                                     <div className="flex items-center gap-2 whitespace-nowrap">
-                                        <span className="text-[10px] font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">{stat.label}:</span>
-                                        <span className={cn("text-lg font-bold leading-none mt-1", stat.color || "text-zinc-900 dark:text-white")}>{stat.value}</span>
+                                        <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">{stat.label}:</span>
+                                        <span className={cn("text-lg font-bold leading-none mt-1", stat.color || "text-foreground")}>{stat.value}</span>
                                     </div>
                                     {i < 3 && <div className="w-px h-8 bg-zinc-200 dark:bg-zinc-700 hidden sm:block"></div>}
                                 </Fragment>
@@ -638,10 +638,10 @@ export default function AckDetail({ onBack, onLogout, onNavigateToWorkspace, onN
                         <div className="flex items-center gap-4 ml-auto">
                             {/* Resolution Time Indicator */}
                             <div className="hidden lg:flex flex-col items-end">
-                                <span className="text-[10px] font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Resolution Time</span>
+                                <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Resolution Time</span>
                                 <div className="flex items-center gap-1.5 mt-0.5">
                                     <ClockIcon className="w-4 h-4 text-primary" />
-                                    <span className="text-sm font-bold text-zinc-900 dark:text-white">Under 10 mins</span>
+                                    <span className="text-sm font-bold text-foreground">Under 10 mins</span>
                                     <span className="text-[10px] text-muted-foreground ml-1">(Industry Avg: 2-3 days)</span>
                                 </div>
                             </div>
@@ -651,10 +651,10 @@ export default function AckDetail({ onBack, onLogout, onNavigateToWorkspace, onN
                             {/* Current Phase Indicator */}
                             <div className="flex items-center gap-3 hidden md:flex">
                                 <div className="flex flex-col items-end">
-                                    <span className="text-[10px] font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Current Phase</span>
-                                    <span className="text-sm font-bold text-zinc-900 dark:text-white">Reviewing Exceptions</span>
+                                    <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Current Phase</span>
+                                    <span className="text-sm font-bold text-foreground">Reviewing Exceptions</span>
                                 </div>
-                                <div className="relative flex items-center justify-center w-8 h-8 rounded-full border-2 border-zinc-900 dark:border-white bg-white dark:bg-zinc-800">
+                                <div className="relative flex items-center justify-center w-8 h-8 rounded-full border-2 border-zinc-900 dark:border-white bg-card">
                                     <div className="w-2.5 h-2.5 rounded-full bg-zinc-900 dark:bg-white" />
                                 </div>
                             </div>
@@ -665,10 +665,10 @@ export default function AckDetail({ onBack, onLogout, onNavigateToWorkspace, onN
                                 onClick={() => setIsSummaryExpanded(true)}
                                 className="flex flex-col items-center justify-center gap-1 group p-2 hover:bg-primary dark:hover:bg-primary rounded-lg transition-colors"
                             >
-                                <div className="text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-zinc-900 transition-colors">
+                                <div className="text-muted-foreground group-hover:text-zinc-900 dark:group-hover:text-zinc-900 transition-colors">
                                     <ChevronDownIcon className="w-4 h-4" />
                                 </div>
-                                <span className="text-[10px] font-medium text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-zinc-900 transition-colors">Show Details</span>
+                                <span className="text-[10px] font-medium text-muted-foreground group-hover:text-zinc-900 dark:group-hover:text-zinc-900 transition-colors">Show Details</span>
                             </button>
                         </div>
                     </div>
@@ -826,56 +826,56 @@ export default function AckDetail({ onBack, onLogout, onNavigateToWorkspace, onN
                                 <span className="text-[10px] text-muted-foreground">ACK-7839_Steelcase.pdf</span>
                             </div>
                             <div className="flex-1 overflow-y-auto p-6 bg-zinc-100 dark:bg-zinc-950" style={{ scrollbarWidth: 'thin' }}>
-                                <div className="mx-auto bg-white dark:bg-zinc-800 rounded-lg shadow-lg border border-zinc-200 dark:border-zinc-700 p-8 font-mono text-xs leading-relaxed max-w-[560px]">
+                                <div className="mx-auto bg-card rounded-lg shadow-lg border border-border p-8 font-mono text-xs leading-relaxed max-w-[560px]">
                                     {/* Document header */}
-                                    <div className="flex justify-between items-start mb-6 pb-4 border-b border-zinc-200 dark:border-zinc-700">
+                                    <div className="flex justify-between items-start mb-6 pb-4 border-b border-border">
                                         <div>
-                                            <p className="text-lg font-bold text-zinc-900 dark:text-white font-sans">AIS — Affordable Interior Systems</p>
-                                            <p className="text-zinc-500 mt-1">Vendor Acknowledgement</p>
-                                            <p className="text-zinc-400 text-[10px] mt-1">555 Industrial Blvd, Lenexa, KS 66215</p>
+                                            <p className="text-lg font-bold text-foreground font-sans">AIS — Affordable Interior Systems</p>
+                                            <p className="text-muted-foreground mt-1">Vendor Acknowledgement</p>
+                                            <p className="text-muted-foreground text-[10px] mt-1">555 Industrial Blvd, Lenexa, KS 66215</p>
                                         </div>
                                         <div className="text-right">
-                                            <p className="font-bold text-zinc-900 dark:text-white">ACK-3099</p>
-                                            <p className="text-zinc-500">2025-09-16</p>
-                                            <p className="text-zinc-400 text-[10px] mt-1">Ref: ORD-2055</p>
+                                            <p className="font-bold text-foreground">ACK-3099</p>
+                                            <p className="text-muted-foreground">2025-09-16</p>
+                                            <p className="text-muted-foreground text-[10px] mt-1">Ref: ORD-2055</p>
                                         </div>
                                     </div>
 
                                     {/* Vendor & Billing */}
                                     <div className="mb-5">
-                                        <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2 font-sans">Vendor & Bill To</p>
+                                        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-2 font-sans">Vendor & Bill To</p>
                                         <div className="grid grid-cols-2 gap-4">
                                             <div className="space-y-1">
-                                                <div className="flex justify-between py-0.5"><span className="text-zinc-500">Vendor</span><span className="font-medium text-zinc-900 dark:text-white">AIS</span></div>
-                                                <div className="flex justify-between py-0.5"><span className="text-zinc-500">Sales Rep</span><span className="font-medium text-zinc-900 dark:text-white">Sarah Johnson</span></div>
+                                                <div className="flex justify-between py-0.5"><span className="text-muted-foreground">Vendor</span><span className="font-medium text-foreground">AIS</span></div>
+                                                <div className="flex justify-between py-0.5"><span className="text-muted-foreground">Sales Rep</span><span className="font-medium text-foreground">Sarah Johnson</span></div>
                                             </div>
                                             <div className="space-y-1">
-                                                <div className="flex justify-between py-0.5"><span className="text-zinc-500">Bill To</span><span className="font-medium text-zinc-900 dark:text-white">Strata Workplace</span></div>
-                                                <div className="flex justify-between py-0.5"><span className="text-zinc-500">SO #</span><span className="font-medium text-zinc-900 dark:text-white">SO 1151064-B</span></div>
+                                                <div className="flex justify-between py-0.5"><span className="text-muted-foreground">Bill To</span><span className="font-medium text-foreground">Strata Workplace</span></div>
+                                                <div className="flex justify-between py-0.5"><span className="text-muted-foreground">SO #</span><span className="font-medium text-foreground">SO 1151064-B</span></div>
                                             </div>
                                         </div>
                                     </div>
 
                                     {/* Line Items */}
                                     <div className="mb-5">
-                                        <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2 font-sans">Line Items</p>
+                                        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-2 font-sans">Line Items</p>
                                         <table className="w-full text-[11px]">
                                             <thead>
-                                                <tr className="border-b border-zinc-200 dark:border-zinc-700">
-                                                    <th className="text-left py-1.5 text-zinc-400 font-medium">Item</th>
-                                                    <th className="text-center py-1.5 text-zinc-400 font-medium">Qty</th>
-                                                    <th className="text-right py-1.5 text-zinc-400 font-medium">Price</th>
-                                                    <th className="text-right py-1.5 text-zinc-400 font-medium">Amount</th>
-                                                    <th className="text-center py-1.5 text-zinc-400 font-medium">Status</th>
+                                                <tr className="border-b border-border">
+                                                    <th className="text-left py-1.5 text-muted-foreground font-medium">Item</th>
+                                                    <th className="text-center py-1.5 text-muted-foreground font-medium">Qty</th>
+                                                    <th className="text-right py-1.5 text-muted-foreground font-medium">Price</th>
+                                                    <th className="text-right py-1.5 text-muted-foreground font-medium">Amount</th>
+                                                    <th className="text-center py-1.5 text-muted-foreground font-medium">Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {items.slice(0, 6).map((item) => (
                                                     <tr key={item.id} className="border-b border-zinc-100 dark:border-zinc-700/50">
-                                                        <td className="py-1.5 text-zinc-900 dark:text-white">{item.name}</td>
-                                                        <td className="py-1.5 text-center text-zinc-600 dark:text-zinc-300">{item.qtyOrd}</td>
-                                                        <td className="py-1.5 text-right text-zinc-600 dark:text-zinc-300">${item.netPrice.toFixed(2)}</td>
-                                                        <td className="py-1.5 text-right font-medium text-zinc-900 dark:text-white">${item.amount.toFixed(2)}</td>
+                                                        <td className="py-1.5 text-foreground">{item.name}</td>
+                                                        <td className="py-1.5 text-center text-muted-foreground dark:text-zinc-300">{item.qtyOrd}</td>
+                                                        <td className="py-1.5 text-right text-muted-foreground dark:text-zinc-300">${item.netPrice.toFixed(2)}</td>
+                                                        <td className="py-1.5 text-right font-medium text-foreground">${item.amount.toFixed(2)}</td>
                                                         <td className="py-1.5 text-center">
                                                             <span className={cn("text-[9px] font-bold px-1.5 py-0.5 rounded",
                                                                 item.status === 'Confirmed' ? 'bg-green-100 dark:bg-green-500/20 text-green-700 dark:text-green-400' :
@@ -890,20 +890,20 @@ export default function AckDetail({ onBack, onLogout, onNavigateToWorkspace, onN
 
                                     {/* Shipping & Totals */}
                                     <div className="mb-5">
-                                        <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2 font-sans">Shipping & Totals</p>
+                                        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-2 font-sans">Shipping & Totals</p>
                                         <div className="space-y-1">
-                                            <div className="flex justify-between py-0.5"><span className="text-zinc-500">Ship To</span><span className="font-medium text-zinc-900 dark:text-white">1200 Commerce Dr, Dallas TX</span></div>
-                                            <div className="flex justify-between py-0.5"><span className="text-zinc-500">Ship Via</span><span className="font-medium text-zinc-900 dark:text-white">AIS Fleet — White Glove</span></div>
-                                            <div className="flex justify-between py-0.5"><span className="text-zinc-500">Freight</span><span className="font-medium text-zinc-900 dark:text-white">Prepaid & Add</span></div>
-                                            <div className="flex justify-between py-1 mt-2 border-t border-zinc-200 dark:border-zinc-700">
-                                                <span className="font-bold text-zinc-900 dark:text-white">Total</span>
-                                                <span className="font-bold text-zinc-900 dark:text-white">$127,880.17</span>
+                                            <div className="flex justify-between py-0.5"><span className="text-muted-foreground">Ship To</span><span className="font-medium text-foreground">1200 Commerce Dr, Dallas TX</span></div>
+                                            <div className="flex justify-between py-0.5"><span className="text-muted-foreground">Ship Via</span><span className="font-medium text-foreground">AIS Fleet — White Glove</span></div>
+                                            <div className="flex justify-between py-0.5"><span className="text-muted-foreground">Freight</span><span className="font-medium text-foreground">Prepaid & Add</span></div>
+                                            <div className="flex justify-between py-1 mt-2 border-t border-border">
+                                                <span className="font-bold text-foreground">Total</span>
+                                                <span className="font-bold text-foreground">$127,880.17</span>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div className="pt-4 border-t border-zinc-200 dark:border-zinc-700 text-center">
-                                        <p className="text-zinc-400 text-[10px]">Processed by Smart Comparator OCR Engine · 98.2% confidence</p>
+                                    <div className="pt-4 border-t border-border text-center">
+                                        <p className="text-muted-foreground text-[10px]">Processed by Smart Comparator OCR Engine · 98.2% confidence</p>
                                     </div>
                                 </div>
                             </div>
@@ -995,17 +995,17 @@ export default function AckDetail({ onBack, onLogout, onNavigateToWorkspace, onN
 
                                         <div className="flex justify-between mb-8">
                                             <div>
-                                                <div className="text-xs font-bold text-zinc-500 mb-1 uppercase">VENDOR</div>
+                                                <div className="text-xs font-bold text-muted-foreground mb-1 uppercase">VENDOR</div>
                                                 <div className="font-bold">OfficeSupplies Co.</div>
                                                 <div className="text-sm">555 Supplier Lane</div>
                                             </div>
                                             <div className="text-right space-y-1">
                                                 <div className="flex justify-between w-48">
-                                                    <span className="text-sm font-bold text-zinc-500">PO #:</span>
+                                                    <span className="text-sm font-bold text-muted-foreground">PO #:</span>
                                                     <span className="text-sm font-bold">PO-2025-001</span>
                                                 </div>
                                                 <div className="flex justify-between w-48">
-                                                    <span className="text-sm font-bold text-zinc-500">DATE:</span>
+                                                    <span className="text-sm font-bold text-muted-foreground">DATE:</span>
                                                     <span className="text-sm">Jan 12, 2026</span>
                                                 </div>
                                             </div>
@@ -1021,7 +1021,7 @@ export default function AckDetail({ onBack, onLogout, onNavigateToWorkspace, onN
                                             <div className="flex p-2 border-b border-zinc-100">
                                                 <div className="flex-grow-[2]">
                                                     <div className="font-bold text-sm">{selectedItem.name}</div>
-                                                    <div className="text-xs text-zinc-500">{selectedItem.id}</div>
+                                                    <div className="text-xs text-muted-foreground">{selectedItem.id}</div>
                                                 </div>
                                                 <div className="flex-1 text-right text-sm">50</div>
                                                 <div className="flex-1 text-right text-sm">$45.00</div>
@@ -1032,7 +1032,7 @@ export default function AckDetail({ onBack, onLogout, onNavigateToWorkspace, onN
                                         <div className="flex justify-end">
                                             <div className="w-64">
                                                 <div className="flex justify-between mb-2">
-                                                    <span className="text-sm text-zinc-500">Subtotal:</span>
+                                                    <span className="text-sm text-muted-foreground">Subtotal:</span>
                                                     <span className="text-sm font-bold">$2,250.00</span>
                                                 </div>
                                                 <div className="flex justify-between items-center mt-2 pt-2 border-t border-zinc-100">

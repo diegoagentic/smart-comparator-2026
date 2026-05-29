@@ -117,7 +117,7 @@ export default function ERPSyncModal({ isOpen, onClose }: { isOpen: boolean; onC
                             <div className="relative bg-muted/30 p-6 text-center border-b border-border">
                                 <button
                                     onClick={onClose}
-                                    className="absolute top-4 right-4 p-2 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-700/50 text-zinc-400 transition-colors"
+                                    className="absolute top-4 right-4 p-2 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-700/50 text-muted-foreground transition-colors"
                                 >
                                     <XMarkIcon className="w-5 h-5" />
                                 </button>
@@ -137,14 +137,14 @@ export default function ERPSyncModal({ isOpen, onClose }: { isOpen: boolean; onC
                             <div className="p-6 flex-1 overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-zinc-200 dark:[&::-webkit-scrollbar-thumb]:bg-zinc-800 hover:[&::-webkit-scrollbar-thumb]:bg-zinc-300 dark:hover:[&::-webkit-scrollbar-thumb]:bg-zinc-700">
                                 {step === 'selection' && (
                                     <div className="space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-300">
-                                        <p className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2 px-1">Select System</p>
+                                        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2 px-1">Select System</p>
                                         {SYSTEMS.map((system) => (
                                             <button
                                                 key={system.id}
                                                 onClick={() => handleConnect(system)}
                                                 className={`w-full flex items-center gap-4 p-4 rounded-2xl border bg-card shadow-sm transition-all group text-left ${system.status === 'Connected'
                                                     ? 'border-green-200 dark:border-green-900/30 ring-1 ring-green-500/20'
-                                                    : 'border-zinc-200 dark:border-zinc-800 hover:border-indigo-300 dark:hover:border-indigo-700 hover:shadow-md'
+                                                    : 'border-border hover:border-indigo-300 dark:hover:border-indigo-700 hover:shadow-md'
                                                     }`}
                                             >
                                                 {/* Icon */}
@@ -168,11 +168,11 @@ export default function ERPSyncModal({ isOpen, onClose }: { isOpen: boolean; onC
                                                 </div>
 
                                                 {/* Arrow / Action */}
-                                                <div className="text-zinc-300 dark:text-zinc-600 group-hover:text-indigo-500 transition-colors">
+                                                <div className="text-zinc-300 dark:text-muted-foreground group-hover:text-indigo-500 transition-colors">
                                                     {system.status === 'Connected' ? (
                                                         <ArrowPathIcon className="w-5 h-5 hover:rotate-180 transition-transform duration-500" />
                                                     ) : (
-                                                        <div className="w-8 h-8 rounded-full border border-zinc-200 dark:border-zinc-700 flex items-center justify-center group-hover:border-indigo-500 group-hover:bg-indigo-50 dark:group-hover:bg-indigo-900/20">
+                                                        <div className="w-8 h-8 rounded-full border border-border flex items-center justify-center group-hover:border-indigo-500 group-hover:bg-indigo-50 dark:group-hover:bg-indigo-900/20">
                                                             <div className="w-2 h-2 rounded-full bg-current" />
                                                         </div>
                                                     )}
@@ -196,10 +196,10 @@ export default function ERPSyncModal({ isOpen, onClose }: { isOpen: boolean; onC
 
                                         <form onSubmit={handleLogin} className="space-y-4">
                                             <div className="space-y-1.5">
-                                                <label className="text-xs font-semibold text-zinc-500 uppercase tracking-wider ml-1">Client ID / URL</label>
+                                                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider ml-1">Client ID / URL</label>
                                                 <div className="relative">
                                                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                        <KeyIcon className="h-5 w-5 text-zinc-400" />
+                                                        <KeyIcon className="h-5 w-5 text-muted-foreground" />
                                                     </div>
                                                     <input
                                                         type="text"
@@ -211,10 +211,10 @@ export default function ERPSyncModal({ isOpen, onClose }: { isOpen: boolean; onC
                                             </div>
 
                                             <div className="space-y-1.5">
-                                                <label className="text-xs font-semibold text-zinc-500 uppercase tracking-wider ml-1">Username</label>
+                                                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider ml-1">Username</label>
                                                 <div className="relative">
                                                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                        <UserIcon className="h-5 w-5 text-zinc-400" />
+                                                        <UserIcon className="h-5 w-5 text-muted-foreground" />
                                                     </div>
                                                     <input
                                                         type="text"
@@ -225,10 +225,10 @@ export default function ERPSyncModal({ isOpen, onClose }: { isOpen: boolean; onC
                                             </div>
 
                                             <div className="space-y-1.5">
-                                                <label className="text-xs font-semibold text-zinc-500 uppercase tracking-wider ml-1">Password</label>
+                                                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider ml-1">Password</label>
                                                 <div className="relative">
                                                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                        <LockClosedIcon className="h-5 w-5 text-zinc-400" />
+                                                        <LockClosedIcon className="h-5 w-5 text-muted-foreground" />
                                                     </div>
                                                     <input
                                                         type="password"
@@ -306,7 +306,7 @@ export default function ERPSyncModal({ isOpen, onClose }: { isOpen: boolean; onC
                             {/* Footer for Trust */}
                             {step !== 'success' && (
                                 <div className="p-4 bg-muted/30 border-t border-border text-center">
-                                    <p className="text-xs text-zinc-400 flex items-center justify-center gap-1.5">
+                                    <p className="text-xs text-muted-foreground flex items-center justify-center gap-1.5">
                                         <ShieldCheckIcon className="w-3.5 h-3.5" />
                                         End-to-end encrypted connection
                                     </p>

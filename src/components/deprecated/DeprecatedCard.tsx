@@ -25,7 +25,7 @@ export default function DeprecatedCard({ doc, onPreview }: DeprecatedCardProps) 
                     <div className="flex items-center gap-2 min-w-0">
                         <div
                             title={`Archived document — ${reasonLabel}`}
-                            className="h-8 w-8 rounded-full flex items-center justify-center bg-zinc-200 dark:bg-zinc-700 text-zinc-500 dark:text-zinc-400 shrink-0"
+                            className="h-8 w-8 rounded-full flex items-center justify-center bg-zinc-200 dark:bg-zinc-700 text-muted-foreground shrink-0"
                         >
                             <DocumentTextIcon className="h-4 w-4" />
                         </div>

@@ -120,7 +120,7 @@ export default function Navbar({ onLogout, activeTab = 'Transactions', onNavigat
                                     className={`relative flex items-center justify-center h-9 px-3 rounded-full transition-all duration-300 group overflow-hidden ${
                                         isActive
                                             ? 'bg-primary text-primary-foreground'
-                                            : 'hover:bg-white/90 dark:hover:bg-zinc-800/90 text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:shadow-sm'
+                                            : 'hover:bg-white/90 dark:hover:bg-zinc-800/90 text-muted-foreground hover:text-foreground hover:shadow-sm'
                                     }`}
                                 >
                                     <span className="relative z-10"><Icon className="w-5 h-5" /></span>

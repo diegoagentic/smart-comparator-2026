@@ -301,7 +301,7 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                                             className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all flex items-center gap-2 outline-none whitespace-nowrap ${
                                                 activeTab === tab.id
                                                     ? 'bg-primary text-primary-foreground shadow-sm'
-                                                    : 'text-muted-foreground hover:bg-brand-300 dark:hover:bg-brand-600/50 hover:text-zinc-900 dark:hover:text-white'
+                                                    : 'text-muted-foreground hover:bg-brand-300 dark:hover:bg-brand-600/50 hover:text-foreground'
                                             }`}
                                         >
                                             {tab.label}
@@ -343,10 +343,10 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                                     />
                                 </div>
                                 <div className="flex items-center border border-border rounded-lg overflow-hidden">
-                                    <button onClick={() => setViewMode('list')} title="List view" aria-label="List view" className={`p-2 transition-colors ${viewMode === 'list' ? 'bg-zinc-100 dark:bg-zinc-800 text-foreground' : 'text-muted-foreground hover:bg-muted'}`}>
+                                    <button onClick={() => setViewMode('list')} title="List view" aria-label="List view" className={`p-2 transition-colors ${viewMode === 'list' ? 'bg-muted text-foreground' : 'text-muted-foreground hover:bg-muted'}`}>
                                         <List className="h-4 w-4" />
                                     </button>
-                                    <button onClick={() => setViewMode('kanban')} title="Board view" aria-label="Board view" className={`p-2 transition-colors ${viewMode === 'kanban' ? 'bg-zinc-100 dark:bg-zinc-800 text-foreground' : 'text-muted-foreground hover:bg-muted'}`}>
+                                    <button onClick={() => setViewMode('kanban')} title="Board view" aria-label="Board view" className={`p-2 transition-colors ${viewMode === 'kanban' ? 'bg-muted text-foreground' : 'text-muted-foreground hover:bg-muted'}`}>
                                         <LayoutGrid className="h-4 w-4" />
                                     </button>
                                 </div>
@@ -403,7 +403,7 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                                                                             doc.status === 'processed' ? 'bg-green-600 text-white' :
                                                                             doc.status === 'in_progress' ? 'bg-indigo-600 text-white' :
                                                                             doc.status === 'inconsistencies' ? 'bg-amber-600 text-white' :
-                                                                            doc.status === 'capturing' ? 'bg-violet-600 text-white' :
+                                                                            doc.status === 'capturing' ? 'bg-ai text-white' :
                                                                             'bg-blue-600 text-white'
                                                                         }`}>
                                                                         <Icon className={`h-4 w-4 ${doc.status === 'in_progress' ? 'animate-spin' : ''}`} />

@@ -58,7 +58,7 @@ const MessageBubble = ({ message }: { message: StreamMessage }) => {
 
     return (
         <div className={`flex gap-3 ${isUser ? 'flex-row-reverse' : 'flex-row'} mb-4`}>
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${isUser ? 'bg-zinc-200 dark:bg-zinc-800 text-zinc-600' : 'bg-gradient-to-br from-purple-500 to-indigo-500 text-white'
+            <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${isUser ? 'bg-zinc-200 dark:bg-zinc-800 text-muted-foreground' : 'bg-gradient-to-br from-purple-500 to-indigo-500 text-white'
                 }`}>
                 {isUser ? <UserIcon className="w-5 h-5" /> : <SparklesIcon className="w-5 h-5" />}
             </div>
@@ -66,7 +66,7 @@ const MessageBubble = ({ message }: { message: StreamMessage }) => {
             <div className={`flex flex-col max-w-[85%] ${isUser ? 'items-end' : 'items-start'}`}>
                 <div className={`px-4 py-2.5 rounded-2xl text-sm leading-relaxed shadow-sm ${isUser
                     ? 'bg-primary text-zinc-900 rounded-tr-none'
-                    : 'bg-white/50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 text-foreground rounded-tl-none'
+                    : 'bg-white/50 dark:bg-zinc-800/50 border border-border text-foreground rounded-tl-none'
                     }`}>
                     {renderContent(message.content)}
                 </div>
@@ -77,7 +77,7 @@ const MessageBubble = ({ message }: { message: StreamMessage }) => {
                     </div>
                 )}
 
-                <span className="text-[10px] text-zinc-400 mt-1 px-1">
+                <span className="text-[10px] text-muted-foreground mt-1 px-1">
                     {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </span>
             </div>
@@ -115,7 +115,7 @@ export default function StreamFeed() {
     };
 
     return (
-        <div className="fixed bottom-28 left-1/2 -translate-x-1/2 w-[95vw] max-w-6xl max-h-[70vh] bg-white/95 dark:bg-zinc-800/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-3xl shadow-2xl z-40 px-2 py-2 flex flex-col origin-bottom animate-in fade-in slide-in-from-bottom-4 duration-300">
+        <div className="fixed bottom-28 left-1/2 -translate-x-1/2 w-[95vw] max-w-6xl max-h-[70vh] bg-white/95 dark:bg-zinc-800/95 backdrop-blur-xl border border-border rounded-3xl shadow-2xl z-40 px-2 py-2 flex flex-col origin-bottom animate-in fade-in slide-in-from-bottom-4 duration-300">
             {/* Header / Title Bar */}
             <div className="px-4 py-2 border-b border-zinc-100 dark:border-zinc-800 flex items-center justify-between shrink-0">
                 <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
@@ -127,18 +127,18 @@ export default function StreamFeed() {
                         <button
                             onClick={clearStream}
                             title="New conversation"
-                            className="flex items-center gap-1 text-[10px] text-zinc-400 hover:text-red-500 dark:hover:text-red-400 transition-colors px-2 py-1 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/10"
+                            className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-red-500 dark:hover:text-red-400 transition-colors px-2 py-1 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/10"
                         >
                             <ArrowPathIcon className="w-3.5 h-3.5" />
                             New
                         </button>
                     )}
                     {showTriggers ? (
-                        <button onClick={() => setShowTriggers(false)} className="text-zinc-400 hover:text-foreground">
+                        <button onClick={() => setShowTriggers(false)} className="text-muted-foreground hover:text-foreground">
                             <XMarkIcon className="w-4 h-4" />
                         </button>
                     ) : (
-                        <button onClick={() => setShowTriggers(true)} className="text-[10px] text-zinc-400 hover:text-primary transition-colors cursor-pointer flex items-center gap-1">
+                        <button onClick={() => setShowTriggers(true)} className="text-[10px] text-muted-foreground hover:text-primary transition-colors cursor-pointer flex items-center gap-1">
                             History &amp; Actions
                         </button>
                     )}
@@ -159,7 +159,7 @@ export default function StreamFeed() {
                                 onClick={() => handleTriggerClick(trigger.prompt)}
                                 className={`w-full text-left p-3 rounded-xl transition-all flex items-center justify-between group border ${highlightedTrigger === trigger.id
                                     ? "bg-green-100 dark:bg-green-900/30 border-green-500 animate-[pulse_1.5s_ease-in-out_infinite] relative z-50 shadow-lg glow"
-                                    : "border-transparent hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:border-zinc-200 dark:hover:border-zinc-700"
+                                    : "border-transparent hover:bg-muted hover:border-zinc-200 dark:hover:border-zinc-700"
                                     }`}
                             >
                                 <div>

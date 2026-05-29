@@ -78,10 +78,10 @@ export default function ChangeStatusModal({ isOpen, onClose, selectedCount, onCo
                         <Dialog.Panel className="w-full max-w-md bg-card rounded-2xl shadow-xl border border-border overflow-hidden">
                             <div className="flex items-center justify-between p-4 border-b border-border">
                                 <Dialog.Title className="text-lg font-semibold text-foreground flex items-center gap-2">
-                                    <ArrowPathIcon className="w-5 h-5 text-zinc-500" />
+                                    <ArrowPathIcon className="w-5 h-5 text-muted-foreground" />
                                     Change Status
                                 </Dialog.Title>
-                                <button onClick={onClose} className="p-1 rounded-full hover:bg-muted text-zinc-500 transition-colors" title="Close">
+                                <button onClick={onClose} className="p-1 rounded-full hover:bg-muted text-muted-foreground transition-colors" title="Close">
                                     <XMarkIcon className="w-5 h-5" />
                                 </button>
                             </div>
@@ -103,7 +103,7 @@ export default function ChangeStatusModal({ isOpen, onClose, selectedCount, onCo
                                                 <option key={opt} value={opt}>{opt}</option>
                                             ))}
                                         </select>
-                                        <TagIcon className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                                        <TagIcon className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                                     </div>
                                 </div>
 

@@ -46,10 +46,10 @@ export default function CommandCenter() {
                 isHighlighted && "ring-4 ring-purple-500 ring-offset-4 ring-offset-background shadow-[0_0_30px_rgba(168,85,247,0.6)] animate-pulse"
             )}>
                 <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-                <div className="relative flex items-center bg-white dark:bg-zinc-800 rounded-2xl shadow-xl border border-zinc-200 dark:border-zinc-800 p-2 gap-1">
+                <div className="relative flex items-center bg-card rounded-2xl shadow-xl border border-border p-2 gap-1">
                     <button
                         onClick={toggleStream}
-                        className={`p-2 rounded-xl text-zinc-400 hover:text-zinc-900 hover:bg-brand-300 dark:hover:bg-brand-600/50 dark:hover:text-white transition-all ${isStreamOpen ? 'bg-brand-300 dark:bg-brand-600/50 text-zinc-900 dark:text-white' : ''}`}
+                        className={`p-2 rounded-xl text-muted-foreground hover:text-zinc-900 hover:bg-brand-300 dark:hover:bg-brand-600/50 dark:hover:text-white transition-all ${isStreamOpen ? 'bg-brand-300 dark:bg-brand-600/50 text-foreground' : ''}`}
                         title={isStreamOpen ? "Hide Stream" : "Show Stream"}
                     >
                         <ChevronUpIcon className={`w-5 h-5 transition-transform duration-300 ${isStreamOpen ? 'rotate-180' : ''}`} />
@@ -60,7 +60,7 @@ export default function CommandCenter() {
                             openStreamFresh();
                             setShowTriggers(true);
                         }}
-                        className={`p-2 rounded-xl text-zinc-400 hover:text-zinc-900 hover:bg-brand-300 dark:hover:bg-brand-600/50 dark:hover:text-white transition-all ${showTriggers ? 'bg-brand-300 dark:bg-brand-600/50 text-zinc-900 dark:text-white' : ''}`}
+                        className={`p-2 rounded-xl text-muted-foreground hover:text-zinc-900 hover:bg-brand-300 dark:hover:bg-brand-600/50 dark:hover:text-white transition-all ${showTriggers ? 'bg-brand-300 dark:bg-brand-600/50 text-foreground' : ''}`}
                         title="History & Triggers"
                     >
                         <ClockIcon className="w-5 h-5" />
@@ -86,7 +86,7 @@ export default function CommandCenter() {
                         disabled={!input.trim() || isGenerating}
                         className={`p-3 rounded-xl transition-all ${input.trim() && !isGenerating
                             ? 'bg-primary text-zinc-900 hover:scale-105 shadow-md'
-                            : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-400 cursor-not-allowed'
+                            : 'bg-muted text-muted-foreground cursor-not-allowed'
                             }`}
                     >
                         <PaperAirplaneIcon className="w-5 h-5" />

@@ -97,7 +97,7 @@ export default function TrackingModal({ isOpen, onClose, title, trackingId, type
                                             onClick={onClose}
                                             className="rounded-full p-1 hover:bg-muted/80 transition-colors"
                                         >
-                                            <XMarkIcon className="w-5 h-5 text-zinc-500" />
+                                            <XMarkIcon className="w-5 h-5 text-muted-foreground" />
                                         </button>
                                     </div>
                                 </div>
@@ -142,7 +142,7 @@ export default function TrackingModal({ isOpen, onClose, title, trackingId, type
                                                     "absolute left-0 sm:left-4 -ml-px h-8 w-8 rounded-full flex items-center justify-center border-2 z-10 bg-card",
                                                     step.status === 'completed' ? "border-green-500 text-green-500" :
                                                         step.status === 'current' ? "border-blue-500 text-blue-500 animate-pulse" :
-                                                            "border-zinc-300 dark:border-zinc-600 text-zinc-300 dark:text-zinc-600"
+                                                            "border-border text-zinc-300 dark:text-muted-foreground"
                                                 )}>
                                                     {step.status === 'completed' ? <CheckCircleIcon className="w-5 h-5" /> :
                                                         step.status === 'current' ? <div className="w-2.5 h-2.5 rounded-full bg-blue-500" /> :
@@ -172,7 +172,7 @@ export default function TrackingModal({ isOpen, onClose, title, trackingId, type
 
                                                     {/* Meta Info (Location/Actor) */}
                                                     {(step.location || step.actor) && (
-                                                        <div className="flex flex-wrap gap-3 mt-2 text-xs text-zinc-500 dark:text-zinc-400">
+                                                        <div className="flex flex-wrap gap-3 mt-2 text-xs text-muted-foreground">
                                                             {step.actor && (
                                                                 <span className="flex items-center gap-1">
                                                                     <UserIcon className="w-3.5 h-3.5" />
@@ -219,7 +219,7 @@ export default function TrackingModal({ isOpen, onClose, title, trackingId, type
                                                             {activeCommentStep === step.id ? (
                                                                 <div className="bg-card p-3 rounded-lg border border-border shadow-lg animate-in fade-in zoom-in-95 duration-200">
                                                                     <textarea
-                                                                        className="w-full text-sm bg-transparent border-none focus:ring-0 p-0 placeholder:text-zinc-400 text-foreground resize-none"
+                                                                        className="w-full text-sm bg-transparent border-none focus:ring-0 p-0 placeholder:text-muted-foreground text-foreground resize-none"
                                                                         placeholder="Add a comment or note..."
                                                                         rows={2}
                                                                         autoFocus
@@ -227,7 +227,7 @@ export default function TrackingModal({ isOpen, onClose, title, trackingId, type
                                                                     <div className="flex justify-end gap-2 mt-2">
                                                                         <button
                                                                             onClick={() => setActiveCommentStep(null)}
-                                                                            className="text-xs px-2 py-1 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200"
+                                                                            className="text-xs px-2 py-1 text-muted-foreground hover:text-muted-foreground dark:text-muted-foreground dark:hover:text-zinc-200"
                                                                         >
                                                                             Cancel
                                                                         </button>

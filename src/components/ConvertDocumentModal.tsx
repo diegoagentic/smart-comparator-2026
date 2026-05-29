@@ -76,40 +76,40 @@ export default function ConvertDocumentModal({ isOpen, onClose, document, onConv
                 <div className="fixed inset-0 overflow-y-auto">
                     <div className="flex min-h-full items-center justify-center p-4">
                         <TransitionChild as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0 scale-95" enterTo="opacity-100 scale-100" leave="ease-in duration-200" leaveFrom="opacity-100 scale-100" leaveTo="opacity-0 scale-95">
-                            <DialogPanel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white dark:bg-zinc-900 text-left shadow-2xl transition-all border border-zinc-200 dark:border-zinc-800">
+                            <DialogPanel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-card text-left shadow-2xl transition-all border border-border">
 
                                 {/* Step 1: Confirm */}
                                 {step === 'confirm' && (
                                     <div className="p-6">
                                         <div className="flex justify-between items-start mb-6">
                                             <div>
-                                                <DialogTitle className="text-lg font-bold text-zinc-900 dark:text-white">Move to Transactions</DialogTitle>
-                                                <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">This document will be created as a {typeLabel} in Transactions.</p>
+                                                <DialogTitle className="text-lg font-bold text-foreground">Move to Transactions</DialogTitle>
+                                                <p className="text-sm text-muted-foreground mt-1">This document will be created as a {typeLabel} in Transactions.</p>
                                             </div>
-                                            <button onClick={onClose} className="p-1.5 rounded-lg text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800" title="Close">
+                                            <button onClick={onClose} className="p-1.5 rounded-lg text-muted-foreground hover:text-muted-foreground dark:hover:text-zinc-300 hover:bg-muted" title="Close">
                                                 <X className="h-5 w-5" />
                                             </button>
                                         </div>
 
                                         {/* Document Info */}
-                                        <div className="bg-zinc-50 dark:bg-zinc-800 rounded-xl p-4 mb-5">
+                                        <div className="bg-muted dark:bg-zinc-800 rounded-xl p-4 mb-5">
                                             <div className="flex items-center gap-3 mb-3">
-                                                <FileText className="h-5 w-5 text-zinc-400" />
+                                                <FileText className="h-5 w-5 text-muted-foreground" />
                                                 <div>
-                                                    <p className="text-sm font-medium text-zinc-900 dark:text-white">{document?.name}</p>
-                                                    <p className="text-xs text-zinc-500">{document?.vendor}</p>
+                                                    <p className="text-sm font-medium text-foreground">{document?.name}</p>
+                                                    <p className="text-xs text-muted-foreground">{document?.vendor}</p>
                                                 </div>
                                             </div>
                                             <div className="grid grid-cols-2 gap-2 text-xs">
-                                                <div><span className="text-zinc-500">Type:</span> <span className="text-zinc-900 dark:text-white font-medium">{typeLabel}</span></div>
-                                                <div><span className="text-zinc-500">Source:</span> <span className="text-zinc-900 dark:text-white font-medium">{document?.type}</span></div>
+                                                <div><span className="text-muted-foreground">Type:</span> <span className="text-foreground font-medium">{typeLabel}</span></div>
+                                                <div><span className="text-muted-foreground">Source:</span> <span className="text-foreground font-medium">{document?.type}</span></div>
                                             </div>
                                         </div>
 
                                         {/* AI Note */}
                                         <div className="bg-ai-light dark:bg-ai/10 border border-ai/20 rounded-xl p-3 mb-6 flex items-start gap-2">
                                             <Sparkles className="h-4 w-4 text-ai mt-0.5 shrink-0" />
-                                            <p className="text-xs text-zinc-600 dark:text-zinc-400">
+                                            <p className="text-xs text-muted-foreground">
                                                 AI detected this as {document?.type === 'Acknowledgment' ? 'an Acknowledgment' : 'a Purchase Order'} and will create the corresponding record with all extracted fields.
                                             </p>
                                         </div>
@@ -131,10 +131,10 @@ export default function ConvertDocumentModal({ isOpen, onClose, document, onConv
                                             <div className="w-16 h-16 rounded-2xl bg-ai/10 flex items-center justify-center mx-auto mb-4">
                                                 <Sparkles className={`h-8 w-8 text-ai ${!processingComplete ? 'animate-pulse' : ''}`} />
                                             </div>
-                                            <h3 className="text-lg font-bold text-zinc-900 dark:text-white">
+                                            <h3 className="text-lg font-bold text-foreground">
                                                 {processingComplete ? 'Transfer Complete' : 'Moving to Transactions...'}
                                             </h3>
-                                            <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
+                                            <p className="text-sm text-muted-foreground mt-1">
                                                 {processingComplete ? `${typeLabel} created successfully` : 'Processing document data'}
                                             </p>
                                         </div>
@@ -149,16 +149,16 @@ export default function ConvertDocumentModal({ isOpen, onClose, document, onConv
                                                     ) : i === processingIdx ? (
                                                         <Loader2 className="h-4 w-4 text-ai shrink-0 animate-spin" />
                                                     ) : (
-                                                        <div className="h-4 w-4 rounded-full border border-zinc-300 dark:border-zinc-600 shrink-0" />
+                                                        <div className="h-4 w-4 rounded-full border border-border shrink-0" />
                                                     )}
                                                     <span className={`text-xs font-medium ${
-                                                        i < processingIdx ? 'text-success' : i === processingIdx ? 'text-ai' : 'text-zinc-400'
+                                                        i < processingIdx ? 'text-success' : i === processingIdx ? 'text-ai' : 'text-muted-foreground'
                                                     }`}>{ps.label}</span>
                                                 </div>
                                             ))}
                                         </div>
 
-                                        <div className="h-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                                        <div className="h-1.5 bg-muted rounded-full overflow-hidden">
                                             <div className="h-full bg-ai rounded-full transition-all duration-300"
                                                 style={{ width: `${(processingIdx / PROCESSING_STEPS.length) * 100}%` }} />
                                         </div>
@@ -172,24 +172,24 @@ export default function ConvertDocumentModal({ isOpen, onClose, document, onConv
                                             <div className="w-16 h-16 rounded-2xl bg-success/10 flex items-center justify-center mx-auto mb-4">
                                                 <CheckCircle2 className="h-8 w-8 text-success" />
                                             </div>
-                                            <h3 className="text-lg font-bold text-zinc-900 dark:text-white">{typeLabel} Created</h3>
-                                            <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Document is now available in Transactions</p>
+                                            <h3 className="text-lg font-bold text-foreground">{typeLabel} Created</h3>
+                                            <p className="text-sm text-muted-foreground mt-1">Document is now available in Transactions</p>
                                         </div>
 
-                                        <div className="bg-zinc-50 dark:bg-zinc-800 rounded-xl p-4 mb-6 border border-zinc-200 dark:border-zinc-700">
+                                        <div className="bg-muted dark:bg-zinc-800 rounded-xl p-4 mb-6 border border-border">
                                             <div className="flex items-center gap-3 mb-3">
                                                 <div className="h-10 w-10 rounded-xl bg-brand-300 dark:bg-brand-500 text-zinc-900 flex items-center justify-center">
                                                     <FileText className="h-5 w-5" />
                                                 </div>
                                                 <div>
-                                                    <p className="text-sm font-bold text-zinc-900 dark:text-white">{generatedId}</p>
-                                                    <p className="text-xs text-zinc-500">{document?.vendor}</p>
+                                                    <p className="text-sm font-bold text-foreground">{generatedId}</p>
+                                                    <p className="text-xs text-muted-foreground">{document?.vendor}</p>
                                                 </div>
                                                 <span className="ml-auto text-[10px] font-bold px-2 py-1 rounded-full bg-success-light text-success">Active</span>
                                             </div>
                                             <div className="grid grid-cols-2 gap-2 text-xs">
-                                                <div><span className="text-zinc-500">Source:</span> <span className="text-zinc-900 dark:text-white font-medium">{document?.name}</span></div>
-                                                <div><span className="text-zinc-500">Type:</span> <span className="text-zinc-900 dark:text-white font-medium">{typeLabel}</span></div>
+                                                <div><span className="text-muted-foreground">Source:</span> <span className="text-foreground font-medium">{document?.name}</span></div>
+                                                <div><span className="text-muted-foreground">Type:</span> <span className="text-foreground font-medium">{typeLabel}</span></div>
                                             </div>
                                         </div>
 

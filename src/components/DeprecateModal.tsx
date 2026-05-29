@@ -35,19 +35,19 @@ export default function DeprecateModal({ isOpen, onClose, onConfirm, vendorName 
             />
             
             {/* Modal Container */}
-            <div className="relative w-full max-w-[440px] bg-white dark:bg-zinc-900 rounded-[32px] shadow-2xl overflow-hidden animate-in zoom-in-95 fade-in duration-300">
+            <div className="relative w-full max-w-[440px] bg-card rounded-[32px] shadow-2xl overflow-hidden animate-in zoom-in-95 fade-in duration-300">
                 <div className="p-8">
                     {/* Header */}
                     <div className="text-center space-y-2 mb-8">
-                        <h2 className="text-xl font-bold text-zinc-900 dark:text-white">Deprecate Document?</h2>
-                        <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                        <h2 className="text-xl font-bold text-foreground">Deprecate Document?</h2>
+                        <p className="text-sm text-muted-foreground">
                             Are you sure you want to send “{vendorName}” to the deprecated section?
                         </p>
                     </div>
 
                     {/* Reasons Section */}
                     <div className="space-y-4">
-                        <h3 className="text-sm font-bold text-zinc-900 dark:text-white">Select a Reason for Deprecation</h3>
+                        <h3 className="text-sm font-bold text-foreground">Select a Reason for Deprecation</h3>
                         
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                             {DEPRECATION_REASONS.map((reason) => (
@@ -58,7 +58,7 @@ export default function DeprecateModal({ isOpen, onClose, onConfirm, vendorName 
                                         "flex items-center gap-2.5 px-4 py-2.5 rounded-xl border text-sm transition-all duration-200 text-left",
                                         selectedReason === reason
                                             ? "border-zinc-900 bg-zinc-900 text-white dark:border-white dark:bg-white dark:text-zinc-900 shadow-md"
-                                            : "border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:border-zinc-700"
+                                            : "border-zinc-200 bg-white text-muted-foreground hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900 dark:text-muted-foreground dark:hover:border-zinc-700"
                                     )}
                                 >
                                     <div className={cn(
@@ -68,7 +68,7 @@ export default function DeprecateModal({ isOpen, onClose, onConfirm, vendorName 
                                             : "border-zinc-300 dark:border-zinc-700"
                                     )}>
                                         {selectedReason === reason && (
-                                            <div className="h-2 w-2 rounded-full bg-white dark:bg-zinc-900" />
+                                            <div className="h-2 w-2 rounded-full bg-card" />
                                         )}
                                     </div>
                                     <span className="font-medium truncate">{reason}</span>
@@ -81,7 +81,7 @@ export default function DeprecateModal({ isOpen, onClose, onConfirm, vendorName 
                     <div className="flex gap-3 mt-10">
                         <button
                             onClick={onClose}
-                            className="flex-1 px-4 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 text-sm font-bold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
+                            className="flex-1 px-4 py-3.5 rounded-2xl border border-border text-sm font-bold text-muted-foreground hover:bg-muted dark:hover:bg-zinc-800 transition-colors"
                         >
                             Cancel
                         </button>
@@ -92,7 +92,7 @@ export default function DeprecateModal({ isOpen, onClose, onConfirm, vendorName 
                                 "flex-1 px-4 py-3.5 rounded-2xl text-sm font-bold transition-all shadow-sm active:scale-[0.98]",
                                 selectedReason
                                     ? "bg-[#E6F993] hover:bg-[#d6f22e] text-zinc-900"
-                                    : "bg-zinc-100 text-zinc-400 cursor-not-allowed dark:bg-zinc-800 dark:text-zinc-600"
+                                    : "bg-zinc-100 text-muted-foreground cursor-not-allowed dark:bg-zinc-800 dark:text-muted-foreground"
                             )}
                         >
                             Confirm
