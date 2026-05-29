@@ -32,7 +32,7 @@ const TONE: Record<string, any> = {
   ai_uncertain:   { pill: "bg-amber-100 text-amber-700",       dot: "bg-amber-500",  label: "Review",         ring: "ring-amber-200/60" },
   partial:        { pill: "bg-amber-100 text-amber-700",       dot: "bg-amber-500",  label: "Partial match",  ring: "ring-amber-200/60" },
   unresolved:     { pill: "bg-red-100 text-red-700",           dot: "bg-red-500",    label: "Needs choice",   ring: "ring-red-200/60" },
-  unmapped:       { pill: "bg-zinc-100 text-zinc-600",         dot: "bg-zinc-400",   label: "Not sent",       ring: "ring-zinc-200/60" },
+  unmapped:       { pill: "bg-zinc-100 text-muted-foreground",         dot: "bg-zinc-400",   label: "Not sent",       ring: "ring-zinc-200/60" },
   coercion_error: { pill: "bg-orange-100 text-orange-600",     dot: "bg-orange-500", label: "Fix Value",      ring: "ring-red-200/60" },
 };
 
@@ -315,7 +315,7 @@ function FieldBody({ field, state, setState, effective }: any) {
     <div className="grid grid-cols-2 gap-4 mt-1">
       <div>
         <p className="text-[13px] font-medium text-zinc-900 mb-2">Original Value</p>
-        <div className="bg-[#F1F3F5] border border-zinc-200 rounded-lg px-3 py-2 text-[14px] text-zinc-500">
+        <div className="bg-[#F1F3F5] border border-zinc-200 rounded-lg px-3 py-2 text-[14px] text-muted-foreground">
           {String(input || "—")}
         </div>
       </div>
@@ -365,10 +365,10 @@ function FieldBody({ field, state, setState, effective }: any) {
                             <option key={kv.id} value={kv.label}>{kv.label}</option>
                         ))}
                     </select>
-                    <Icon.Chevron className="absolute right-3 top-2.5 size-4 text-zinc-400 pointer-events-none" />
+                    <Icon.Chevron className="absolute right-3 top-2.5 size-4 text-muted-foreground pointer-events-none" />
                 </div>
                 <div className="flex items-center justify-end gap-4 mt-3">
-                    <button onClick={() => { setPicking(false); setPickedValue(null); }} className="text-zinc-500 hover:text-zinc-700 text-[13px] font-semibold transition-colors">Cancel</button>
+                    <button onClick={() => { setPicking(false); setPickedValue(null); }} className="text-muted-foreground hover:text-muted-foreground text-[13px] font-semibold transition-colors">Cancel</button>
                     {pickedValue && (
                         <button onClick={() => {
                             setState({ overrideValue: pickedValue, locked: true, effectiveResolution: "resolved" });
@@ -385,14 +385,14 @@ function FieldBody({ field, state, setState, effective }: any) {
       return renderTwoColumns(field.inputValue, (
         <div>
             <div className="flex items-center justify-between border border-zinc-200 rounded-lg px-3 py-2 text-[14px] bg-white">
-                <span className="text-zinc-500 italic">Possible match: <span className="font-bold text-zinc-900 not-italic">{label}</span></span>
+                <span className="text-muted-foreground italic">Possible match: <span className="font-bold text-zinc-900 not-italic">{label}</span></span>
                 <span className="text-[#718B03] font-medium flex items-center gap-1 text-[12px]">
                     <Icon.Sparkle className="size-3.5" />
                     {Math.round(field.aiConfidence * 100)}% Confidence
                 </span>
             </div>
             <div className="flex items-center justify-end gap-3 mt-3">
-                <button onClick={() => setPicking(true)} className="border border-zinc-200 text-zinc-600 hover:bg-zinc-50 px-4 py-1.5 rounded-md text-[13px] font-semibold transition-colors">Pick another</button>
+                <button onClick={() => setPicking(true)} className="border border-zinc-200 text-muted-foreground hover:bg-muted px-4 py-1.5 rounded-md text-[13px] font-semibold transition-colors">Pick another</button>
                 <button onClick={() => setState({ overrideValue: label, locked: true, effectiveResolution: "resolved" })} className="bg-[#0f8b18] hover:bg-green-800 text-white px-4 py-1.5 rounded-md text-[13px] font-semibold flex items-center gap-1.5 transition-colors">
                     <Icon.Check className="size-3.5" /> Accept
                 </button>
@@ -419,7 +419,7 @@ function FieldBody({ field, state, setState, effective }: any) {
                             <option key={kv.id} value={kv.label}>{kv.label}</option>
                         ))}
                     </select>
-                    <Icon.Chevron className="absolute right-3 top-2.5 size-4 text-zinc-400 pointer-events-none" />
+                    <Icon.Chevron className="absolute right-3 top-2.5 size-4 text-muted-foreground pointer-events-none" />
                   </>
                 ) : (
                   <>
@@ -427,7 +427,7 @@ function FieldBody({ field, state, setState, effective }: any) {
                         autoFocus
                         type={field.targetDataType === 'Date' ? 'date' : 'text'}
                         value={manualVal}
-                        className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-[14px] focus:outline-none focus:border-zinc-300 text-zinc-900 placeholder:italic placeholder:text-zinc-500"
+                        className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-[14px] focus:outline-none focus:border-zinc-300 text-zinc-900 placeholder:italic placeholder:text-muted-foreground"
                         placeholder={field.targetDataType === 'Currency' || field.targetDataType === 'Number' ? 'Enter numeric value' : 'Fix the value to continue...'}
                         onChange={(e) => setManualVal(e.target.value)}
                         onKeyDown={(e) => {
@@ -442,7 +442,7 @@ function FieldBody({ field, state, setState, effective }: any) {
             <div className="flex items-center justify-end gap-4 mt-3">
                 <button 
                   onClick={() => { if (field.knownValues?.length) setPicking(true); else setManualVal(""); }}
-                  className="border border-zinc-200 text-zinc-600 hover:bg-zinc-50 px-4 py-1.5 rounded-md text-[13px] font-semibold transition-colors"
+                  className="border border-zinc-200 text-muted-foreground hover:bg-muted px-4 py-1.5 rounded-md text-[13px] font-semibold transition-colors"
                 >
                   {field.knownValues?.length ? "Pick another" : "Cancel"}
                 </button>
@@ -462,14 +462,14 @@ function FieldBody({ field, state, setState, effective }: any) {
 
     case "unmapped":
       return (
-        <div className="rounded-xl border border-dashed border-zinc-300 bg-white p-3 text-[12.5px] text-zinc-500 mt-2 flex gap-3 items-start">
-          <Icon.Ban className="size-4 text-zinc-400 shrink-0 mt-0.5" />
+        <div className="rounded-xl border border-dashed border-zinc-300 bg-white p-3 text-[12.5px] text-muted-foreground mt-2 flex gap-3 items-start">
+          <Icon.Ban className="size-4 text-muted-foreground shrink-0 mt-0.5" />
           <div>This value won't be stored on the record. Input was "{field.inputValue}".</div>
         </div>
       );
 
     default:
-      return <div className="text-[14px] text-zinc-500 italic mt-1">Unmapped</div>;
+      return <div className="text-[14px] text-muted-foreground italic mt-1">Unmapped</div>;
   }
 }
 
@@ -502,13 +502,13 @@ function CollectionItem({ item, stateKey, setFS }: { item: any; stateKey?: strin
        <div className="flex-1 p-4">
           <div className="grid grid-cols-2 gap-8">
              <div>
-                <p className="text-[11px] font-bold text-zinc-500 uppercase tracking-wider mb-2">Original Value</p>
-                <div className="bg-zinc-100/80 border border-zinc-100 rounded-lg px-3 py-2.5 text-[14px] text-zinc-500 font-medium">
+                <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider mb-2">Original Value</p>
+                <div className="bg-zinc-100/80 border border-zinc-100 rounded-lg px-3 py-2.5 text-[14px] text-muted-foreground font-medium">
                    {item.original}
                 </div>
              </div>
              <div>
-                <p className="text-[11px] font-bold text-zinc-500 uppercase tracking-wider mb-2">Fixed Value</p>
+                <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider mb-2">Fixed Value</p>
                 
                 {picking && (
                    <div className="space-y-3">
@@ -535,10 +535,10 @@ function CollectionItem({ item, stateKey, setFS }: { item: any; stateKey?: strin
                                </option>
                             )}
                          </select>
-                         <Icon.Chevron className="absolute right-3 top-2.5 size-4 text-zinc-400 pointer-events-none" />
+                         <Icon.Chevron className="absolute right-3 top-2.5 size-4 text-muted-foreground pointer-events-none" />
                       </div>
                       <div className="flex items-center justify-end gap-3">
-                         <button onClick={() => setPicking(false)} className="text-zinc-500 hover:text-zinc-700 text-[13px] font-semibold">Cancel</button>
+                         <button onClick={() => setPicking(false)} className="text-muted-foreground hover:text-muted-foreground text-[13px] font-semibold">Cancel</button>
                          <button 
                             disabled={!localChoice}
                             onClick={() => {
@@ -558,27 +558,27 @@ function CollectionItem({ item, stateKey, setFS }: { item: any; stateKey?: strin
                 {isPicked && (
                    <div className="flex items-center justify-between h-10">
                       <div className="flex items-center gap-2">
-                         <span className="text-[12px] text-zinc-400 italic">Matched to:</span>
+                         <span className="text-[12px] text-muted-foreground italic">Matched to:</span>
                          <span className="text-[14px] font-bold text-zinc-900">{pickedValue}</span>
                       </div>
                       <div className="flex items-center gap-3">
                          <button onClick={() => setPicking(true)} className="text-[12px] font-bold text-zinc-900 hover:underline">Change</button>
-                         <button onClick={() => setPickedValue("")} className="text-[12px] font-bold text-zinc-500 hover:underline">Undo</button>
+                         <button onClick={() => setPickedValue("")} className="text-[12px] font-bold text-muted-foreground hover:underline">Undo</button>
                       </div>
                    </div>
                 )}
 
                 {isDropped && (
                    <div className="flex items-center justify-between h-10">
-                      <span className="text-[13px] font-medium text-zinc-400 italic">Won't be saved</span>
-                      <button onClick={() => setDropped(false)} className="text-[12px] font-bold text-zinc-500 hover:underline">Undo</button>
+                      <span className="text-[13px] font-medium text-muted-foreground italic">Won't be saved</span>
+                      <button onClick={() => setDropped(false)} className="text-[12px] font-bold text-muted-foreground hover:underline">Undo</button>
                    </div>
                 )}
 
                 {isResolved && !pickedValue && !picking && (
                    <div className="flex items-center justify-between h-10">
                       <div className="flex items-center gap-2">
-                         <span className="text-[12px] text-zinc-400 italic">Matched to:</span>
+                         <span className="text-[12px] text-muted-foreground italic">Matched to:</span>
                          <span className="text-[14px] font-bold text-zinc-900">{item.fixed}</span>
                       </div>
                       <div className="flex items-center gap-3">
@@ -593,13 +593,13 @@ function CollectionItem({ item, stateKey, setFS }: { item: any; stateKey?: strin
                 {isUnresolved && (
                    <div className="space-y-3">
                       <div className="flex items-center justify-between border border-zinc-200 rounded-lg px-3 py-2 text-[14px] bg-white">
-                         <span className="text-zinc-400 italic">Possible match: <span className="font-bold text-zinc-900 not-italic">—</span></span>
+                         <span className="text-muted-foreground italic">Possible match: <span className="font-bold text-zinc-900 not-italic">—</span></span>
                          <span className="text-amber-500 font-bold flex items-center gap-1 text-[11px]">
                             <Icon.Warn className="size-3.5" /> No match found
                          </span>
                       </div>
                       <div className="flex items-center justify-end gap-2">
-                         <button onClick={() => setDropped(true)} className="border border-zinc-200 text-zinc-600 hover:bg-zinc-50 px-4 py-1.5 rounded-md text-[12px] font-bold transition-colors">Drop Value</button>
+                         <button onClick={() => setDropped(true)} className="border border-zinc-200 text-muted-foreground hover:bg-muted px-4 py-1.5 rounded-md text-[12px] font-bold transition-colors">Drop Value</button>
                          <button onClick={() => setPicking(true)} className="bg-green-700 hover:bg-green-800 text-white px-4 py-1.5 rounded-md text-[12px] font-bold transition-colors">Pick from list</button>
                       </div>
                    </div>
@@ -608,14 +608,14 @@ function CollectionItem({ item, stateKey, setFS }: { item: any; stateKey?: strin
                 {isSuggested && (
                    <div className="space-y-3">
                       <div className="flex items-center justify-between border border-zinc-200 rounded-lg px-3 py-2 text-[14px] bg-white">
-                         <span className="text-zinc-400 italic">AI Suggestion: <span className="font-bold text-zinc-900 not-italic">{item.fixed}</span></span>
+                         <span className="text-muted-foreground italic">AI Suggestion: <span className="font-bold text-zinc-900 not-italic">{item.fixed}</span></span>
                          <span className="text-indigo-500 font-bold flex items-center gap-1 text-[11px]">
                             <Icon.Sparkle className="size-3.5" /> {Math.round(item.confidence * 100)}% Confidence
                          </span>
                       </div>
                       <div className="flex items-center justify-end gap-2">
                          <button onClick={() => setRejected(true)} className="border border-red-200 text-red-600 hover:bg-red-50 px-4 py-1.5 rounded-md text-[12px] font-bold transition-colors">Reject</button>
-                         <button onClick={() => setPicking(true)} className="border border-zinc-200 text-zinc-600 hover:bg-zinc-50 px-4 py-1.5 rounded-md text-[12px] font-bold transition-colors">Change</button>
+                         <button onClick={() => setPicking(true)} className="border border-zinc-200 text-muted-foreground hover:bg-muted px-4 py-1.5 rounded-md text-[12px] font-bold transition-colors">Change</button>
                          <button onClick={() => setPickedValue(item.fixed)} className="bg-green-700 hover:bg-green-800 text-white px-4 py-1.5 rounded-md text-[12px] font-bold flex items-center gap-1.5 transition-colors">
                             <Icon.Check className="size-3.5" /> Accept
                          </button>
@@ -648,7 +648,7 @@ function CollectionFieldGroup({ field, fieldState, setFS, sectionId }: any) {
         <div>
           <div className="text-[14px] font-bold text-zinc-900">{field.displayName}</div>
           <div className="flex items-center gap-3 mt-1">
-             <span className="text-[11px] text-zinc-500 font-medium">{summary.received} values received</span>
+             <span className="text-[11px] text-muted-foreground font-medium">{summary.received} values received</span>
              <span className="text-zinc-300">•</span>
              <span className="text-[11px] text-indigo-500 font-bold flex items-center gap-1">
                 <Icon.Sparkle className="size-3" /> {summary.ai} AI suggestion
@@ -659,7 +659,7 @@ function CollectionFieldGroup({ field, fieldState, setFS, sectionId }: any) {
         </div>
         <div className="flex items-center gap-4">
            <ResolutionPill resolution={field.resolution} />
-           <Icon.Chevron className={`size-5 text-zinc-400 transition-transform ${expanded ? "rotate-180" : ""}`} />
+           <Icon.Chevron className={`size-5 text-muted-foreground transition-transform ${expanded ? "rotate-180" : ""}`} />
         </div>
       </div>
 
@@ -670,10 +670,10 @@ function CollectionFieldGroup({ field, fieldState, setFS, sectionId }: any) {
              return <CollectionItem key={idx} item={item} stateKey={stateKey} setFS={setFS ? setFS(stateKey) : undefined} />;
            })}
            <div className="flex items-center justify-between pt-2 border-t border-zinc-200/60 mt-4">
-              <button className="text-[13px] font-bold text-zinc-400 flex items-center gap-2 hover:text-zinc-600 transition-colors">
+              <button className="text-[13px] font-bold text-muted-foreground flex items-center gap-2 hover:text-muted-foreground transition-colors">
                  <Icon.Plus className="size-4" /> Add value...
               </button>
-              <span className="text-[11px] text-zinc-400 font-medium">{items.length} available</span>
+              <span className="text-[11px] text-muted-foreground font-medium">{items.length} available</span>
            </div>
         </div>
       )}
@@ -693,9 +693,9 @@ function LineItemRow({ li, setFS }: { li: any; setFS?: (key: string) => (patch: 
     <Fragment>
       <tr 
         onClick={() => setExpanded(!expanded)}
-        className={`hover:bg-zinc-50/50 transition-colors cursor-pointer ${expanded ? "bg-zinc-50/30" : ""}`}
+        className={`hover:bg-muted/50 transition-colors cursor-pointer ${expanded ? "bg-muted/30" : ""}`}
       >
-        <td className="px-6 py-5 text-zinc-400">
+        <td className="px-6 py-5 text-muted-foreground">
            <div className="flex items-center gap-4">
               <Icon.Chevron className={`size-4 transition-transform ${expanded ? "rotate-0" : "-rotate-90"}`} />
               <span className="text-[14px] font-medium text-zinc-900">{li.rowIndex}</span>
@@ -707,7 +707,7 @@ function LineItemRow({ li, setFS }: { li: any; setFS?: (key: string) => (patch: 
         <td className="px-6 py-5 text-[14px] font-bold text-zinc-900 tabular-nums">
            ${Number(getField("productList")?.resolvedValue).toLocaleString(undefined, { minimumFractionDigits: 2 })}
         </td>
-        <td className="px-6 py-5 text-[14px] font-medium text-zinc-500 italic">
+        <td className="px-6 py-5 text-[14px] font-medium text-muted-foreground italic">
            {getField("catalogCode")?.resolution === "resolved" ? getField("catalogCode")?.resolvedValue : getField("catalogCode")?.inputValue}
         </td>
         <td className="px-6 py-5">
@@ -716,7 +716,7 @@ function LineItemRow({ li, setFS }: { li: any; setFS?: (key: string) => (patch: 
       </tr>
       {expanded && (
         <tr>
-           <td colSpan={7} className="px-12 pb-8 pt-2 bg-zinc-50/30">
+           <td colSpan={7} className="px-12 pb-8 pt-2 bg-muted/30">
               <div className="space-y-4">
                  <p className="text-[13px] font-bold text-zinc-900">Select an option</p>
                  <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
@@ -728,13 +728,13 @@ function LineItemRow({ li, setFS }: { li: any; setFS?: (key: string) => (patch: 
                     </div>
                     <div className="grid grid-cols-2 gap-8">
                        <div>
-                          <p className="text-[12px] font-bold text-zinc-500 uppercase tracking-widest mb-2">Document Description</p>
-                          <div className="bg-zinc-100 border border-zinc-100 rounded-lg px-3 py-2.5 text-[14px] text-zinc-500 font-medium">
+                          <p className="text-[12px] font-bold text-muted-foreground uppercase tracking-widest mb-2">Document Description</p>
+                          <div className="bg-zinc-100 border border-zinc-100 rounded-lg px-3 py-2.5 text-[14px] text-muted-foreground font-medium">
                              {getField("catalogCode")?.inputValue}
                           </div>
                        </div>
                        <div>
-                          <p className="text-[12px] font-bold text-zinc-500 uppercase tracking-widest mb-2">OrderBahn Match</p>
+                          <p className="text-[12px] font-bold text-muted-foreground uppercase tracking-widest mb-2">OrderBahn Match</p>
                           <div className="relative">
                              <select 
                                 value={localChoice}
@@ -746,12 +746,12 @@ function LineItemRow({ li, setFS }: { li: any; setFS?: (key: string) => (patch: 
                                    <option key={kv.id} value={kv.label}>{kv.label}</option>
                                 ))}
                              </select>
-                             <Icon.Chevron className="absolute right-3 top-3.5 size-4 text-zinc-400 pointer-events-none" />
+                             <Icon.Chevron className="absolute right-3 top-3.5 size-4 text-muted-foreground pointer-events-none" />
                           </div>
                        </div>
                     </div>
                     <div className="flex items-center justify-end gap-4 mt-6">
-                        <button onClick={() => setLocalChoice("")} className="text-zinc-500 hover:text-zinc-700 text-[13px] font-semibold transition-colors">Cancel</button>
+                        <button onClick={() => setLocalChoice("")} className="text-muted-foreground hover:text-muted-foreground text-[13px] font-semibold transition-colors">Cancel</button>
                         <button 
                             disabled={!localChoice}
                             onClick={() => {
@@ -778,14 +778,14 @@ function LineItemRow({ li, setFS }: { li: any; setFS?: (key: string) => (patch: 
 function ObjectFieldGroup({ field, fieldState, setFS, keyPrefix }: any) {
   const children = field.children || [];
   return (
-    <div className={`rounded-xl border border-zinc-200 overflow-hidden mb-4 ${field.isExtra ? "bg-white" : "bg-zinc-50/30"}`}>
+    <div className={`rounded-xl border border-zinc-200 overflow-hidden mb-4 ${field.isExtra ? "bg-white" : "bg-muted/30"}`}>
       <div className="px-4 py-3 flex items-center gap-3 border-b border-zinc-100 bg-white">
         {field.isExtra ? (
            <div className="size-4 rounded bg-[#d6f22e] flex items-center justify-center text-zinc-900 shrink-0">
               <Icon.Check className="size-3" strokeWidth={3} />
            </div>
         ) : (
-           <div className="flex items-center justify-center size-8 rounded-lg bg-zinc-100 text-zinc-600 shrink-0">
+           <div className="flex items-center justify-center size-8 rounded-lg bg-zinc-100 text-muted-foreground shrink-0">
               <Icon.Folder className="size-4" />
            </div>
         )}
@@ -793,7 +793,7 @@ function ObjectFieldGroup({ field, fieldState, setFS, keyPrefix }: any) {
         {field.required && (
             <span className="inline-flex items-center rounded-full bg-red-100 text-red-600 px-2.5 py-0.5 text-[10px] font-medium ml-1">Required</span>
         )}
-        <span className="text-[11px] text-zinc-400 ml-auto">{children.length} fields</span>
+        <span className="text-[11px] text-muted-foreground ml-auto">{children.length} fields</span>
       </div>
       <div className="p-3 space-y-2">
          {children.map((child: any) => {
@@ -801,7 +801,7 @@ function ObjectFieldGroup({ field, fieldState, setFS, keyPrefix }: any) {
                const key = `${keyPrefix}:${child.dtoPath}`;
                return (
                   <div key={child.dtoPath} className="flex items-center justify-between gap-4 py-1 px-1">
-                     <span className="text-[13px] font-medium text-zinc-700">{child.displayName}</span>
+                     <span className="text-[13px] font-medium text-muted-foreground">{child.displayName}</span>
                      <input 
                         className="w-[65%] bg-white border border-zinc-200 rounded-lg px-3 py-2 text-[14px] text-zinc-900 focus:outline-none focus:border-zinc-400 transition-colors"
                         value={fieldState[key]?.overrideValue ?? child.resolvedValue}
@@ -847,7 +847,7 @@ function ProgressRing({ pct }: { pct: number }) {
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <span className="text-[16px] font-bold text-zinc-900 leading-none">{pct}%</span>
-        <span className="text-[9px] text-zinc-500 mt-0.5 font-bold tracking-wider uppercase">Ready</span>
+        <span className="text-[9px] text-muted-foreground mt-0.5 font-bold tracking-wider uppercase">Ready</span>
       </div>
     </div>
   );
@@ -956,13 +956,13 @@ export default function CreateRecordModal({ isOpen, onClose, document, onConvert
                     <div className="flex items-center gap-4">
                       <h2 className="text-[28px] font-bold text-zinc-900 tracking-tight">OrderBahn — Purchase Order</h2>
                     </div>
-                    <button onClick={onClose} className="p-2 -mr-2 text-zinc-400 hover:text-zinc-900 transition-colors">
+                    <button onClick={onClose} className="p-2 -mr-2 text-muted-foreground hover:text-zinc-900 transition-colors">
                       <Icon.Close className="size-7" />
                     </button>
                   </div>
 
                   {/* Subtitle */}
-                  <div className="text-[16px] text-zinc-500 font-medium -mt-4">
+                  <div className="text-[16px] text-muted-foreground font-medium -mt-4">
                     Draft PO-001 | Created Apr 22, 2026
                   </div>
 
@@ -975,15 +975,15 @@ export default function CreateRecordModal({ isOpen, onClose, document, onConvert
                   </div>
 
                   {/* Progress Section */}
-                  <div className="bg-zinc-50/50 border border-zinc-100 rounded-2xl p-6">
+                  <div className="bg-muted/50 border border-zinc-100 rounded-2xl p-6">
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center gap-2">
                         <span className="text-[18px] font-bold text-zinc-900">Preflight</span>
-                        <span className="text-[14px] text-zinc-400 font-medium">{summary.resolved}/{summary.total} ready</span>
+                        <span className="text-[14px] text-muted-foreground font-medium">{summary.resolved}/{summary.total} ready</span>
                       </div>
                       <div className="flex items-center gap-1">
                         <span className="text-[14px] font-bold text-zinc-900">{pct}%</span>
-                        <span className="text-[12px] text-zinc-400 font-medium">ready</span>
+                        <span className="text-[12px] text-muted-foreground font-medium">ready</span>
                       </div>
                     </div>
                     <div className="h-2 w-full bg-zinc-200 rounded-full overflow-hidden">
@@ -998,16 +998,16 @@ export default function CreateRecordModal({ isOpen, onClose, document, onConvert
                         onClick={() => setView("document")}
                         className="flex items-center gap-3 group"
                       >
-                        <div className={`size-8 rounded-full flex items-center justify-center font-bold text-[14px] transition-colors ${view === "document" ? "bg-[#E6F993] text-zinc-900" : "bg-zinc-100 text-zinc-400 group-hover:bg-zinc-200"}`}>1</div>
-                        <span className={`text-[16px] font-bold transition-colors ${view === "document" ? "text-zinc-900" : "text-zinc-400 group-hover:text-zinc-600"}`}>Header Fields</span>
+                        <div className={`size-8 rounded-full flex items-center justify-center font-bold text-[14px] transition-colors ${view === "document" ? "bg-[#E6F993] text-zinc-900" : "bg-zinc-100 text-muted-foreground group-hover:bg-zinc-200"}`}>1</div>
+                        <span className={`text-[16px] font-bold transition-colors ${view === "document" ? "text-zinc-900" : "text-muted-foreground group-hover:text-muted-foreground"}`}>Header Fields</span>
                       </button>
                       <Icon.Arrow className="size-5 text-zinc-300" />
                       <button 
                         onClick={() => setView("lineItems")}
                         className="flex items-center gap-3 group"
                       >
-                        <div className={`size-8 rounded-full flex items-center justify-center font-bold text-[14px] transition-colors ${view === "lineItems" ? "bg-[#E6F993] text-zinc-900" : "bg-zinc-100 text-zinc-400 group-hover:bg-zinc-200"}`}>2</div>
-                        <span className={`text-[16px] font-bold transition-colors ${view === "lineItems" ? "text-zinc-900" : "text-zinc-400 group-hover:text-zinc-600"}`}>Line Items</span>
+                        <div className={`size-8 rounded-full flex items-center justify-center font-bold text-[14px] transition-colors ${view === "lineItems" ? "bg-[#E6F993] text-zinc-900" : "bg-zinc-100 text-muted-foreground group-hover:bg-zinc-200"}`}>2</div>
+                        <span className={`text-[16px] font-bold transition-colors ${view === "lineItems" ? "text-zinc-900" : "text-muted-foreground group-hover:text-muted-foreground"}`}>Line Items</span>
                       </button>
                     </div>
                     <button className="flex items-center gap-2 bg-[#E6F993] hover:bg-[#d6f22e] text-zinc-900 px-5 py-2.5 rounded-xl text-[14px] font-bold transition-all shadow-sm active:scale-95">
@@ -1052,15 +1052,15 @@ export default function CreateRecordModal({ isOpen, onClose, document, onConvert
                         <div className="space-y-4 w-full">
                             <div className="rounded-xl border border-zinc-200 overflow-hidden shadow-xl bg-white">
                                 <table className="w-full text-left border-collapse">
-                                    <thead className="bg-zinc-50 border-b border-zinc-200">
+                                    <thead className="bg-muted border-b border-zinc-200">
                                         <tr>
-                                            <th className="px-6 py-4 text-[11px] font-bold text-zinc-500 uppercase tracking-widest">#</th>
-                                            <th className="px-6 py-4 text-[11px] font-bold text-zinc-500 uppercase tracking-widest">Product</th>
-                                            <th className="px-6 py-4 text-[11px] font-bold text-zinc-500 uppercase tracking-widest">Description</th>
-                                            <th className="px-6 py-4 text-[11px] font-bold text-zinc-500 uppercase tracking-widest text-center">Qty</th>
-                                            <th className="px-6 py-4 text-[11px] font-bold text-zinc-500 uppercase tracking-widest">List</th>
-                                            <th className="px-6 py-4 text-[11px] font-bold text-zinc-500 uppercase tracking-widest">Catalog Code</th>
-                                            <th className="px-6 py-4 text-[11px] font-bold text-zinc-500 uppercase tracking-widest">Status</th>
+                                            <th className="px-6 py-4 text-[11px] font-bold text-muted-foreground uppercase tracking-widest">#</th>
+                                            <th className="px-6 py-4 text-[11px] font-bold text-muted-foreground uppercase tracking-widest">Product</th>
+                                            <th className="px-6 py-4 text-[11px] font-bold text-muted-foreground uppercase tracking-widest">Description</th>
+                                            <th className="px-6 py-4 text-[11px] font-bold text-muted-foreground uppercase tracking-widest text-center">Qty</th>
+                                            <th className="px-6 py-4 text-[11px] font-bold text-muted-foreground uppercase tracking-widest">List</th>
+                                            <th className="px-6 py-4 text-[11px] font-bold text-muted-foreground uppercase tracking-widest">Catalog Code</th>
+                                            <th className="px-6 py-4 text-[11px] font-bold text-muted-foreground uppercase tracking-widest">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-zinc-100">
@@ -1070,14 +1070,14 @@ export default function CreateRecordModal({ isOpen, onClose, document, onConvert
                                     </tbody>
                                 </table>
                             </div>
-                            <p className="text-[12px] text-zinc-400 italic px-2">Click any row to expand and resolve issues.</p>
+                            <p className="text-[12px] text-muted-foreground italic px-2">Click any row to expand and resolve issues.</p>
                         </div>
                     )}
                 </div>
               </div>
 
               <footer className="h-[88px] px-10 flex items-center justify-between border-t border-zinc-200 bg-[#FAFAFA] shrink-0">
-                <button onClick={onClose} className="text-[14px] font-bold text-zinc-500 hover:text-zinc-900 transition-colors">Cancel</button>
+                <button onClick={onClose} className="text-[14px] font-bold text-muted-foreground hover:text-zinc-900 transition-colors">Cancel</button>
                 <div className="flex items-center gap-4">
                   <button
                     disabled={!summary.valid}
@@ -1086,7 +1086,7 @@ export default function CreateRecordModal({ isOpen, onClose, document, onConvert
                       setShowPublishToast(true);
                       setTimeout(() => setShowPublishToast(false), 4000);
                     }}
-                    className={`h-[42px] px-7 rounded-full font-bold text-[13px] flex items-center gap-2 transition-all active:scale-[0.97] shadow-lg ${summary.valid ? "bg-[#E6F993] hover:bg-[#d6f22e] text-zinc-900 shadow-[#E6F993]/30" : "bg-zinc-100 text-zinc-400 cursor-not-allowed shadow-none"}`}
+                    className={`h-[42px] px-7 rounded-full font-bold text-[13px] flex items-center gap-2 transition-all active:scale-[0.97] shadow-lg ${summary.valid ? "bg-[#E6F993] hover:bg-[#d6f22e] text-zinc-900 shadow-[#E6F993]/30" : "bg-zinc-100 text-muted-foreground cursor-not-allowed shadow-none"}`}
                   >
                     Publish
                     <Icon.Arrow className="size-4.5" />

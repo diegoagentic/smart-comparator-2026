@@ -46,16 +46,16 @@ export default function ERPSystemSelectorArtifact() {
     };
 
     return (
-        <div className="w-full max-w-md mx-auto bg-white dark:bg-zinc-800 rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-xl overflow-hidden font-sans">
+        <div className="w-full max-w-md mx-auto bg-card rounded-3xl border border-border shadow-xl overflow-hidden font-sans">
             {/* Header Area */}
-            <div className="bg-zinc-50/50 dark:bg-zinc-800/30 p-8 flex flex-col items-center justify-center border-b border-zinc-100 dark:border-zinc-800">
+            <div className="bg-muted/50 dark:bg-zinc-800/30 p-8 flex flex-col items-center justify-center border-b border-zinc-100 dark:border-zinc-800">
                 <div className="w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-500/20 mb-4 transform rotate-3">
                     <CubeIcon className="w-8 h-8 text-white" />
                 </div>
                 <h2 className="text-2xl font-bold font-brand text-foreground tracking-tight">Welcome to Avanto!</h2>
                 <p className="text-sm text-muted-foreground mt-2">Your integrated ERP systems</p>
 
-                <p className="text-xs text-zinc-400 mt-6 max-w-[200px] text-center leading-relaxed">
+                <p className="text-xs text-muted-foreground mt-6 max-w-[200px] text-center leading-relaxed">
                     How would you like to connect Wells Fargo to your system?
                 </p>
             </div>
@@ -63,13 +63,13 @@ export default function ERPSystemSelectorArtifact() {
             {/* Selection Area */}
             <div className="p-6">
                 <div className="flex items-center justify-between mb-2 px-1">
-                    <span className="text-sm font-semibold text-zinc-500 uppercase tracking-wider">Current System :</span>
+                    <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Current System :</span>
                 </div>
 
                 <div className="relative">
                     <button
                         onClick={() => setIsOpen(!isOpen)}
-                        className="w-full p-3 pl-4 bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 rounded-2xl flex items-center justify-between hover:border-indigo-400 transition-colors group"
+                        className="w-full p-3 pl-4 bg-muted dark:bg-zinc-800/50 border border-border rounded-2xl flex items-center justify-between hover:border-indigo-400 transition-colors group"
                     >
                         <div className="flex items-center gap-3">
                             <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${selectedSystem.color}`}>
@@ -82,19 +82,19 @@ export default function ERPSystemSelectorArtifact() {
                                 </span>
                             )}
                         </div>
-                        <ChevronDownIcon className={`w-5 h-5 text-zinc-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+                        <ChevronDownIcon className={`w-5 h-5 text-muted-foreground transition-transform ${isOpen ? 'rotate-180' : ''}`} />
                     </button>
 
                     {/* Dropdown Menu */}
                     {isOpen && (
-                        <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl z-20 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+                        <div className="absolute top-full left-0 right-0 mt-2 bg-card border border-border rounded-2xl shadow-2xl z-20 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
                             <div className="p-2 space-y-1">
-                                <div className="px-3 py-2 text-[10px] uppercase font-bold text-zinc-400">Available Systems</div>
+                                <div className="px-3 py-2 text-[10px] uppercase font-bold text-muted-foreground">Available Systems</div>
                                 {SYSTEMS.map((system) => (
                                     <button
                                         key={system.id}
                                         onClick={() => handleSelect(system)}
-                                        className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors text-left group"
+                                        className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-muted dark:hover:bg-zinc-800 transition-colors text-left group"
                                     >
                                         <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${system.color} group-hover:scale-110 transition-transform`}>
                                             <system.icon className="w-5 h-5" />
@@ -115,14 +115,14 @@ export default function ERPSystemSelectorArtifact() {
             </div>
 
             {/* Footer */}
-            <div className="bg-zinc-50 dark:bg-zinc-800/30 p-4 border-t border-zinc-100 dark:border-zinc-800">
-                <div className="flex items-start gap-3 p-3 bg-white dark:bg-zinc-800 rounded-xl border border-zinc-200 dark:border-zinc-700/50 shadow-sm">
+            <div className="bg-muted dark:bg-zinc-800/30 p-4 border-t border-zinc-100 dark:border-zinc-800">
+                <div className="flex items-start gap-3 p-3 bg-card rounded-xl border border-border/50 shadow-sm">
                     <div className="mt-0.5">
                         <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
                     </div>
                     <div>
                         <h4 className="text-xs font-bold text-foreground">Secure Connection Ready</h4>
-                        <p className="text-[10px] text-zinc-500 mt-0.5 leading-snug">
+                        <p className="text-[10px] text-muted-foreground mt-0.5 leading-snug">
                             We found 3 processed sessions matching this client. Select a system above to sync pricing information.
                         </p>
                     </div>

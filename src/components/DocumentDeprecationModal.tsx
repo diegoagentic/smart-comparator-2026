@@ -129,7 +129,7 @@ export default function DocumentDeprecationModal({
                             <DialogPanel className="w-full max-w-md rounded-2xl bg-card border border-border shadow-2xl overflow-hidden flex flex-col">
                                 {/* Header */}
                                 <div className="px-5 py-4 border-b border-border flex items-start gap-3">
-                                    <div className="flex items-center justify-center size-9 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 shrink-0">
+                                    <div className="flex items-center justify-center size-9 rounded-lg bg-muted text-muted-foreground dark:text-zinc-300 shrink-0">
                                         <Archive className="size-4" />
                                     </div>
                                     <div className="flex-1 min-w-0">

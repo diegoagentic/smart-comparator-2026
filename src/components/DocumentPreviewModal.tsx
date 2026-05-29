@@ -164,16 +164,16 @@ function DocumentMockPreview({ fields, vendor, docName, docType, onExport, expor
     return (
         <div className="flex flex-col h-full">
             {/* Toolbar */}
-            <div className="flex items-center justify-between px-4 py-2 border-b border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 shrink-0">
+            <div className="flex items-center justify-between px-4 py-2 border-b border-border bg-muted dark:bg-zinc-800/50 shrink-0">
                 <div className="flex items-center gap-2">
-                    <FileText className="h-3.5 w-3.5 text-zinc-400" />
-                    <span className="text-xs font-semibold text-zinc-500 truncate max-w-[180px]">{docName}</span>
+                    <FileText className="h-3.5 w-3.5 text-muted-foreground" />
+                    <span className="text-xs font-semibold text-muted-foreground truncate max-w-[180px]">{docName}</span>
                 </div>
                 <div className="flex items-center gap-2">
                     <div className="flex items-center gap-1">
-                        <button onClick={() => setZoom(z => Math.max(80, z - 10))} title="Zoom out" aria-label="Zoom out" className="p-1 rounded hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-500"><ZoomOut className="h-3.5 w-3.5" /></button>
-                        <span title="Current zoom level" className="text-[10px] font-mono text-zinc-400 w-8 text-center">{zoom}%</span>
-                        <button onClick={() => setZoom(z => Math.min(150, z + 10))} title="Zoom in" aria-label="Zoom in" className="p-1 rounded hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-500"><ZoomIn className="h-3.5 w-3.5" /></button>
+                        <button onClick={() => setZoom(z => Math.max(80, z - 10))} title="Zoom out" aria-label="Zoom out" className="p-1 rounded hover:bg-zinc-200 dark:hover:bg-zinc-700 text-muted-foreground"><ZoomOut className="h-3.5 w-3.5" /></button>
+                        <span title="Current zoom level" className="text-[10px] font-mono text-muted-foreground w-8 text-center">{zoom}%</span>
+                        <button onClick={() => setZoom(z => Math.min(150, z + 10))} title="Zoom in" aria-label="Zoom in" className="p-1 rounded hover:bg-zinc-200 dark:hover:bg-zinc-700 text-muted-foreground"><ZoomIn className="h-3.5 w-3.5" /></button>
                     </div>
                     <button
                         onClick={onExport}
@@ -189,7 +189,7 @@ function DocumentMockPreview({ fields, vendor, docName, docType, onExport, expor
 
             {/* Simulated Document */}
             <div className="flex-1 overflow-y-auto p-6 bg-zinc-100 dark:bg-zinc-950 scrollbar-minimal">
-                <div className="mx-auto bg-white dark:bg-zinc-900 rounded-xl shadow-lg border border-zinc-200 dark:border-zinc-700 overflow-hidden"
+                <div className="mx-auto bg-card rounded-xl shadow-lg border border-border overflow-hidden"
                      style={{ transform: `scale(${zoom / 100})`, transformOrigin: 'top center', maxWidth: '520px' }}>
 
                     {/* Brand bar */}
@@ -198,13 +198,13 @@ function DocumentMockPreview({ fields, vendor, docName, docType, onExport, expor
                     {/* Document header */}
                     <div className="px-7 py-5 border-b border-zinc-100 dark:border-zinc-800 flex items-start justify-between">
                         <div>
-                            <span className="inline-block text-[9px] font-bold text-zinc-500 uppercase tracking-widest bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded mb-2">{docType}</span>
-                            <p className="text-xl font-extrabold text-zinc-900 dark:text-white leading-tight">{vendor}</p>
-                            <p className="text-xs font-mono text-zinc-400 mt-1">{docName}</p>
+                            <span className="inline-block text-[9px] font-bold text-muted-foreground uppercase tracking-widest bg-muted px-2 py-0.5 rounded mb-2">{docType}</span>
+                            <p className="text-xl font-extrabold text-foreground leading-tight">{vendor}</p>
+                            <p className="text-xs font-mono text-muted-foreground mt-1">{docName}</p>
                         </div>
                         <div className="text-right">
-                            <div className="text-2xl font-extrabold text-zinc-900 dark:text-white">{allFields.find(f => f.name.includes('Number'))?.value || '—'}</div>
-                            <div className="text-xs text-zinc-400 mt-0.5">{allFields.find(f => f.name.includes('Date'))?.value || ''}</div>
+                            <div className="text-2xl font-extrabold text-foreground">{allFields.find(f => f.name.includes('Number'))?.value || '—'}</div>
+                            <div className="text-xs text-muted-foreground mt-0.5">{allFields.find(f => f.name.includes('Date'))?.value || ''}</div>
                         </div>
                     </div>
 
@@ -213,11 +213,11 @@ function DocumentMockPreview({ fields, vendor, docName, docType, onExport, expor
                         {[
                             { label: 'Valid', value: validCount, color: 'text-green-600 dark:text-green-400', bg: 'bg-green-50 dark:bg-green-500/10' },
                             { label: 'Issues', value: totalCount - validCount, color: 'text-amber-600 dark:text-amber-400', bg: 'bg-amber-50 dark:bg-amber-500/10' },
-                            { label: 'Total', value: totalCount, color: 'text-zinc-700 dark:text-zinc-300', bg: 'bg-zinc-50 dark:bg-zinc-800/50' },
+                            { label: 'Total', value: totalCount, color: 'text-muted-foreground', bg: 'bg-muted dark:bg-zinc-800/50' },
                         ].map((s, i) => (
                             <div key={i} className={`${s.bg} px-4 py-2.5 ${i < 2 ? 'border-r border-zinc-100 dark:border-zinc-800' : ''}`}>
                                 <div className={`text-base font-extrabold ${s.color}`}>{s.value}</div>
-                                <div className="text-[9px] text-zinc-500 uppercase tracking-wide">{s.label}</div>
+                                <div className="text-[9px] text-muted-foreground uppercase tracking-wide">{s.label}</div>
                             </div>
                         ))}
                     </div>
@@ -228,22 +228,22 @@ function DocumentMockPreview({ fields, vendor, docName, docType, onExport, expor
                             <div key={group.id}>
                                 <div className="flex items-center gap-2 mb-2">
                                     <div className="w-1 h-3 bg-primary rounded-full" />
-                                    <p className="text-[9px] font-bold text-zinc-400 uppercase tracking-widest">{group.label}</p>
-                                    <div className="flex-1 h-px bg-zinc-100 dark:bg-zinc-800" />
+                                    <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">{group.label}</p>
+                                    <div className="flex-1 h-px bg-muted" />
                                 </div>
                                 <div className="rounded-lg overflow-hidden border border-zinc-100 dark:border-zinc-800">
                                     {group.fields.map((field, i) => (
                                         <div key={i} className={`flex items-center justify-between py-1.5 px-3 text-[11px] ${
-                                            i % 2 === 0 ? '' : 'bg-zinc-50 dark:bg-zinc-800/40'
+                                            i % 2 === 0 ? '' : 'bg-muted dark:bg-zinc-800/40'
                                         } ${field.status === 'missing' ? '!bg-red-50 dark:!bg-red-500/10' : field.status === 'inconsistent' ? '!bg-amber-50 dark:!bg-amber-500/10' : ''}`}>
                                             <div className="flex items-center gap-2">
                                                 <span className={`h-1.5 w-1.5 rounded-full shrink-0 ${field.status === 'valid' ? 'bg-green-500' : field.status === 'inconsistent' ? 'bg-amber-500' : 'bg-red-500'}`} />
-                                                <span className="text-zinc-500">{field.name}</span>
+                                                <span className="text-muted-foreground">{field.name}</span>
                                             </div>
                                             <span className={`font-semibold ${
                                                 field.status === 'missing' ? 'text-red-400 italic' :
                                                 field.status === 'inconsistent' ? 'text-amber-600 dark:text-amber-400' :
-                                                'text-zinc-900 dark:text-white'
+                                                'text-foreground'
                                             }`}>
                                                 {field.value || '—'}
                                             </span>
@@ -260,9 +260,9 @@ function DocumentMockPreview({ fields, vendor, docName, docType, onExport, expor
                             <div className="h-4 w-4 bg-zinc-900 dark:bg-white rounded flex items-center justify-center">
                                 <span className="text-[8px] font-extrabold text-primary">S</span>
                             </div>
-                            <span className="text-[9px] text-zinc-400">Smart Comparator OCR</span>
+                            <span className="text-[9px] text-muted-foreground">Smart Comparator OCR</span>
                         </div>
-                        <span className="text-[9px] text-zinc-300 dark:text-zinc-600">Confidential</span>
+                        <span className="text-[9px] text-zinc-300 dark:text-muted-foreground">Confidential</span>
                     </div>
                 </div>
             </div>
@@ -310,19 +310,19 @@ export default function DocumentPreviewModal({ isOpen, onClose, document, onReso
                     <div className="fixed inset-0 overflow-y-auto">
                         <div className="flex min-h-full items-center justify-center p-4">
                             <TransitionChild as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0 scale-95" enterTo="opacity-100 scale-100" leave="ease-in duration-200" leaveFrom="opacity-100 scale-100" leaveTo="opacity-0 scale-95">
-                                <DialogPanel className="w-full max-w-6xl h-[85vh] transform overflow-hidden rounded-2xl bg-white dark:bg-zinc-900 text-left shadow-2xl transition-all border border-zinc-200 dark:border-zinc-800 flex flex-col">
+                                <DialogPanel className="w-full max-w-6xl h-[85vh] transform overflow-hidden rounded-2xl bg-card text-left shadow-2xl transition-all border border-border flex flex-col">
 
                                 {/* Header */}
-                                <div className="px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between shrink-0">
+                                <div className="px-6 py-4 border-b border-border flex items-center justify-between shrink-0">
                                     <div className="flex items-center gap-3">
                                         <div className="h-10 w-10 rounded-xl bg-ai/10 flex items-center justify-center">
                                             <Sparkles className="h-5 w-5 text-ai" />
                                         </div>
                                         <div>
-                                            <DialogTitle as="h3" className="text-lg font-bold text-zinc-900 dark:text-white">
+                                            <DialogTitle as="h3" className="text-lg font-bold text-foreground">
                                                 Document Review
                                             </DialogTitle>
-                                            <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                                            <p className="text-sm text-muted-foreground">
                                                 {document.vendor} — {document.name}
                                             </p>
                                         </div>
@@ -333,23 +333,23 @@ export default function DocumentPreviewModal({ isOpen, onClose, document, onReso
                                             <span title={`${totalCount - validCount} fields need review (low confidence, missing, or inconsistent)`} className="flex items-center gap-1.5"><AlertCircle className="h-3.5 w-3.5 text-amber-500" /> {totalCount - validCount} issues</span>
                                         </div>
                                         <div className="flex items-center gap-2" title="Document Progress">
-                                            <div className="w-20 h-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                                            <div className="w-20 h-1.5 bg-muted rounded-full overflow-hidden">
                                                 <div className="h-full bg-green-500 rounded-full transition-all" style={{ width: `${pct}%` }} />
                                             </div>
-                                            <span className="text-xs font-bold text-zinc-600 dark:text-zinc-400">{pct}%</span>
+                                            <span className="text-xs font-bold text-muted-foreground">{pct}%</span>
                                         </div>
                                         {onMarkDeprecated && document.status !== 'deprecated' && (
                                             <button
                                                 onClick={() => onMarkDeprecated(document.id)}
                                                 title="Move this document to the archive (Deprecated tab)"
                                                 aria-label="Mark document as deprecated"
-                                                className="inline-flex items-center gap-1.5 rounded-full border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-700 px-3 py-1.5 text-[12px] font-medium text-zinc-700 dark:text-zinc-200 transition-colors"
+                                                className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card hover:bg-muted dark:hover:bg-zinc-700 px-3 py-1.5 text-[12px] font-medium text-muted-foreground dark:text-zinc-200 transition-colors"
                                             >
                                                 <Archive className="w-3.5 h-3.5" />
                                                 Mark as Deprecated
                                             </button>
                                         )}
-                                        <button onClick={onClose} className="p-2 rounded-lg text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" title="Close">
+                                        <button onClick={onClose} className="p-2 rounded-lg text-muted-foreground hover:text-muted-foreground dark:hover:text-zinc-300 hover:bg-muted transition-colors" title="Close">
                                             <X className="h-5 w-5" />
                                         </button>
                                     </div>
@@ -363,7 +363,7 @@ export default function DocumentPreviewModal({ isOpen, onClose, document, onReso
                                 {/* Split Pane */}
                                 <div className="flex-1 grid grid-cols-5 min-h-0">
                                     {/* Left: Document Preview (3/5) */}
-                                    <div className="col-span-3 border-r border-zinc-200 dark:border-zinc-800 flex flex-col min-h-0">
+                                    <div className="col-span-3 border-r border-border flex flex-col min-h-0">
                                         <DocumentMockPreview
                                             fields={fieldGroups}
                                             vendor={document.vendor}
@@ -375,7 +375,7 @@ export default function DocumentPreviewModal({ isOpen, onClose, document, onReso
                                     </div>
 
                                     {/* Right: Field Review (2/5) */}
-                                    <div className="col-span-2 flex flex-col min-h-0 bg-white dark:bg-zinc-900 border-l border-zinc-200 dark:border-zinc-800">
+                                    <div className="col-span-2 flex flex-col min-h-0 bg-card border-l border-border">
                                         <FieldReviewModal
                                             document={{ id: document.id, name: document.name, vendor: document.vendor, inconsistencyCount: document.inconsistencyCount ?? 0 }}
                                             onResolve={onResolve}

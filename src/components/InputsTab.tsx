@@ -228,7 +228,7 @@ function FieldGroupCard({ group, defaultOpen = false }: { group: FieldGroup; def
                                 <AlertCircle className="h-4 w-4 text-amber-500 shrink-0" />
                             )}
                             {field.status === 'empty' && (
-                                <div className="h-4 w-4 rounded-full border-2 border-zinc-300 dark:border-zinc-600 shrink-0" />
+                                <div className="h-4 w-4 rounded-full border-2 border-border shrink-0" />
                             )}
                         </div>
                     ))}

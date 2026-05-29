@@ -99,13 +99,13 @@ export default function FieldReviewModal({ document, onResolve, onClose, initial
     }
 
     return (
-        <div className="flex flex-col h-full bg-white dark:bg-zinc-900 shrink-0 min-h-0 border-l border-zinc-200 dark:border-zinc-800">
+        <div className="flex flex-col h-full bg-card shrink-0 min-h-0 border-l border-border">
             {/* Title Area */}
-            <div className="bg-[#EBECEE] dark:bg-zinc-900 px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 shrink-0">
+            <div className="bg-[#EBECEE] dark:bg-zinc-900 px-6 py-4 border-b border-border shrink-0">
                 <h4 className="text-[14px] font-bold text-[#7A8C9E] dark:text-slate-400 uppercase tracking-widest font-['Inter']">
                     FIELD REVIEW
                 </h4>
-                <p className="text-[12px] text-[#9BA9BA] dark:text-zinc-500 mt-1 font-['Inter']">
+                <p className="text-[12px] text-[#9BA9BA] dark:text-muted-foreground mt-1 font-['Inter']">
                     Validate field review
                 </p>
             </div>
@@ -116,7 +116,7 @@ export default function FieldReviewModal({ document, onResolve, onClose, initial
                     {/* Progress Bar with Right Text */}
                     <div className="flex flex-col gap-1.5">
                         <div className="flex justify-between items-center relative">
-                            <div className="flex-1 h-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden mr-4 relative">
+                            <div className="flex-1 h-1.5 bg-muted rounded-full overflow-hidden mr-4 relative">
                                 <div
                                     className="h-full bg-zinc-200 dark:bg-zinc-700 rounded-full transition-all duration-700"
                                     style={{ width: '100%' }}
@@ -126,7 +126,7 @@ export default function FieldReviewModal({ document, onResolve, onClose, initial
                                     style={{ width: `${totalIssues > 0 ? (resolvedCount / totalIssues) * 100 : 100}%` }}
                                 />
                             </div>
-                            <span className="text-[11px] font-bold text-zinc-400 whitespace-nowrap">
+                            <span className="text-[11px] font-bold text-muted-foreground whitespace-nowrap">
                                 {resolvedCount}/{totalIssues} resolved
                             </span>
                         </div>
@@ -137,20 +137,20 @@ export default function FieldReviewModal({ document, onResolve, onClose, initial
                         <div className="flex items-center gap-3">
                             <div className="flex items-center gap-1.5">
                                 <span className="h-2 w-2 rounded-full bg-green-500" />
-                                <span className="text-xs font-bold text-zinc-600 dark:text-zinc-400">{fields.filter(f => f.status === 'valid').length}</span>
+                                <span className="text-xs font-bold text-muted-foreground">{fields.filter(f => f.status === 'valid').length}</span>
                             </div>
                             <div className="flex items-center gap-1.5">
                                 <span className="h-2 w-2 rounded-full bg-amber-500" />
-                                <span className="text-xs font-bold text-zinc-600 dark:text-zinc-400">{fields.filter(f => f.status === 'inconsistent').length}</span>
+                                <span className="text-xs font-bold text-muted-foreground">{fields.filter(f => f.status === 'inconsistent').length}</span>
                             </div>
                             <div className="flex items-center gap-1.5">
                                 <span className="h-2 w-2 rounded-full bg-red-500" />
-                                <span className="text-xs font-bold text-zinc-600 dark:text-zinc-400">{fields.filter(f => f.status === 'missing').length}</span>
+                                <span className="text-xs font-bold text-muted-foreground">{fields.filter(f => f.status === 'missing').length}</span>
                             </div>
                         </div>
                         <button
                             onClick={handleAutoValidate}
-                            className="flex items-center gap-1.5 text-[11px] font-black text-zinc-900 dark:text-white hover:opacity-70 transition-all uppercase tracking-wider"
+                            className="flex items-center gap-1.5 text-[11px] font-black text-foreground hover:opacity-70 transition-all uppercase tracking-wider"
                         >
                             <Zap className="h-3.5 w-3.5 fill-zinc-900 dark:fill-white" /> AUTO-RESOLVE
                         </button>
@@ -160,7 +160,7 @@ export default function FieldReviewModal({ document, onResolve, onClose, initial
                     <div className="mt-6 flex gap-2 overflow-x-auto pb-1 custom-scrollbar">
                         <button
                             onClick={() => setActiveCategory('all')}
-                            className={`px-4 py-2 text-[11px] font-bold rounded-lg transition-all whitespace-nowrap flex items-center gap-2 ${activeCategory === 'all' ? 'bg-[#FAFAFA] dark:bg-zinc-800 text-zinc-900 dark:text-white shadow-sm ring-1 ring-zinc-200 dark:ring-zinc-700' : 'text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300'}`}
+                            className={`px-4 py-2 text-[11px] font-bold rounded-lg transition-all whitespace-nowrap flex items-center gap-2 ${activeCategory === 'all' ? 'bg-[#FAFAFA] dark:bg-zinc-800 text-foreground shadow-sm ring-1 ring-zinc-200 dark:ring-zinc-700' : 'text-muted-foreground hover:text-muted-foreground dark:hover:text-zinc-300'}`}
                         >
                             All ({fields.length})
                         </button>
@@ -171,7 +171,7 @@ export default function FieldReviewModal({ document, onResolve, onClose, initial
                                 <button
                                     key={key}
                                     onClick={() => setActiveCategory(key)}
-                                    className={`px-3 py-2 text-[11px] font-bold rounded-lg transition-all flex items-center gap-2 whitespace-nowrap ${activeCategory === key ? 'bg-[#FAFAFA] dark:bg-zinc-800 text-zinc-900 dark:text-white shadow-sm ring-1 ring-zinc-200 dark:ring-zinc-700' : 'text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300'}`}
+                                    className={`px-3 py-2 text-[11px] font-bold rounded-lg transition-all flex items-center gap-2 whitespace-nowrap ${activeCategory === key ? 'bg-[#FAFAFA] dark:bg-zinc-800 text-foreground shadow-sm ring-1 ring-zinc-200 dark:ring-zinc-700' : 'text-muted-foreground hover:text-muted-foreground dark:hover:text-zinc-300'}`}
                                 >
                                     <meta.icon className="h-3.5 w-3.5 opacity-40" />
                                     <span>{meta.label}</span>
@@ -197,7 +197,7 @@ export default function FieldReviewModal({ document, onResolve, onClose, initial
                                 key={field.id}
                                 className={`border rounded-xl transition-all ${
                                     isExpanded 
-                                        ? 'border-red-200 dark:border-red-900/50 bg-white dark:bg-zinc-900 shadow-sm' 
+                                        ? 'border-red-200 dark:border-red-900/50 bg-card shadow-sm' 
                                         : isResolved 
                                             ? 'border-green-100 dark:border-green-900/30 bg-green-50/10 dark:bg-green-500/5' 
                                             : 'border-zinc-100 dark:border-zinc-800'
@@ -215,7 +215,7 @@ export default function FieldReviewModal({ document, onResolve, onClose, initial
                                     
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-center gap-2">
-                                            <span className="text-[13px] font-bold text-zinc-900 dark:text-white truncate">{field.name}</span>
+                                            <span className="text-[13px] font-bold text-foreground truncate">{field.name}</span>
                                             {field.status === 'missing' && !isResolved && (
                                                 <span className="text-[9px] font-black px-1.5 py-0.5 rounded bg-[#FF4D4D] text-white uppercase tracking-tighter">MISSING</span>
                                             )}
@@ -227,13 +227,13 @@ export default function FieldReviewModal({ document, onResolve, onClose, initial
                                             )}
                                         </div>
                                         <div className="flex items-center gap-2 mt-0.5">
-                                            <span className={`text-[11px] font-medium font-mono ${field.extractedValue ? 'text-zinc-500' : 'text-red-400 italic'}`}>
+                                            <span className={`text-[11px] font-medium font-mono ${field.extractedValue ? 'text-muted-foreground' : 'text-red-400 italic'}`}>
                                                 {field.extractedValue || 'empty'}
                                             </span>
                                         </div>
                                     </div>
                                     {isIssue && !isResolved && (
-                                        <div className="text-zinc-400">
+                                        <div className="text-muted-foreground">
                                             {isExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
                                         </div>
                                     )}
@@ -245,15 +245,15 @@ export default function FieldReviewModal({ document, onResolve, onClose, initial
                                         
                                         {/* Extracted Value box */}
                                         <div className="space-y-2">
-                                            <p className="text-[14px] font-semibold text-zinc-900 dark:text-zinc-100">Extracted Value</p>
-                                            <div className={`rounded-xl border transition-colors ${isEditing[field.id] ? 'bg-white dark:bg-zinc-900 border-blue-400 ring-4 ring-blue-500/10' : 'bg-[#EAECEE] dark:bg-zinc-800/50 border-[#D1D5DB] dark:border-zinc-700'}`}>
+                                            <p className="text-[14px] font-semibold text-foreground">Extracted Value</p>
+                                            <div className={`rounded-xl border transition-colors ${isEditing[field.id] ? 'bg-card border-blue-400 ring-4 ring-blue-500/10' : 'bg-[#EAECEE] dark:bg-zinc-800/50 border-[#D1D5DB] dark:border-zinc-700'}`}>
                                                 <input 
                                                     type="text"
                                                     value={field.extractedValue}
                                                     onChange={(e) => handleUpdateExtractedValue(field.id, e.target.value)}
                                                     placeholder="Not found"
                                                     disabled={!isEditing[field.id]}
-                                                    className={`w-full bg-transparent border-none px-4 py-2.5 text-[14px] focus:ring-0 placeholder:italic ${field.extractedValue ? 'text-zinc-900 dark:text-white font-mono' : 'text-zinc-500 italic'} disabled:opacity-100`}
+                                                    className={`w-full bg-transparent border-none px-4 py-2.5 text-[14px] focus:ring-0 placeholder:italic ${field.extractedValue ? 'text-foreground font-mono' : 'text-muted-foreground italic'} disabled:opacity-100`}
                                                 />
                                             </div>
                                         </div>
@@ -286,14 +286,14 @@ export default function FieldReviewModal({ document, onResolve, onClose, initial
                                             {!isEditing[field.id] ? (
                                                 <button
                                                     onClick={() => setIsEditing(prev => ({ ...prev, [field.id]: true }))}
-                                                    className="flex items-center gap-2 px-4 py-2 text-[14px] font-medium border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 bg-white dark:bg-zinc-900 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors shadow-sm"
+                                                    className="flex items-center gap-2 px-4 py-2 text-[14px] font-medium border border-border text-muted-foreground bg-card rounded-lg hover:bg-muted dark:hover:bg-zinc-800 transition-colors shadow-sm"
                                                 >
                                                     <Edit className="h-4 w-4" /> Edit
                                                 </button>
                                             ) : (
                                                 <button
                                                     onClick={() => setIsEditing(prev => ({ ...prev, [field.id]: false }))}
-                                                    className="flex items-center gap-2 px-4 py-2 text-[14px] font-medium border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 bg-white dark:bg-zinc-900 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors shadow-sm"
+                                                    className="flex items-center gap-2 px-4 py-2 text-[14px] font-medium border border-border text-muted-foreground bg-card rounded-lg hover:bg-muted dark:hover:bg-zinc-800 transition-colors shadow-sm"
                                                 >
                                                     Cancel
                                                 </button>
@@ -309,14 +309,14 @@ export default function FieldReviewModal({ document, onResolve, onClose, initial
             </div>
 
             {/* Footer Buttons */}
-            <div className="px-6 py-4 border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shrink-0">
-                <div className="text-[11px] text-zinc-400 font-bold text-center mb-4 uppercase tracking-widest">
+            <div className="px-6 py-4 border-t border-border bg-card shrink-0">
+                <div className="text-[11px] text-muted-foreground font-bold text-center mb-4 uppercase tracking-widest">
                     {fields.length} fields · {totalIssues} need review
                 </div>
                 <div className="flex gap-3">
                     <button
                         onClick={onClose}
-                        className="flex-1 py-3 text-xs font-black border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-white rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all uppercase tracking-widest"
+                        className="flex-1 py-3 text-xs font-black border border-border text-foreground rounded-xl hover:bg-muted dark:hover:bg-zinc-800 transition-all uppercase tracking-widest"
                     >
                         SAVE
                     </button>
@@ -326,7 +326,7 @@ export default function FieldReviewModal({ document, onResolve, onClose, initial
                         className={`flex-1 py-3 text-xs font-black rounded-xl transition-all uppercase tracking-widest ${
                             allResolved
                                 ? 'bg-[#D1D4D8] text-zinc-900 hover:opacity-80 shadow-sm'
-                                : 'bg-[#E5E7EB] dark:bg-zinc-800 text-zinc-300 dark:text-zinc-600 cursor-not-allowed opacity-50'
+                                : 'bg-[#E5E7EB] dark:bg-zinc-800 text-zinc-300 dark:text-muted-foreground cursor-not-allowed opacity-50'
                         }`}
                     >
                         VALIDATE

@@ -53,13 +53,13 @@ export default function AssignExpertPopover({ onAssign, children, align = 'right
                         >
                             <PopoverPanel
                                 anchor={align === 'right' ? "bottom end" : "bottom start"}
-                                className="z-[110] mt-2 w-[240px] bg-white dark:bg-zinc-900 rounded-[20px] shadow-2xl border border-zinc-100 dark:border-zinc-800 focus:outline-none overflow-hidden scrollbar-none"
+                                className="z-[110] mt-2 w-[240px] bg-card rounded-[20px] shadow-2xl border border-zinc-100 dark:border-zinc-800 focus:outline-none overflow-hidden scrollbar-none"
                             >
                             <div className="p-4">
                                 {/* Assign to Me Section */}
                                 <div className="space-y-2">
                                     <div className="pb-1 border-b border-zinc-100 dark:border-zinc-800">
-                                        <h2 className="text-[9px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider">Assign Document</h2>
+                                        <h2 className="text-[9px] font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">Assign Document</h2>
                                     </div>
                                     
                                     {me && (
@@ -68,7 +68,7 @@ export default function AssignExpertPopover({ onAssign, children, align = 'right
                                                 onAssign(me);
                                                 close();
                                             }}
-                                            className="w-full flex items-center gap-2.5 p-1.5 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors text-left group"
+                                            className="w-full flex items-center gap-2.5 p-1.5 rounded-xl hover:bg-muted dark:hover:bg-zinc-800 transition-colors text-left group"
                                         >
                                             <div className={cn("relative h-8 w-8 rounded-full flex items-center justify-center text-white font-bold text-[10px] shadow-sm", me.color)}>
                                                 {me.initials}
@@ -78,10 +78,10 @@ export default function AssignExpertPopover({ onAssign, children, align = 'right
                                             </div>
                                             <div className="flex-1 min-w-0">
                                                 <div className="flex items-center gap-1.5">
-                                                    <span className="font-bold text-[13px] text-zinc-900 dark:text-white truncate">Assign to me</span>
+                                                    <span className="font-bold text-[13px] text-foreground truncate">Assign to me</span>
                                                     <span className="text-[8px] font-bold bg-green-100 dark:bg-green-500/20 text-green-700 dark:text-green-400 px-1 py-0.5 rounded-md uppercase">You</span>
                                                 </div>
-                                                <p className="text-[10px] text-zinc-500 dark:text-zinc-400 truncate">{me.name} · {me.role}</p>
+                                                <p className="text-[10px] text-muted-foreground truncate">{me.name} · {me.role}</p>
                                             </div>
                                         </button>
                                     )}
@@ -90,7 +90,7 @@ export default function AssignExpertPopover({ onAssign, children, align = 'right
                                 {/* Team Members Section */}
                                 <div className="mt-4 space-y-2">
                                     <div className="pb-1 border-b border-zinc-100 dark:border-zinc-800">
-                                        <h2 className="text-[9px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider">Team Members</h2>
+                                        <h2 className="text-[9px] font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">Team Members</h2>
                                     </div>
                                     
                                     <div className="space-y-0.5 max-h-[240px] overflow-y-auto pr-1 -mr-1 custom-scrollbar">
@@ -101,7 +101,7 @@ export default function AssignExpertPopover({ onAssign, children, align = 'right
                                                     onAssign(member);
                                                     close();
                                                 }}
-                                                className="w-full flex items-center gap-2.5 p-1.5 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors text-left group"
+                                                className="w-full flex items-center gap-2.5 p-1.5 rounded-xl hover:bg-muted dark:hover:bg-zinc-800 transition-colors text-left group"
                                             >
                                                 <div className={cn("h-8 w-8 rounded-full flex items-center justify-center text-white font-bold text-[10px] shadow-sm overflow-hidden", member.color)}>
                                                     {member.photo ? (
@@ -111,8 +111,8 @@ export default function AssignExpertPopover({ onAssign, children, align = 'right
                                                     )}
                                                 </div>
                                                 <div className="flex-1 min-w-0">
-                                                    <span className="block font-bold text-[13px] text-zinc-900 dark:text-white truncate">{member.name}</span>
-                                                    <p className="text-[10px] text-zinc-500 dark:text-zinc-400 truncate">{member.role}</p>
+                                                    <span className="block font-bold text-[13px] text-foreground truncate">{member.name}</span>
+                                                    <p className="text-[10px] text-muted-foreground truncate">{member.role}</p>
                                                 </div>
                                             </button>
                                         ))}

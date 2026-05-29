@@ -50,7 +50,7 @@ export default function ERPPODashboardArtifact({ data }: { data: any }) {
             <div className="flex-1 flex flex-col gap-4 min-w-0">
 
                 {/* Header Actions */}
-                <div className="flex flex-col sm:flex-row gap-4 justify-between items-center bg-white dark:bg-zinc-800 p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm">
+                <div className="flex flex-col sm:flex-row gap-4 justify-between items-center bg-card p-4 rounded-xl border border-border shadow-sm">
                     <div className="relative w-full sm:w-96">
                         <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                         <input
@@ -58,7 +58,7 @@ export default function ERPPODashboardArtifact({ data }: { data: any }) {
                             placeholder="Search by PO number, vendor, or description..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
+                            className="w-full pl-10 pr-4 py-2 rounded-lg border border-border bg-card text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
                         />
                     </div>
                     <div className="flex gap-2">
@@ -75,7 +75,7 @@ export default function ERPPODashboardArtifact({ data }: { data: any }) {
                 {/* PO List */}
                 <div className="flex-1 overflow-y-auto space-y-3 pr-2 scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-zinc-800">
                     {filteredPOs.map((po) => (
-                        <div key={po.id} className="group bg-white dark:bg-zinc-800 p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:border-primary/50 dark:hover:border-primary/50 transition-all shadow-sm hover:shadow-md flex flex-col sm:flex-row gap-4 items-center justify-between">
+                        <div key={po.id} className="group bg-card p-4 rounded-xl border border-border hover:border-primary/50 dark:hover:border-primary/50 transition-all shadow-sm hover:shadow-md flex flex-col sm:flex-row gap-4 items-center justify-between">
 
                             {/* Info */}
                             <div className="flex-1 min-w-0">
@@ -83,7 +83,7 @@ export default function ERPPODashboardArtifact({ data }: { data: any }) {
                                     <h4 className="font-semibold text-foreground truncate">{po.number}</h4>
                                     <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium border ${po.status === 'Approved' ? 'bg-green-50 text-green-700 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800' :
                                         po.status === 'In Progress' ? 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-800' :
-                                            'bg-zinc-100 text-zinc-600 border-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:border-zinc-700'
+                                            'bg-zinc-100 text-muted-foreground border-zinc-200 dark:bg-zinc-800 dark:text-muted-foreground dark:border-zinc-700'
                                         }`}>
                                         {po.status}
                                     </span>
@@ -103,7 +103,7 @@ export default function ERPPODashboardArtifact({ data }: { data: any }) {
                             {/* Action */}
                             <button
                                 onClick={() => handleSelect(po)}
-                                className="w-full sm:w-auto px-4 py-2 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-700 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 group-hover:border-primary/30 group-hover:text-primary"
+                                className="w-full sm:w-auto px-4 py-2 bg-card border border-border hover:bg-muted dark:hover:bg-zinc-700 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 group-hover:border-primary/30 group-hover:text-primary"
                             >
                                 Select
                                 <ChevronDownIcon className="w-3 h-3 -rotate-90" />
@@ -121,28 +121,28 @@ export default function ERPPODashboardArtifact({ data }: { data: any }) {
 
             {/* Sidebar Stats */}
             <div className="w-full lg:w-72 flex flex-col gap-4">
-                <div className="bg-white dark:bg-zinc-800 p-5 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm">
+                <div className="bg-card p-5 rounded-xl border border-border shadow-sm">
                     <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
                         <ArrowRightIcon className="w-4 h-4 -rotate-45 text-primary" />
                         Purchase Orders Overview
                     </h3>
 
                     <div className="space-y-4">
-                        <div className="p-3 bg-zinc-50 dark:bg-zinc-800/50 rounded-lg flex items-center justify-between">
+                        <div className="p-3 bg-muted dark:bg-zinc-800/50 rounded-lg flex items-center justify-between">
                             <div className="flex items-center gap-2 text-sm text-muted-foreground">
                                 <ReceiptPercentIcon className="w-4 h-4 text-blue-500" />
                                 Total Orders
                             </div>
                             <span className="font-bold text-foreground">12</span>
                         </div>
-                        <div className="p-3 bg-zinc-50 dark:bg-zinc-800/50 rounded-lg flex items-center justify-between">
+                        <div className="p-3 bg-muted dark:bg-zinc-800/50 rounded-lg flex items-center justify-between">
                             <div className="flex items-center gap-2 text-sm text-muted-foreground">
                                 <CurrencyDollarIcon className="w-4 h-4 text-green-500" />
                                 Total Value
                             </div>
                             <span className="font-bold text-green-600 dark:text-green-500">$3.2M</span>
                         </div>
-                        <div className="p-3 bg-zinc-50 dark:bg-zinc-800/50 rounded-lg flex items-center justify-between">
+                        <div className="p-3 bg-muted dark:bg-zinc-800/50 rounded-lg flex items-center justify-between">
                             <div className="flex items-center gap-2 text-sm text-muted-foreground">
                                 <CubeIcon className="w-4 h-4 text-indigo-500" />
                                 Total Items

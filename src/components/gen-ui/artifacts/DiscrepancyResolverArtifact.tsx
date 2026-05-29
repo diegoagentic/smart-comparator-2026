@@ -132,10 +132,10 @@ export default function InconsistencyResolverArtifact({ issues, onResolve, onClo
     };
 
     return (
-        <div className="relative w-full max-w-2xl bg-white dark:bg-zinc-800 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 flex flex-col max-h-[90vh] overflow-hidden animate-in fade-in duration-300 my-auto">
+        <div className="relative w-full max-w-2xl bg-card rounded-2xl shadow-sm border border-border flex flex-col max-h-[90vh] overflow-hidden animate-in fade-in duration-300 my-auto">
 
             {/* Header */}
-            <div className={`shrink-0 p-6 border-b flex justify-between items-center z-10 ${isSubstitution ? 'bg-indigo-50/50 dark:bg-indigo-900/20 border-indigo-100 dark:border-indigo-800/50' : 'bg-white dark:bg-zinc-800 border-zinc-100 dark:border-zinc-800'}`}>
+            <div className={`shrink-0 p-6 border-b flex justify-between items-center z-10 ${isSubstitution ? 'bg-indigo-50/50 dark:bg-indigo-900/20 border-indigo-100 dark:border-indigo-800/50' : 'bg-card border-zinc-100 dark:border-zinc-800'}`}>
                 <div>
                     <h2 className="text-xl font-bold font-brand flex items-center gap-2 text-foreground">
                         {isSubstitution ? <SparklesIcon className="w-6 h-6 text-indigo-500" /> : getTypeIcon(currentIssue.type)}
@@ -146,7 +146,7 @@ export default function InconsistencyResolverArtifact({ issues, onResolve, onClo
                     </p>
                 </div>
                 <div className="flex items-center gap-2">
-                    <div className="w-32 h-2 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                    <div className="w-32 h-2 bg-muted rounded-full overflow-hidden">
                         <div
                             className={`h-full transition-all duration-300 ${isSubstitution ? 'bg-indigo-500' : 'bg-amber-500'}`}
                             style={{ width: `${(progressIndex / initialTotal) * 100}%` }}
@@ -156,7 +156,7 @@ export default function InconsistencyResolverArtifact({ issues, onResolve, onClo
             </div>
 
             {/* Main Content */}
-            <div className="flex-1 overflow-y-auto p-8 scrollbar-micro bg-zinc-50/50 dark:bg-black/10">
+            <div className="flex-1 overflow-y-auto p-8 scrollbar-micro bg-muted/50 dark:bg-black/10">
 
                 {isAutoFixing ? (
                     <div className="h-full flex flex-col items-center justify-center text-center py-12">
@@ -171,7 +171,7 @@ export default function InconsistencyResolverArtifact({ issues, onResolve, onClo
                             <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
                                 <ShieldExclamationIcon className="w-4 h-4" /> Original {currentIssue.type === 'header' ? 'Context' : 'Value'}
                             </div>
-                            <div className="bg-white dark:bg-zinc-800/50 p-6 rounded-xl border border-zinc-200 dark:border-zinc-700/50 h-full flex flex-col">
+                            <div className="bg-card/50 p-6 rounded-xl border border-border/50 h-full flex flex-col">
                                 <div className="flex-1 space-y-4">
                                     <div>
                                         <label className="text-xs text-muted-foreground">{currentIssue.title}</label>
@@ -180,7 +180,7 @@ export default function InconsistencyResolverArtifact({ issues, onResolve, onClo
 
                                     <div className="pt-4 border-t border-zinc-100 dark:border-zinc-800">
                                         <label className="text-xs text-muted-foreground">{currentIssue.original.label}</label>
-                                        <div className="font-mono text-sm bg-zinc-100 dark:bg-zinc-800 p-2 rounded border border-zinc-200 dark:border-zinc-700 mt-1">
+                                        <div className="font-mono text-sm bg-muted p-2 rounded border border-border mt-1">
                                             {String(currentIssue.original.value)}
                                         </div>
                                         {currentIssue.original.subText && (
@@ -228,7 +228,7 @@ export default function InconsistencyResolverArtifact({ issues, onResolve, onClo
                                                 <select
                                                     value={selectedValue}
                                                     onChange={e => setSelectedValue(e.target.value)}
-                                                    className="w-full text-sm bg-white dark:bg-zinc-800 p-2.5 rounded-lg border border-amber-300 dark:border-amber-700 text-amber-900 dark:text-amber-100 shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
+                                                    className="w-full text-sm bg-card p-2.5 rounded-lg border border-amber-300 dark:border-amber-700 text-amber-900 dark:text-amber-100 shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
                                                 >
                                                     {currentIssue.metadata.options.map((opt: any) => (
                                                         <option key={opt.sku} value={opt.sku}>
@@ -242,7 +242,7 @@ export default function InconsistencyResolverArtifact({ issues, onResolve, onClo
                                             </div>
                                         ) : (
                                             <>
-                                                <div className="font-mono text-sm bg-white dark:bg-zinc-800 p-2 rounded border border-indigo-100 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 shadow-sm flex items-center gap-2 mt-1">
+                                                <div className="font-mono text-sm bg-card p-2 rounded border border-indigo-100 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 shadow-sm flex items-center gap-2 mt-1">
                                                     {String(currentIssue.suggestion.value)}
                                                     <CheckCircleIcon className="w-4 h-4 text-green-500 ml-auto" />
                                                 </div>
@@ -260,7 +260,7 @@ export default function InconsistencyResolverArtifact({ issues, onResolve, onClo
             </div>
 
             {/* Footer Controls */}
-            <div className="shrink-0 p-6 border-t border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-800 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div className="shrink-0 p-6 border-t border-zinc-100 dark:border-zinc-800 bg-card flex flex-col sm:flex-row justify-between items-center gap-4">
                 <div className="text-xs text-muted-foreground italic w-full sm:w-auto text-center sm:text-left">
                     Resolution required to proceed.
                 </div>
@@ -281,7 +281,7 @@ export default function InconsistencyResolverArtifact({ issues, onResolve, onClo
                         <button
                             onClick={() => handleAction('keep')}
                             disabled={isAutoFixing}
-                            className="flex-1 sm:flex-none px-4 py-2 rounded-lg border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 font-medium hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors flex items-center justify-center gap-2 whitespace-nowrap"
+                            className="flex-1 sm:flex-none px-4 py-2 rounded-lg border border-border text-muted-foreground font-medium hover:bg-muted dark:hover:bg-zinc-800 transition-colors flex items-center justify-center gap-2 whitespace-nowrap"
                         >
                             <XCircleIcon className="w-4 h-4" />
                             Keep Original

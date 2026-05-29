@@ -25,7 +25,7 @@ import OrderPlacedArtifact from './OrderPlacedArtifact';
 // Artifacts are fully implemented in separate files
 
 const DefaultArtifact = ({ data }: { data: any }) => (
-    <div className="p-4 bg-gray-100 rounded-lg text-sm text-gray-600">
+    <div className="p-4 bg-gray-100 rounded-lg text-sm text-muted-foreground">
         {JSON.stringify(data, null, 2)}
     </div>
 );
@@ -118,7 +118,7 @@ export default function ArtifactContainer({ artifact }: { artifact: ArtifactData
             break;
         case 'asset_review':
             content = (
-                <div className="w-full max-w-4xl xl:max-w-5xl h-[600px] -ml-2 -mt-2 shadow-lg rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800">
+                <div className="w-full max-w-4xl xl:max-w-5xl h-[600px] -ml-2 -mt-2 shadow-lg rounded-2xl overflow-hidden border border-border">
                     <AssetReviewArtifact
                         data={artifact.data}
                         source="upload"
@@ -171,7 +171,7 @@ export default function ArtifactContainer({ artifact }: { artifact: ArtifactData
             break;
         case 'order_simulation':
             content = (
-                <div className="w-full max-w-4xl h-[600px] -ml-2 -mt-2 shadow-lg rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-card">
+                <div className="w-full max-w-4xl h-[600px] -ml-2 -mt-2 shadow-lg rounded-2xl overflow-hidden border border-border bg-card">
                     <OrderSimulationArtifact />
                 </div>
             );

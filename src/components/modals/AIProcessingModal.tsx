@@ -210,7 +210,7 @@ export default function AIProcessingModal({ open, onComplete }: AIProcessingModa
             <div className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300" />
 
             {/* Modal */}
-            <div className="relative w-full max-w-2xl mx-4 max-h-[85vh] bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700/50 rounded-2xl shadow-2xl shadow-indigo-500/10 animate-in zoom-in-95 fade-in duration-500 overflow-hidden flex flex-col">
+            <div className="relative w-full max-w-2xl mx-4 max-h-[85vh] bg-card border border-gray-200 dark:border-zinc-700/50 rounded-2xl shadow-2xl shadow-indigo-500/10 animate-in zoom-in-95 fade-in duration-500 overflow-hidden flex flex-col">
                 {/* Top glow bar */}
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500" />
 
@@ -225,14 +225,14 @@ export default function AIProcessingModal({ open, onComplete }: AIProcessingModa
                                 <div className="absolute -top-1 -right-1 w-3 h-3 bg-indigo-500 rounded-full animate-pulse" />
                             )}
                             {phase === 'complete' && (
-                                <div className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full" />
+                                <div className="absolute -top-1 -right-1 w-3 h-3 bg-success rounded-full" />
                             )}
                         </div>
                         <div>
-                            <h3 className="text-sm font-bold text-zinc-900 dark:text-white">
+                            <h3 className="text-sm font-bold text-foreground">
                                 {phase === 'processing' ? 'AI Agent Pipeline — Processing RFQ' : 'Extraction Complete'}
                             </h3>
-                            <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
+                            <p className="text-[11px] text-muted-foreground">
                                 {phase === 'processing'
                                     ? `5 agents working on ${isWRG ? 'JPS Health Network' : 'Apex Furniture'} RFQ`
                                     : '5 agents completed — RFQ data extracted and normalized'}
@@ -240,9 +240,9 @@ export default function AIProcessingModal({ open, onComplete }: AIProcessingModa
                         </div>
                     </div>
                     {phase === 'complete' && (
-                        <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">
-                            <CheckCircleIcon className="w-4 h-4 text-emerald-400" />
-                            <span className="text-[11px] font-bold text-emerald-400">Done</span>
+                        <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-success/10 border border-emerald-500/20">
+                            <CheckCircleIcon className="w-4 h-4 text-success" />
+                            <span className="text-[11px] font-bold text-success">Done</span>
                         </div>
                     )}
                 </div>
@@ -254,12 +254,12 @@ export default function AIProcessingModal({ open, onComplete }: AIProcessingModa
 
                 {/* External Source Connection */}
                 <div className="px-6 pb-3 flex flex-wrap items-center gap-2">
-                    <span className="text-[9px] text-zinc-400 font-medium uppercase tracking-wider">Connected to:</span>
+                    <span className="text-[9px] text-muted-foreground font-medium uppercase tracking-wider">Connected to:</span>
                     <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-blue-500/10 border border-blue-500/20 text-[11px] font-bold text-blue-500">
                         <EnvelopeOpenIcon className="w-3.5 h-3.5" /> {isWRG ? 'JPS Health Network Email' : 'MillerKnoll Vendor Email'}
                     </span>
-                    <ArrowRightIcon className="w-3 h-3 text-zinc-500" />
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-purple-500/10 border border-purple-500/20 text-[11px] font-bold text-purple-500">
+                    <ArrowRightIcon className="w-3 h-3 text-muted-foreground" />
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-ai/10 border border-purple-500/20 text-[11px] font-bold text-ai">
                         <DocumentTextIcon className="w-3.5 h-3.5" /> {isWRG ? '3 PDF Attachments' : 'PDF Spec + CSV Pricing'}
                     </span>
                 </div>
@@ -267,10 +267,10 @@ export default function AIProcessingModal({ open, onComplete }: AIProcessingModa
                 {/* Progress Bar */}
                 <div className="px-6 pb-4">
                     <div className="flex items-center justify-between mb-1.5">
-                        <span className="text-[10px] font-medium text-zinc-500 uppercase tracking-wider">
+                        <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">
                             {phase === 'processing' ? 'Processing...' : 'All agents completed'}
                         </span>
-                        <span className="text-[10px] font-bold text-zinc-500 dark:text-zinc-400">{progress}%</span>
+                        <span className="text-[10px] font-bold text-muted-foreground">{progress}%</span>
                     </div>
                     <div className="h-1.5 w-full bg-gray-200 dark:bg-zinc-800 rounded-full overflow-hidden">
                         <div
@@ -294,10 +294,10 @@ export default function AIProcessingModal({ open, onComplete }: AIProcessingModa
                                         key={i}
                                         className="flex items-start gap-2 animate-in slide-in-from-left-4 fade-in duration-300"
                                     >
-                                        <span className="text-zinc-600 font-mono text-[10px] mt-0.5 select-none">{'>'}</span>
+                                        <span className="text-muted-foreground font-mono text-[10px] mt-0.5 select-none">{'>'}</span>
                                         <div className="flex-1 min-w-0">
                                             <span className={`text-[10px] font-bold mr-1.5 ${
-                                                log.type === 'success' ? 'text-emerald-400' :
+                                                log.type === 'success' ? 'text-success' :
                                                 log.type === 'extract' ? 'text-amber-400' : 'text-indigo-400'
                                             }`}>
                                                 {log.agent}:
@@ -305,7 +305,7 @@ export default function AIProcessingModal({ open, onComplete }: AIProcessingModa
                                             <span className={`text-[11px] font-mono ${
                                                 i === logs.length - 1 && phase === 'processing'
                                                     ? 'text-zinc-800 dark:text-zinc-200'
-                                                    : 'text-zinc-500'
+                                                    : 'text-muted-foreground'
                                             }`}>
                                                 {log.message}
                                             </span>
@@ -314,7 +314,7 @@ export default function AIProcessingModal({ open, onComplete }: AIProcessingModa
                                 ))}
                                 {phase === 'processing' && progress < 100 && (
                                     <div className="flex items-center gap-2 pt-1">
-                                        <span className="text-zinc-600 font-mono text-[10px]">{'>'}</span>
+                                        <span className="text-muted-foreground font-mono text-[10px]">{'>'}</span>
                                         <div className="flex gap-1">
                                             <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
                                             <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
@@ -330,21 +330,21 @@ export default function AIProcessingModal({ open, onComplete }: AIProcessingModa
                     <div className="px-6 pb-5 min-h-0 flex-1">
                         <div className="bg-gray-50 dark:bg-zinc-950 border border-gray-200 dark:border-zinc-800 rounded-xl p-4 max-h-[240px] overflow-y-auto scrollbar-micro">
                             <div className="flex items-center gap-2 mb-3">
-                                <DocumentTextIcon className="w-4 h-4 text-zinc-500" />
-                                <span className="text-[10px] font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Extracted Data Summary</span>
+                                <DocumentTextIcon className="w-4 h-4 text-muted-foreground" />
+                                <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Extracted Data Summary</span>
                             </div>
                             <div className="space-y-2">
                                 {EXTRACTED_ITEMS.slice(0, extractedCount).map((item, i) => (
                                     <div
                                         key={i}
-                                        className="flex items-center gap-3 px-3 py-2 bg-white dark:bg-zinc-900 rounded-lg border border-gray-200 dark:border-zinc-800 animate-in slide-in-from-bottom-2 fade-in duration-300"
+                                        className="flex items-center gap-3 px-3 py-2 bg-card rounded-lg border border-gray-200 dark:border-zinc-800 animate-in slide-in-from-bottom-2 fade-in duration-300"
                                     >
                                         <span className="text-base shrink-0">{item.icon}</span>
                                         <div className="flex-1 min-w-0">
-                                            <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">{item.label}</span>
+                                            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">{item.label}</span>
                                             <p className="text-[12px] text-zinc-800 dark:text-zinc-200 font-medium truncate">{item.value}</p>
                                         </div>
-                                        <CheckCircleIcon className="w-4 h-4 text-emerald-500 shrink-0" />
+                                        <CheckCircleIcon className="w-4 h-4 text-success shrink-0" />
                                     </div>
                                 ))}
                             </div>
@@ -354,7 +354,7 @@ export default function AIProcessingModal({ open, onComplete }: AIProcessingModa
 
                 {/* Footer */}
                 <div className="px-6 pb-5 flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-[11px] text-zinc-500">
+                    <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
                         <SparklesIcon className="w-3.5 h-3.5" />
                         <span>Strata Intelligence Engine v2.0</span>
                     </div>

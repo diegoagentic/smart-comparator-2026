@@ -12,7 +12,7 @@ export const TONE: Record<FieldResolution, ToneStyles> = {
         pill: 'bg-green-50 dark:bg-green-500/15 text-green-700 dark:text-green-400',
         dot: 'bg-green-500 dark:bg-green-400',
         label: 'Ready',
-        border: 'border-zinc-200 dark:border-zinc-800',
+        border: 'border-border',
     },
     ai_suggested: {
         pill: 'bg-brand-300 dark:bg-brand-500 text-zinc-900',
@@ -39,10 +39,10 @@ export const TONE: Record<FieldResolution, ToneStyles> = {
         border: 'border-red-200 dark:border-red-800/60',
     },
     unmapped: {
-        pill: 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400',
-        dot: 'bg-zinc-400 dark:bg-zinc-500',
+        pill: 'bg-muted text-muted-foreground',
+        dot: 'bg-zinc-400 dark:bg-muted0',
         label: 'Not sent',
-        border: 'border-zinc-200 dark:border-zinc-800',
+        border: 'border-border',
     },
     coercion_error: {
         pill: 'bg-red-50 dark:bg-red-500/15 text-red-700 dark:text-red-400',

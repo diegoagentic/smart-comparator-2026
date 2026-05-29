@@ -38,7 +38,7 @@ export default function OrderCorrectionArtifact({ data }: { data: any }) {
 
             <div className="p-4 space-y-4">
                 {/* Context Info */}
-                <div className="flex justify-between text-xs text-zinc-500">
+                <div className="flex justify-between text-xs text-muted-foreground">
                     <span>Order <strong>#{data.orderId}</strong></span>
                     <span>Client: Herman Miller Dealer</span>
                 </div>
@@ -46,9 +46,9 @@ export default function OrderCorrectionArtifact({ data }: { data: any }) {
                 {/* Diff View */}
                 <div className="bg-muted/50 rounded-lg p-3 grid grid-cols-[1fr,auto,1fr] gap-2 items-center text-sm border border-border">
                     <div className="space-y-1 opacity-50">
-                        <p className="text-xs text-zinc-500 uppercase tracking-wider font-semibold">Original</p>
-                        <div className="font-medium text-zinc-700 dark:text-zinc-300 line-through decoration-red-500 decoration-2">{data.issue}</div>
-                        <div className="text-xs text-zinc-400">Standard Carpet</div>
+                        <p className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Original</p>
+                        <div className="font-medium text-muted-foreground line-through decoration-red-500 decoration-2">{data.issue}</div>
+                        <div className="text-xs text-muted-foreground">Standard Carpet</div>
                     </div>
 
                     <ArrowRightIcon className="w-4 h-4 text-zinc-300" />
@@ -56,12 +56,12 @@ export default function OrderCorrectionArtifact({ data }: { data: any }) {
                     <div className="space-y-1">
                         <p className="text-xs text-green-600 dark:text-green-400 uppercase tracking-wider font-semibold">Correction</p>
                         <div className="font-bold text-green-700 dark:text-green-400">{data.suggestion}</div>
-                        <div className="text-xs text-zinc-400">Hard Floor (C7)</div>
+                        <div className="text-xs text-muted-foreground">Hard Floor (C7)</div>
                     </div>
                 </div>
 
                 {/* AI Reasoning */}
-                <p className="text-xs text-zinc-500 italic">
+                <p className="text-xs text-muted-foreground italic">
                     "Project scope specifies 'Polished Concrete' floors throughout the office. Standard casters will slip."
                 </p>
 

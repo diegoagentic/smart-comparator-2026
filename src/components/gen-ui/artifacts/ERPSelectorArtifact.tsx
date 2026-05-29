@@ -12,8 +12,8 @@ export default function ERPSelectorArtifact() {
     const { sendMessage } = useGenUI();
 
     return (
-        <div className="bg-white dark:bg-zinc-800 rounded-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden shadow-sm w-full">
-            <div className="p-4 border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-800/50">
+        <div className="bg-card rounded-2xl border border-border overflow-hidden shadow-sm w-full">
+            <div className="p-4 border-b border-zinc-100 dark:border-zinc-800 bg-muted/50 dark:bg-zinc-800/50">
                 <h3 className="font-semibold text-foreground flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
                     NetSuite Connector: Open Orders
@@ -22,7 +22,7 @@ export default function ERPSelectorArtifact() {
 
             <div className="overflow-x-auto">
                 <table className="w-full text-sm text-left">
-                    <thead className="bg-zinc-50 dark:bg-zinc-800/50 text-muted-foreground font-medium">
+                    <thead className="bg-muted dark:bg-zinc-800/50 text-muted-foreground font-medium">
                         <tr>
                             <th className="px-4 py-3">PO Number</th>
                             <th className="px-4 py-3">Client</th>
@@ -33,10 +33,10 @@ export default function ERPSelectorArtifact() {
                     </thead>
                     <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800">
                         {MOCK_ERP_ORDERS.map((order) => (
-                            <tr key={order.id} className="hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors group">
+                            <tr key={order.id} className="hover:bg-muted dark:hover:bg-zinc-800/50 transition-colors group">
                                 <td className="px-4 py-3 font-medium text-foreground">{order.id}</td>
-                                <td className="px-4 py-3 text-zinc-600 dark:text-zinc-300">{order.client}</td>
-                                <td className="px-4 py-3 text-zinc-500">{order.date}</td>
+                                <td className="px-4 py-3 text-muted-foreground dark:text-zinc-300">{order.client}</td>
+                                <td className="px-4 py-3 text-muted-foreground">{order.date}</td>
                                 <td className="px-4 py-3 text-right font-medium text-foreground">
                                     ${order.amount.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                                 </td>
@@ -53,7 +53,7 @@ export default function ERPSelectorArtifact() {
                     </tbody>
                 </table>
             </div>
-            <div className="p-3 border-t border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/50 text-xs text-center text-muted-foreground">
+            <div className="p-3 border-t border-zinc-100 dark:border-zinc-800 bg-muted dark:bg-zinc-800/50 text-xs text-center text-muted-foreground">
                 Displaying 3 recent open orders from NetSuite ERP
             </div>
         </div>

@@ -151,7 +151,7 @@ const pairStatusBadge = (status: AckPair['status']) => {
         'Matched': 'bg-green-100 dark:bg-green-500/20 text-green-700 dark:text-green-400',
         'In Production': 'bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-400',
         'Partial Ship': 'bg-indigo-100 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-400',
-        'Completed': 'bg-zinc-100 dark:bg-zinc-700/40 text-zinc-600 dark:text-zinc-400',
+        'Completed': 'bg-zinc-100 dark:bg-zinc-700/40 text-muted-foreground',
     };
     return <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full shrink-0 ${styles[status]}`}>{status}</span>;
 };
@@ -745,7 +745,7 @@ export default function AckReconciliationModal({ isOpen, onClose, triggerToast }
                                                             fixed === 'accept'
                                                                 ? 'border-green-200 dark:border-green-800 bg-green-50/50 dark:bg-green-500/5'
                                                                 : fixed === 'reject'
-                                                                    ? 'border-zinc-200 dark:border-zinc-700 bg-muted/30'
+                                                                    ? 'border-border bg-muted/30'
                                                                     : severityColor(disc.severity)
                                                         }`}
                                                     >
@@ -754,7 +754,7 @@ export default function AckReconciliationModal({ isOpen, onClose, triggerToast }
                                                                 {fixed === 'accept'
                                                                     ? <CheckCircleIcon className="w-5 h-5 text-green-500 dark:text-green-400" />
                                                                     : fixed === 'reject'
-                                                                        ? <XCircleIcon className="w-5 h-5 text-zinc-400" />
+                                                                        ? <XCircleIcon className="w-5 h-5 text-muted-foreground" />
                                                                         : statusIcon(disc.status)
                                                                 }
                                                                 <span className="text-sm font-bold text-foreground">{disc.field}</span>
