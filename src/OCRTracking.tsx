@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { ScanEye, FileText, CheckCircle2, AlertTriangle, Upload, Search, LayoutGrid, List, X, Archive, Sparkles, Loader2, MoreHorizontal, ChevronDown, Send, Trash2, CheckSquare } from 'lucide-react'
 import Navbar from './components/Navbar'
 import Breadcrumbs from './components/Breadcrumbs'
-import DocumentPreviewModal from './components/DocumentPreviewModal'
+import DocumentReviewModal from './components/ocr/DocumentReviewModal'
 import CreateRecordModal, { type RecordType } from './components/create-record/CreateRecordModal'
 import { getPreflightForDoc } from './components/create-record/mockPreflightData'
 import { preflightHasInconsistencies } from './components/create-record/usePreflight'
@@ -527,14 +527,16 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                 </div>
             </div>
 
-            {/* Document Preview Modal */}
-            <DocumentPreviewModal
+            {/* Document Review Modal — full prod-style modal with Header Fields + Line Items tabs */}
+            <DocumentReviewModal
                 isOpen={!!previewDoc}
                 onClose={() => setPreviewDoc(null)}
-                document={previewDoc ? { id: previewDoc.id, name: previewDoc.name, vendor: previewDoc.vendor, type: previewDoc.type, fields: 0, confidence: null, status: previewDoc.status, inconsistencyCount: 0 } : null}
-                onResolve={handleMarkCompleted}
-                onMarkDeprecated={(_docId) => {
-                    if (previewDoc) openDeprecation(previewDoc)
+                doc={previewDoc}
+                onSave={(d) => {
+                    addToast('success', `Document saved · ${d.vendor}`)
+                }}
+                onDownloadOriginal={(d) => {
+                    addToast('info', `Downloading original PDF · ${d.name}`)
                 }}
             />
 
