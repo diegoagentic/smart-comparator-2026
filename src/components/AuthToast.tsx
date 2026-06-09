@@ -32,27 +32,29 @@ function AuthToast({ toast, onDismiss }: AuthToastProps) {
     return () => clearTimeout(timer);
   }, [toast.id, onDismiss]);
 
+  // Vivid solid backgrounds matching prod toast style — high contrast,
+  // white text/icons over saturated brand-ish backgrounds.
   const config = {
     success: {
       icon: CheckCircleIcon,
-      bg: 'bg-green-50 dark:bg-green-500/10',
-      border: 'border-green-200 dark:border-green-500/20',
-      iconColor: 'text-green-600 dark:text-green-400',
-      textColor: 'text-green-800 dark:text-green-200',
+      bg: 'bg-emerald-600 dark:bg-emerald-500',
+      border: 'border-emerald-700/30 dark:border-emerald-400/30',
+      iconColor: 'text-white',
+      textColor: 'text-white',
     },
     error: {
       icon: ExclamationCircleIcon,
-      bg: 'bg-red-50 dark:bg-red-500/10',
-      border: 'border-red-200 dark:border-red-500/20',
-      iconColor: 'text-red-600 dark:text-red-400',
-      textColor: 'text-red-800 dark:text-red-200',
+      bg: 'bg-red-600 dark:bg-red-500',
+      border: 'border-red-700/30 dark:border-red-400/30',
+      iconColor: 'text-white',
+      textColor: 'text-white',
     },
     info: {
       icon: InformationCircleIcon,
-      bg: 'bg-blue-50 dark:bg-blue-500/10',
-      border: 'border-blue-200 dark:border-blue-500/20',
-      iconColor: 'text-blue-600 dark:text-blue-400',
-      textColor: 'text-blue-800 dark:text-blue-200',
+      bg: 'bg-blue-600 dark:bg-blue-500',
+      border: 'border-blue-700/30 dark:border-blue-400/30',
+      iconColor: 'text-white',
+      textColor: 'text-white',
     },
   }[toast.type];
 

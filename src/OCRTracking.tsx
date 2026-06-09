@@ -14,6 +14,7 @@ import type { DeprecatedDoc, DeprecationReason, ActiveStatus } from './component
 import OcrDocCard, { type OcrDocStatus, type OcrDocType } from './components/ocr/OcrDocCard'
 import UploadDocumentModal from './components/ocr/UploadDocumentModal'
 import { TEAM_MEMBERS, avatarGradient } from './components/team/teamMembers'
+import { openOriginalMockPdf } from './utils/viewOriginalMockPdf'
 
 interface OcrDoc {
     id: string
@@ -536,7 +537,9 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                     addToast('success', `Document saved · ${d.vendor}`)
                 }}
                 onDownloadOriginal={(d) => {
-                    addToast('info', `Downloading original PDF · ${d.name}`)
+                    openOriginalMockPdf(d).catch(() => {
+                        addToast('error', `Could not open original PDF · ${d.name}`)
+                    })
                 }}
             />
 
