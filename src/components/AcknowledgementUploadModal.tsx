@@ -50,7 +50,7 @@ export default function AcknowledgementUploadModal({ isOpen, onClose }: Acknowle
                             enter="ease-out duration-300" enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enterTo="opacity-100 translate-y-0 sm:scale-100"
                             leave="ease-in duration-200" leaveFrom="opacity-100 translate-y-0 sm:scale-100" leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
-                            <Dialog.Panel className="relative transform overflow-hidden rounded-2xl bg-white dark:bg-zinc-950 text-left shadow-2xl transition-all border border-border w-full sm:max-w-6xl h-[90vh]">
+                            <Dialog.Panel className="relative transform overflow-hidden rounded-2xl bg-background text-left shadow-2xl transition-all border border-border w-full sm:max-w-6xl h-[90vh]">
                                 {step === 'import' ? (
                                     <AckImportFlow
                                         onImportComplete={handleImportComplete}

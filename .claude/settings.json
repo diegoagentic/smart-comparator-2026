@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "strata-ds": {
+      "type": "stdio",
+      "command": "npm",
+      "args": ["run", "mcp", "--prefix", "c:/Users/User/Documents/design-system/Strata Design System/strata-ds/api"],
+      "description": "Strata Design System — governance rules, tokens, anti-patterns"
+    }
+  }
+}

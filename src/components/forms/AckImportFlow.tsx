@@ -142,7 +142,7 @@ export default function AckImportFlow({ onImportComplete, onCancel }: AckImportF
                             <div className="flex items-center gap-3 mb-6">
                                 <span className="px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-xs font-medium">PDF</span>
                                 <span className="px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 text-xs font-medium">SIF</span>
-                                <span className="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 text-xs font-medium">EDI 855</span>
+                                <span className="px-3 py-1 rounded-full bg-muted text-muted-foreground text-xs font-medium">EDI 855</span>
                             </div>
                             <button className="px-6 py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors shadow-sm">
                                 Select File

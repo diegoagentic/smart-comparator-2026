@@ -1,0 +1,71 @@
+{
+    "name": "@whitebrand/design-system",
+    "version": "0.1.0",
+    "description": "White Label Design System - Token-based React component library",
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        },
+        "./styles": "./dist/styles/index.css",
+        "./tokens": {
+            "types": "./dist/tokens/tokens.d.ts",
+            "import": "./dist/tokens/tokens.js"
+        }
+    },
+    "files": [
+        "dist",
+        "README.md",
+        "COMPONENT_GUIDE.md"
+    ],
+    "scripts": {
+        "build": "vite build",
+        "dev": "vite",
+        "build:tokens": "node build-tokens.mjs",
+        "build:lib": "npm run build:tokens && vite build --mode library",
+        "prepublishOnly": "npm run build:lib"
+    },
+    "keywords": [
+        "design-system",
+        "react",
+        "components",
+        "ui",
+        "tokens",
+        "themeable",
+        "white-label",
+        "tailwind"
+    ],
+    "author": "Your Name",
+    "license": "MIT",
+    "peerDependencies": {
+        "react": "^18.0.0",
+        "react-dom": "^18.0.0"
+    },
+    "dependencies": {
+        "class-variance-authority": "^0.7.1",
+        "clsx": "^2.1.1",
+        "lucide-react": "^0.487.0",
+        "tailwind-merge": "^3.2.0"
+    },
+    "devDependencies": {
+        "@tailwindcss/vite": "4.1.12",
+        "@types/react": "^18.3.1",
+        "@types/react-dom": "^18.3.1",
+        "@vitejs/plugin-react": "4.7.0",
+        "tailwindcss": "4.1.12",
+        "typescript": "^5.0.0",
+        "vite": "6.3.5"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/yourusername/whitebrand-design-system"
+    },
+    "bugs": {
+        "url": "https://github.com/yourusername/whitebrand-design-system/issues"
+    },
+    "homepage": "https://github.com/yourusername/whitebrand-design-system#readme"
+}

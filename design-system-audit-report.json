@@ -1,0 +1,2136 @@
+{
+  "results": [
+    {
+      "file": "AckDetail.tsx",
+      "violations": [
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 685,
+          "match": "rgba(245,158,11,0.2)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 685,
+          "match": "rgba(var(--primary)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "BRAND_MISUSE",
+          "severity": "warning",
+          "line": 1074,
+          "match": "bg-brand-400",
+          "message": "Brand-400 should only be used as hover in light mode. Use brand-300 for light mode base, brand-500 for dark mode base.",
+          "suggestion": "bg-brand-300 dark:bg-brand-500 hover:bg-brand-400 dark:hover:bg-brand-600/50"
+        }
+      ]
+    },
+    {
+      "file": "components\\catalogs\\ClientPolicyManager.tsx",
+      "violations": [
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 233,
+          "match": "bg-pink-50/50",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-50\" instead.",
+          "suggestion": "bg-zinc-50/50"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 233,
+          "match": "bg-pink-900/10",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-900\" instead.",
+          "suggestion": "bg-zinc-900/10"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 233,
+          "match": "border-pink-100",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-100\" instead.",
+          "suggestion": "border-zinc-100"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 233,
+          "match": "border-pink-900/20",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-900\" instead.",
+          "suggestion": "border-zinc-900/20"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 235,
+          "match": "text-pink-900",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-900\" instead.",
+          "suggestion": "text-zinc-900"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 235,
+          "match": "text-pink-300",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-300\" instead.",
+          "suggestion": "text-zinc-300"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 236,
+          "match": "text-pink-700/70",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-700\" instead.",
+          "suggestion": "text-zinc-700/70"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 236,
+          "match": "text-pink-400/70",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-400\" instead.",
+          "suggestion": "text-zinc-400/70"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 241,
+          "match": "bg-pink-500",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-500\" instead.",
+          "suggestion": "bg-zinc-500"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 241,
+          "match": "ring-pink-500",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-500\" instead.",
+          "suggestion": "ring-zinc-500"
+        }
+      ]
+    },
+    {
+      "file": "components\\charts\\CategoryDonutChart.tsx",
+      "violations": [
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 10,
+          "match": "#FFFFFF",
+          "message": "Hardcoded hex \"#FFFFFF\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 10,
+          "match": "#71717A",
+          "message": "Hardcoded hex \"#71717A\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 10,
+          "match": "#3F3F46",
+          "message": "Hardcoded hex \"#3F3F46\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "BRAND_MISUSE",
+          "severity": "warning",
+          "line": 10,
+          "match": "bg-brand-400",
+          "message": "Brand-400 should only be used as hover in light mode. Use brand-300 for light mode base, brand-500 for dark mode base.",
+          "suggestion": "bg-brand-300 dark:bg-brand-500 hover:bg-brand-400 dark:hover:bg-brand-600/50"
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 40,
+          "match": "rgba(255, 255, 255, 0.9)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 42,
+          "match": "#E5E7EB",
+          "message": "Hardcoded hex \"#E5E7EB\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 43,
+          "match": "rgb(0 0 0 / 0.1)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 45,
+          "match": "#1F2937",
+          "message": "Hardcoded hex \"#1F2937\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "file": "components\\charts\\ClientTreemapChart.tsx",
+      "violations": [
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "warning",
+          "line": 4,
+          "match": "#8884d8",
+          "message": "Hardcoded hex \"#8884d8\" detected. Use Strata token: blue-400",
+          "suggestion": "Use bg-blue-400 or text-blue-400"
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 5,
+          "match": "#83a6ed",
+          "message": "Hardcoded hex \"#83a6ed\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 6,
+          "match": "#8dd1e1",
+          "message": "Hardcoded hex \"#8dd1e1\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 7,
+          "match": "#82ca9d",
+          "message": "Hardcoded hex \"#82ca9d\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 8,
+          "match": "#a4de6c",
+          "message": "Hardcoded hex \"#a4de6c\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 9,
+          "match": "#d0ed57",
+          "message": "Hardcoded hex \"#d0ed57\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "warning",
+          "line": 23,
+          "match": "#8884d8",
+          "message": "Hardcoded hex \"#8884d8\" detected. Use Strata token: blue-400",
+          "suggestion": "Use bg-blue-400 or text-blue-400"
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 24,
+          "match": "#fff",
+          "message": "Hardcoded hex \"#fff\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 35,
+          "match": "#fff",
+          "message": "Hardcoded hex \"#fff\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 61,
+          "match": "#fff",
+          "message": "Hardcoded hex \"#fff\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "warning",
+          "line": 62,
+          "match": "#8884d8",
+          "message": "Hardcoded hex \"#8884d8\" detected. Use Strata token: blue-400",
+          "suggestion": "Use bg-blue-400 or text-blue-400"
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 67,
+          "match": "rgba(255, 255, 255, 0.9)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 69,
+          "match": "#E5E7EB",
+          "message": "Hardcoded hex \"#E5E7EB\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 70,
+          "match": "rgb(0 0 0 / 0.1)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "file": "components\\charts\\FunnelBarChart.tsx",
+      "violations": [
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 6,
+          "match": "#c4b5fd",
+          "message": "Hardcoded hex \"#c4b5fd\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 7,
+          "match": "#ddd6fe",
+          "message": "Hardcoded hex \"#ddd6fe\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 8,
+          "match": "#ede9fe",
+          "message": "Hardcoded hex \"#ede9fe\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 27,
+          "match": "#E5E7EB",
+          "message": "Hardcoded hex \"#E5E7EB\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 34,
+          "match": "#6B7280",
+          "message": "Hardcoded hex \"#6B7280\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 40,
+          "match": "rgba(255, 255, 255, 0.9)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 42,
+          "match": "#E5E7EB",
+          "message": "Hardcoded hex \"#E5E7EB\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 43,
+          "match": "rgb(0 0 0 / 0.1)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 45,
+          "match": "#1F2937",
+          "message": "Hardcoded hex \"#1F2937\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 51,
+          "match": "#7c3aed",
+          "message": "Hardcoded hex \"#7c3aed\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "file": "components\\charts\\InventoryHealthChart.tsx",
+      "violations": [
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 26,
+          "match": "#E5E7EB",
+          "message": "Hardcoded hex \"#E5E7EB\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 27,
+          "match": "#9CA3AF",
+          "message": "Hardcoded hex \"#9CA3AF\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 28,
+          "match": "#9CA3AF",
+          "message": "Hardcoded hex \"#9CA3AF\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 31,
+          "match": "rgba(255, 255, 255, 0.9)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 33,
+          "match": "#E5E7EB",
+          "message": "Hardcoded hex \"#E5E7EB\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 34,
+          "match": "rgb(0 0 0 / 0.1)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 36,
+          "match": "#1F2937",
+          "message": "Hardcoded hex \"#1F2937\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 39,
+          "match": "#10b981",
+          "message": "Hardcoded hex \"#10b981\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 40,
+          "match": "#ea580c",
+          "message": "Hardcoded hex \"#ea580c\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 41,
+          "match": "#ef4444",
+          "message": "Hardcoded hex \"#ef4444\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "file": "components\\charts\\LogisticsStatusChart.tsx",
+      "violations": [
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 27,
+          "match": "#E5E7EB",
+          "message": "Hardcoded hex \"#E5E7EB\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 34,
+          "match": "#6B7280",
+          "message": "Hardcoded hex \"#6B7280\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 38,
+          "match": "rgba(255, 255, 255, 0.9)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 40,
+          "match": "#E5E7EB",
+          "message": "Hardcoded hex \"#E5E7EB\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 41,
+          "match": "rgb(0 0 0 / 0.1)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 43,
+          "match": "#1F2937",
+          "message": "Hardcoded hex \"#1F2937\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 47,
+          "match": "#3b82f6",
+          "message": "Hardcoded hex \"#3b82f6\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 48,
+          "match": "#10b981",
+          "message": "Hardcoded hex \"#10b981\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "file": "components\\charts\\MarginTrendChart.tsx",
+      "violations": [
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 27,
+          "match": "#f5f5f5",
+          "message": "Hardcoded hex \"#f5f5f5\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 28,
+          "match": "#6B7280",
+          "message": "Hardcoded hex \"#6B7280\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "warning",
+          "line": 29,
+          "match": "#8884d8",
+          "message": "Hardcoded hex \"#8884d8\" detected. Use Strata token: blue-400",
+          "suggestion": "Use bg-blue-400 or text-blue-400"
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 30,
+          "match": "#82ca9d",
+          "message": "Hardcoded hex \"#82ca9d\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 33,
+          "match": "rgba(255, 255, 255, 0.9)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 35,
+          "match": "#E5E7EB",
+          "message": "Hardcoded hex \"#E5E7EB\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 36,
+          "match": "rgb(0 0 0 / 0.1)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 40,
+          "match": "#413ea0",
+          "message": "Hardcoded hex \"#413ea0\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 41,
+          "match": "#ff7300",
+          "message": "Hardcoded hex \"#ff7300\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "file": "components\\charts\\QuotePipelineChart.tsx",
+      "violations": [
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 4,
+          "match": "#94a3b8",
+          "message": "Hardcoded hex \"#94a3b8\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 5,
+          "match": "#3b82f6",
+          "message": "Hardcoded hex \"#3b82f6\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 6,
+          "match": "#eab308",
+          "message": "Hardcoded hex \"#eab308\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 8,
+          "match": "#ef4444",
+          "message": "Hardcoded hex \"#ef4444\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 33,
+          "match": "#fff",
+          "message": "Hardcoded hex \"#fff\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 45,
+          "match": "rgba(255, 255, 255, 0.9)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 47,
+          "match": "#E5E7EB",
+          "message": "Hardcoded hex \"#E5E7EB\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 48,
+          "match": "rgb(0 0 0 / 0.1)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "file": "components\\charts\\SalesAreaChart.tsx",
+      "violations": [
+        {
+          "type": "BRAND_MISUSE",
+          "severity": "warning",
+          "line": 31,
+          "match": "bg-brand-400",
+          "message": "Brand-400 should only be used as hover in light mode. Use brand-300 for light mode base, brand-500 for dark mode base.",
+          "suggestion": "bg-brand-300 dark:bg-brand-500 hover:bg-brand-400 dark:hover:bg-brand-600/50"
+        },
+        {
+          "type": "BRAND_MISUSE",
+          "severity": "warning",
+          "line": 32,
+          "match": "bg-brand-400",
+          "message": "Brand-400 should only be used as hover in light mode. Use brand-300 for light mode base, brand-500 for dark mode base.",
+          "suggestion": "bg-brand-300 dark:bg-brand-500 hover:bg-brand-400 dark:hover:bg-brand-600/50"
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 35,
+          "match": "#E5E7EB",
+          "message": "Hardcoded hex \"#E5E7EB\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 40,
+          "match": "#9CA3AF",
+          "message": "Hardcoded hex \"#9CA3AF\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 46,
+          "match": "#9CA3AF",
+          "message": "Hardcoded hex \"#9CA3AF\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 51,
+          "match": "rgba(24, 24, 27, 0.9)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 53,
+          "match": "#27272a",
+          "message": "Hardcoded hex \"#27272a\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 54,
+          "match": "rgb(0 0 0 / 0.1)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 55,
+          "match": "#F4F4F5",
+          "message": "Hardcoded hex \"#F4F4F5\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "BRAND_MISUSE",
+          "severity": "warning",
+          "line": 57,
+          "match": "bg-brand-400",
+          "message": "Brand-400 should only be used as hover in light mode. Use brand-300 for light mode base, brand-500 for dark mode base.",
+          "suggestion": "bg-brand-300 dark:bg-brand-500 hover:bg-brand-400 dark:hover:bg-brand-600/50"
+        },
+        {
+          "type": "BRAND_MISUSE",
+          "severity": "warning",
+          "line": 63,
+          "match": "bg-brand-400",
+          "message": "Brand-400 should only be used as hover in light mode. Use brand-300 for light mode base, brand-500 for dark mode base.",
+          "suggestion": "bg-brand-300 dark:bg-brand-500 hover:bg-brand-400 dark:hover:bg-brand-600/50"
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 67,
+          "match": "#BEF264",
+          "message": "Hardcoded hex \"#BEF264\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "file": "components\\charts\\TeamWorkloadChart.tsx",
+      "violations": [
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 27,
+          "match": "#E5E7EB",
+          "message": "Hardcoded hex \"#E5E7EB\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 34,
+          "match": "#6B7280",
+          "message": "Hardcoded hex \"#6B7280\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 39,
+          "match": "rgba(255, 255, 255, 0.9)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 41,
+          "match": "#E5E7EB",
+          "message": "Hardcoded hex \"#E5E7EB\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 42,
+          "match": "rgb(0 0 0 / 0.1)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 44,
+          "match": "#1F2937",
+          "message": "Hardcoded hex \"#1F2937\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 47,
+          "match": "#f43f5e",
+          "message": "Hardcoded hex \"#f43f5e\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 48,
+          "match": "#14b8a6",
+          "message": "Hardcoded hex \"#14b8a6\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "file": "components\\gen-ui\\artifacts\\AssetReview\\DiscountStructureWidget.tsx",
+      "violations": [
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 206,
+          "match": "bg-teal-50",
+          "message": "\"teal\" is not in Strata Design System. Use \"zinc-50\" instead.",
+          "suggestion": "bg-zinc-50"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 206,
+          "match": "bg-teal-900/10",
+          "message": "\"teal\" is not in Strata Design System. Use \"zinc-900\" instead.",
+          "suggestion": "bg-zinc-900/10"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 206,
+          "match": "border-teal-100",
+          "message": "\"teal\" is not in Strata Design System. Use \"zinc-100\" instead.",
+          "suggestion": "border-zinc-100"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 206,
+          "match": "border-teal-800/30",
+          "message": "\"teal\" is not in Strata Design System. Use \"zinc-800\" instead.",
+          "suggestion": "border-zinc-800/30"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 206,
+          "match": "text-teal-700",
+          "message": "\"teal\" is not in Strata Design System. Use \"zinc-700\" instead.",
+          "suggestion": "text-zinc-700"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 206,
+          "match": "text-teal-400",
+          "message": "\"teal\" is not in Strata Design System. Use \"zinc-400\" instead.",
+          "suggestion": "text-zinc-400"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 206,
+          "match": "bg-teal-100",
+          "message": "\"teal\" is not in Strata Design System. Use \"zinc-100\" instead.",
+          "suggestion": "bg-zinc-100"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 206,
+          "match": "bg-teal-800",
+          "message": "\"teal\" is not in Strata Design System. Use \"zinc-800\" instead.",
+          "suggestion": "bg-zinc-800"
+        }
+      ]
+    },
+    {
+      "file": "components\\gen-ui\\artifacts\\AssetReview\\SuccessModal.tsx",
+      "violations": [
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 19,
+          "match": "to-emerald-600",
+          "message": "\"emerald\" is not in Strata Design System. Use \"green-600\" instead.",
+          "suggestion": "to-green-600"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 19,
+          "match": "to-orange-600",
+          "message": "\"orange\" is not in Strata Design System. Use \"amber-600\" instead.",
+          "suggestion": "to-amber-600"
+        }
+      ]
+    },
+    {
+      "file": "components\\gen-ui\\artifacts\\AssetReviewArtifact.tsx",
+      "violations": [
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 70,
+          "match": "#12345",
+          "message": "Hardcoded hex \"#12345\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 137,
+          "match": "#200",
+          "message": "Hardcoded hex \"#200\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "file": "components\\gen-ui\\artifacts\\OrderCorrectionArtifact.tsx",
+      "violations": [
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 13,
+          "match": "#402",
+          "message": "Hardcoded hex \"#402\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "file": "components\\gen-ui\\artifacts\\QuoteProposalArtifact.tsx",
+      "violations": [
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 35,
+          "match": "to-purple-700",
+          "message": "\"purple\" is not in Strata Design System. Use \"indigo-700\" instead.",
+          "suggestion": "to-indigo-700"
+        }
+      ]
+    },
+    {
+      "file": "components\\gen-ui\\CommandCenter.tsx",
+      "violations": [
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 25,
+          "match": "from-purple-600",
+          "message": "\"purple\" is not in Strata Design System. Use \"indigo-600\" instead.",
+          "suggestion": "from-indigo-600"
+        }
+      ]
+    },
+    {
+      "file": "components\\gen-ui\\StreamFeed.tsx",
+      "violations": [
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 61,
+          "match": "from-purple-500",
+          "message": "\"purple\" is not in Strata Design System. Use \"indigo-500\" instead.",
+          "suggestion": "from-indigo-500"
+        }
+      ]
+    },
+    {
+      "file": "components\\gen-ui\\ThinkingIndicator.tsx",
+      "violations": [
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 6,
+          "match": "from-purple-500",
+          "message": "\"purple\" is not in Strata Design System. Use \"indigo-500\" instead.",
+          "suggestion": "from-indigo-500"
+        }
+      ]
+    },
+    {
+      "file": "components\\InventoryMovements.tsx",
+      "violations": [
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 41,
+          "match": "#84cc16",
+          "message": "Hardcoded hex \"#84cc16\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 41,
+          "match": "#3b82f6",
+          "message": "Hardcoded hex \"#3b82f6\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 41,
+          "match": "#ef4444",
+          "message": "Hardcoded hex \"#ef4444\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 393,
+          "match": "#3b82f6",
+          "message": "Hardcoded hex \"#3b82f6\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 394,
+          "match": "#e4e4e7",
+          "message": "Hardcoded hex \"#e4e4e7\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "file": "components\\Navbar.tsx",
+      "violations": [
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 188,
+          "match": "text-pink-600",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-600\" instead.",
+          "suggestion": "text-zinc-600"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 188,
+          "match": "text-pink-400",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-400\" instead.",
+          "suggestion": "text-zinc-400"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 188,
+          "match": "bg-pink-50",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-50\" instead.",
+          "suggestion": "bg-zinc-50"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 188,
+          "match": "bg-pink-500/10",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-500\" instead.",
+          "suggestion": "bg-zinc-500/10"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 196,
+          "match": "text-teal-600",
+          "message": "\"teal\" is not in Strata Design System. Use \"zinc-600\" instead.",
+          "suggestion": "text-zinc-600"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 196,
+          "match": "text-teal-400",
+          "message": "\"teal\" is not in Strata Design System. Use \"zinc-400\" instead.",
+          "suggestion": "text-zinc-400"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 196,
+          "match": "bg-teal-50",
+          "message": "\"teal\" is not in Strata Design System. Use \"zinc-50\" instead.",
+          "suggestion": "bg-zinc-50"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 196,
+          "match": "bg-teal-500/10",
+          "message": "\"teal\" is not in Strata Design System. Use \"zinc-500\" instead.",
+          "suggestion": "bg-zinc-500/10"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 256,
+          "match": "text-pink-600",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-600\" instead.",
+          "suggestion": "text-zinc-600"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 256,
+          "match": "text-pink-400",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-400\" instead.",
+          "suggestion": "text-zinc-400"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 256,
+          "match": "bg-pink-50",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-50\" instead.",
+          "suggestion": "bg-zinc-50"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 256,
+          "match": "bg-pink-500/10",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-500\" instead.",
+          "suggestion": "bg-zinc-500/10"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 259,
+          "match": "text-teal-600",
+          "message": "\"teal\" is not in Strata Design System. Use \"zinc-600\" instead.",
+          "suggestion": "text-zinc-600"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 259,
+          "match": "text-teal-400",
+          "message": "\"teal\" is not in Strata Design System. Use \"zinc-400\" instead.",
+          "suggestion": "text-zinc-400"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 259,
+          "match": "bg-teal-50",
+          "message": "\"teal\" is not in Strata Design System. Use \"zinc-50\" instead.",
+          "suggestion": "bg-zinc-50"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 259,
+          "match": "bg-teal-500/10",
+          "message": "\"teal\" is not in Strata Design System. Use \"zinc-500\" instead.",
+          "suggestion": "bg-zinc-500/10"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 320,
+          "match": "to-purple-600",
+          "message": "\"purple\" is not in Strata Design System. Use \"indigo-600\" instead.",
+          "suggestion": "to-indigo-600"
+        }
+      ]
+    },
+    {
+      "file": "components\\notifications\\ChatView.tsx",
+      "violations": [
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 18,
+          "match": "#442",
+          "message": "Hardcoded hex \"#442\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "file": "components\\notifications\\data.ts",
+      "violations": [
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 23,
+          "match": "#4521",
+          "message": "Hardcoded hex \"#4521\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 153,
+          "match": "#442",
+          "message": "Hardcoded hex \"#442\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "file": "components\\QuickMovementsModal.tsx",
+      "violations": [
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 408,
+          "match": "from-purple-600",
+          "message": "\"purple\" is not in Strata Design System. Use \"indigo-600\" instead.",
+          "suggestion": "from-indigo-600"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 408,
+          "match": "from-purple-500",
+          "message": "\"purple\" is not in Strata Design System. Use \"indigo-500\" instead.",
+          "suggestion": "from-indigo-500"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 785,
+          "match": "to-purple-600",
+          "message": "\"purple\" is not in Strata Design System. Use \"indigo-600\" instead.",
+          "suggestion": "to-indigo-600"
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 881,
+          "match": "rgba(0,0,0,0.1)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 885,
+          "match": "rgba(255,255,255,0.1)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 889,
+          "match": "#000000",
+          "message": "Hardcoded hex \"#000000\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 892,
+          "match": "#ffffff",
+          "message": "Hardcoded hex \"#ffffff\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "file": "components\\SmartAddAssetModal.tsx",
+      "violations": [
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 595,
+          "match": "bg-rose-50",
+          "message": "\"rose\" is not in Strata Design System. Use \"zinc-50\" instead.",
+          "suggestion": "bg-zinc-50"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 595,
+          "match": "bg-rose-900/20",
+          "message": "\"rose\" is not in Strata Design System. Use \"zinc-900\" instead.",
+          "suggestion": "bg-zinc-900/20"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 596,
+          "match": "text-rose-600",
+          "message": "\"rose\" is not in Strata Design System. Use \"zinc-600\" instead.",
+          "suggestion": "text-zinc-600"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 597,
+          "match": "text-rose-400",
+          "message": "\"rose\" is not in Strata Design System. Use \"zinc-400\" instead.",
+          "suggestion": "text-zinc-400"
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 645,
+          "match": "#fff",
+          "message": "Hardcoded hex \"#fff\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 649,
+          "match": "rgba(0,0,0,0.6)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 650,
+          "match": "rgba(var(--primary)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "file": "components\\TrackingModal.tsx",
+      "violations": [
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 106,
+          "match": "from-purple-50",
+          "message": "\"purple\" is not in Strata Design System. Use \"indigo-50\" instead.",
+          "suggestion": "from-indigo-50"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 106,
+          "match": "from-purple-900/10",
+          "message": "\"purple\" is not in Strata Design System. Use \"indigo-900\" instead.",
+          "suggestion": "from-indigo-900/10"
+        }
+      ]
+    },
+    {
+      "file": "components\\widgets\\SmartQuoteHub.tsx",
+      "violations": [
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 52,
+          "match": "#4921",
+          "message": "Hardcoded hex \"#4921\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "file": "context\\GenUIContext.tsx",
+      "violations": [
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 31,
+          "match": "#402",
+          "message": "Hardcoded hex \"#402\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 97,
+          "match": "#402",
+          "message": "Hardcoded hex \"#402\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 99,
+          "match": "#402",
+          "message": "Hardcoded hex \"#402\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 103,
+          "match": "#402",
+          "message": "Hardcoded hex \"#402\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "file": "Dashboard.tsx",
+      "violations": [
+        {
+          "type": "BRAND_MISUSE",
+          "severity": "warning",
+          "line": 183,
+          "match": "bg-brand-400",
+          "message": "Brand-400 should only be used as hover in light mode. Use brand-300 for light mode base, brand-500 for dark mode base.",
+          "suggestion": "bg-brand-300 dark:bg-brand-500 hover:bg-brand-400 dark:hover:bg-brand-600/50"
+        },
+        {
+          "type": "BRAND_MISUSE",
+          "severity": "warning",
+          "line": 184,
+          "match": "bg-brand-400",
+          "message": "Brand-400 should only be used as hover in light mode. Use brand-300 for light mode base, brand-500 for dark mode base.",
+          "suggestion": "bg-brand-300 dark:bg-brand-500 hover:bg-brand-400 dark:hover:bg-brand-600/50"
+        },
+        {
+          "type": "BRAND_MISUSE",
+          "severity": "warning",
+          "line": 186,
+          "match": "bg-brand-400",
+          "message": "Brand-400 should only be used as hover in light mode. Use brand-300 for light mode base, brand-500 for dark mode base.",
+          "suggestion": "bg-brand-300 dark:bg-brand-500 hover:bg-brand-400 dark:hover:bg-brand-600/50"
+        },
+        {
+          "type": "BRAND_MISUSE",
+          "severity": "warning",
+          "line": 187,
+          "match": "bg-brand-400",
+          "message": "Brand-400 should only be used as hover in light mode. Use brand-300 for light mode base, brand-500 for dark mode base.",
+          "suggestion": "bg-brand-300 dark:bg-brand-500 hover:bg-brand-400 dark:hover:bg-brand-600/50"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 224,
+          "match": "bg-pink-50",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-50\" instead.",
+          "suggestion": "bg-zinc-50"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 224,
+          "match": "text-pink-700",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-700\" instead.",
+          "suggestion": "text-zinc-700"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 224,
+          "match": "bg-pink-500/15",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-500\" instead.",
+          "suggestion": "bg-zinc-500/15"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 224,
+          "match": "text-pink-300",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-300\" instead.",
+          "suggestion": "text-zinc-300"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 224,
+          "match": "ring-pink-600/20",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-600\" instead.",
+          "suggestion": "ring-zinc-600/20"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 224,
+          "match": "ring-pink-400/30",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-400\" instead.",
+          "suggestion": "ring-zinc-400/30"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 234,
+          "match": "bg-pink-600",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-600\" instead.",
+          "suggestion": "bg-zinc-600"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 234,
+          "match": "bg-pink-700",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-700\" instead.",
+          "suggestion": "bg-zinc-700"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 234,
+          "match": "border-pink-500",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-500\" instead.",
+          "suggestion": "border-zinc-500"
+        },
+        {
+          "type": "BRAND_MISUSE",
+          "severity": "warning",
+          "line": 647,
+          "match": "bg-brand-400",
+          "message": "Brand-400 should only be used as hover in light mode. Use brand-300 for light mode base, brand-500 for dark mode base.",
+          "suggestion": "bg-brand-300 dark:bg-brand-500 hover:bg-brand-400 dark:hover:bg-brand-600/50"
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 1278,
+          "match": "rgba(0,0,0,0.1)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "file": "Detail.tsx",
+      "violations": [
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 686,
+          "match": "rgba(245,158,11,0.2)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 686,
+          "match": "rgba(var(--primary)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "BRAND_MISUSE",
+          "severity": "warning",
+          "line": 1075,
+          "match": "bg-brand-400",
+          "message": "Brand-400 should only be used as hover in light mode. Use brand-300 for light mode base, brand-500 for dark mode base.",
+          "suggestion": "bg-brand-300 dark:bg-brand-500 hover:bg-brand-400 dark:hover:bg-brand-600/50"
+        }
+      ]
+    },
+    {
+      "file": "Inventory.tsx",
+      "violations": [
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 172,
+          "match": "bg-pink-50",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-50\" instead.",
+          "suggestion": "bg-zinc-50"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 172,
+          "match": "text-pink-700",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-700\" instead.",
+          "suggestion": "text-zinc-700"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 172,
+          "match": "bg-pink-500/15",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-500\" instead.",
+          "suggestion": "bg-zinc-500/15"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 172,
+          "match": "text-pink-300",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-300\" instead.",
+          "suggestion": "text-zinc-300"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 172,
+          "match": "ring-pink-600/20",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-600\" instead.",
+          "suggestion": "ring-zinc-600/20"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 172,
+          "match": "ring-pink-400/30",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-400\" instead.",
+          "suggestion": "ring-zinc-400/30"
+        }
+      ]
+    },
+    {
+      "file": "Login.tsx",
+      "violations": [
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 102,
+          "match": "#f25022",
+          "message": "Hardcoded hex \"#f25022\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 102,
+          "match": "#7fba00",
+          "message": "Hardcoded hex \"#7fba00\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 102,
+          "match": "#00a4ef",
+          "message": "Hardcoded hex \"#00a4ef\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 102,
+          "match": "#ffb900",
+          "message": "Hardcoded hex \"#ffb900\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "file": "OrderDetail.tsx",
+      "violations": [
+        {
+          "type": "BRAND_MISUSE",
+          "severity": "warning",
+          "line": 1097,
+          "match": "bg-brand-400",
+          "message": "Brand-400 should only be used as hover in light mode. Use brand-300 for light mode base, brand-500 for dark mode base.",
+          "suggestion": "bg-brand-300 dark:bg-brand-500 hover:bg-brand-400 dark:hover:bg-brand-600/50"
+        }
+      ]
+    },
+    {
+      "file": "Pricing.tsx",
+      "violations": [
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 46,
+          "match": "bg-pink-50",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-50\" instead.",
+          "suggestion": "bg-zinc-50"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 46,
+          "match": "text-pink-700",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-700\" instead.",
+          "suggestion": "text-zinc-700"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 46,
+          "match": "bg-pink-500/15",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-500\" instead.",
+          "suggestion": "bg-zinc-500/15"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 46,
+          "match": "text-pink-300",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-300\" instead.",
+          "suggestion": "text-zinc-300"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 46,
+          "match": "ring-pink-600/20",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-600\" instead.",
+          "suggestion": "ring-zinc-600/20"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 46,
+          "match": "ring-pink-400/30",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-400\" instead.",
+          "suggestion": "ring-zinc-400/30"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 55,
+          "match": "bg-pink-600",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-600\" instead.",
+          "suggestion": "bg-zinc-600"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 55,
+          "match": "bg-pink-700",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-700\" instead.",
+          "suggestion": "bg-zinc-700"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 55,
+          "match": "border-pink-500",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-500\" instead.",
+          "suggestion": "border-zinc-500"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 445,
+          "match": "to-emerald-50",
+          "message": "\"emerald\" is not in Strata Design System. Use \"green-50\" instead.",
+          "suggestion": "to-green-50"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 445,
+          "match": "to-emerald-900/10",
+          "message": "\"emerald\" is not in Strata Design System. Use \"green-900\" instead.",
+          "suggestion": "to-green-900/10"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 469,
+          "match": "from-purple-50",
+          "message": "\"purple\" is not in Strata Design System. Use \"indigo-50\" instead.",
+          "suggestion": "from-indigo-50"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 469,
+          "match": "to-pink-50",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-50\" instead.",
+          "suggestion": "to-zinc-50"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 469,
+          "match": "from-purple-900/10",
+          "message": "\"purple\" is not in Strata Design System. Use \"indigo-900\" instead.",
+          "suggestion": "from-indigo-900/10"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 469,
+          "match": "to-pink-900/10",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-900\" instead.",
+          "suggestion": "to-zinc-900/10"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 481,
+          "match": "from-orange-50",
+          "message": "\"orange\" is not in Strata Design System. Use \"amber-50\" instead.",
+          "suggestion": "from-amber-50"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 481,
+          "match": "from-orange-900/10",
+          "message": "\"orange\" is not in Strata Design System. Use \"amber-900\" instead.",
+          "suggestion": "from-amber-900/10"
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 499,
+          "match": "#374151",
+          "message": "Hardcoded hex \"#374151\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 500,
+          "match": "#9CA3AF",
+          "message": "Hardcoded hex \"#9CA3AF\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 501,
+          "match": "#9CA3AF",
+          "message": "Hardcoded hex \"#9CA3AF\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 503,
+          "match": "rgba(255, 255, 255, 0.9)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 503,
+          "match": "rgb(0 0 0 / 0.1)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 505,
+          "match": "#3B82F6",
+          "message": "Hardcoded hex \"#3B82F6\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "file": "QuoteDetail.tsx",
+      "violations": [
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 375,
+          "match": "rgba(245,158,11,0.2)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 375,
+          "match": "rgba(var(--primary)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "BRAND_MISUSE",
+          "severity": "warning",
+          "line": 766,
+          "match": "bg-brand-400",
+          "message": "Brand-400 should only be used as hover in light mode. Use brand-300 for light mode base, brand-500 for dark mode base.",
+          "suggestion": "bg-brand-300 dark:bg-brand-500 hover:bg-brand-400 dark:hover:bg-brand-600/50"
+        }
+      ]
+    },
+    {
+      "file": "Transactions.tsx",
+      "violations": [
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 90,
+          "match": "bg-pink-50",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-50\" instead.",
+          "suggestion": "bg-zinc-50"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 90,
+          "match": "text-pink-700",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-700\" instead.",
+          "suggestion": "text-zinc-700"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 90,
+          "match": "bg-pink-500/15",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-500\" instead.",
+          "suggestion": "bg-zinc-500/15"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 90,
+          "match": "text-pink-300",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-300\" instead.",
+          "suggestion": "text-zinc-300"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 90,
+          "match": "ring-pink-600/20",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-600\" instead.",
+          "suggestion": "ring-zinc-600/20"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 90,
+          "match": "ring-pink-400/30",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-400\" instead.",
+          "suggestion": "ring-zinc-400/30"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 99,
+          "match": "bg-pink-600",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-600\" instead.",
+          "suggestion": "bg-zinc-600"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 99,
+          "match": "bg-pink-700",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-700\" instead.",
+          "suggestion": "bg-zinc-700"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 99,
+          "match": "border-pink-500",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-500\" instead.",
+          "suggestion": "border-zinc-500"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 920,
+          "match": "to-emerald-50",
+          "message": "\"emerald\" is not in Strata Design System. Use \"green-50\" instead.",
+          "suggestion": "to-green-50"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 920,
+          "match": "to-emerald-900/10",
+          "message": "\"emerald\" is not in Strata Design System. Use \"green-900\" instead.",
+          "suggestion": "to-green-900/10"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 950,
+          "match": "from-purple-50",
+          "message": "\"purple\" is not in Strata Design System. Use \"indigo-50\" instead.",
+          "suggestion": "from-indigo-50"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 950,
+          "match": "to-pink-50",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-50\" instead.",
+          "suggestion": "to-zinc-50"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 950,
+          "match": "from-purple-900/10",
+          "message": "\"purple\" is not in Strata Design System. Use \"indigo-900\" instead.",
+          "suggestion": "from-indigo-900/10"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 950,
+          "match": "to-pink-900/10",
+          "message": "\"pink\" is not in Strata Design System. Use \"zinc-900\" instead.",
+          "suggestion": "to-zinc-900/10"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 966,
+          "match": "from-orange-50",
+          "message": "\"orange\" is not in Strata Design System. Use \"amber-50\" instead.",
+          "suggestion": "from-amber-50"
+        },
+        {
+          "type": "FORBIDDEN_COLOR",
+          "severity": "error",
+          "line": 966,
+          "match": "from-orange-900/10",
+          "message": "\"orange\" is not in Strata Design System. Use \"amber-900\" instead.",
+          "suggestion": "from-amber-900/10"
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 984,
+          "match": "#374151",
+          "message": "Hardcoded hex \"#374151\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 985,
+          "match": "#9CA3AF",
+          "message": "Hardcoded hex \"#9CA3AF\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 986,
+          "match": "#9CA3AF",
+          "message": "Hardcoded hex \"#9CA3AF\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 988,
+          "match": "rgba(255, 255, 255, 0.9)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_RGB",
+          "severity": "warning",
+          "line": 988,
+          "match": "rgb(0 0 0 / 0.1)",
+          "message": "Hardcoded RGB color detected. Use Strata CSS variables instead.",
+          "suggestion": null
+        },
+        {
+          "type": "HARDCODED_HEX",
+          "severity": "error",
+          "line": 990,
+          "match": "#3B82F6",
+          "message": "Hardcoded hex \"#3B82F6\" detected. Map to appropriate Strata token.",
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "file": "Workspace.tsx",
+      "violations": [
+        {
+          "type": "BRAND_MISUSE",
+          "severity": "warning",
+          "line": 686,
+          "match": "bg-brand-400",
+          "message": "Brand-400 should only be used as hover in light mode. Use brand-300 for light mode base, brand-500 for dark mode base.",
+          "suggestion": "bg-brand-300 dark:bg-brand-500 hover:bg-brand-400 dark:hover:bg-brand-600/50"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "totalViolations": 242,
+    "errorCount": 190,
+    "warningCount": 52,
+    "byType": {
+      "HARDCODED_RGB": 33,
+      "BRAND_MISUSE": 15,
+      "FORBIDDEN_COLOR": 99,
+      "HARDCODED_HEX": 95
+    }
+  }
+}

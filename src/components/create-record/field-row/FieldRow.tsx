@@ -26,7 +26,7 @@ export default function FieldRow({ field, state, setState, compact }: FieldRowPr
                             {field.displayName}
                         </span>
                         {field.required && (
-                            <span title="This field must be valid before the record can be created" className="text-[10px] font-semibold text-red-600 dark:text-red-400">REQUIRED</span>
+                            <span title="This field must be valid before the record can be created" className="inline-flex items-center rounded-full bg-red-50 dark:bg-red-500/15 border border-red-200 dark:border-red-500/20 px-2 py-0.5 text-[10px] font-medium text-red-600 dark:text-red-400">Required</span>
                         )}
                     </div>
                 </div>

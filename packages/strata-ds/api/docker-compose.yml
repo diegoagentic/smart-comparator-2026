@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - API_VERSION=v1
+      - CORS_ORIGIN=http://localhost:5173
+      - JWT_SECRET=change-this-secret-in-production
+      - RATE_LIMIT_WINDOW_MS=3600000
+      - RATE_LIMIT_MAX_REQUESTS=1000
+      - CACHE_TTL_SECONDS=3600
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: Redis for distributed caching
+  # redis:
+  #   image: redis:7-alpine
+  #   ports:
+  #     - "6379:6379"
+  #   restart: unless-stopped
+  #   volumes:
+  #     - redis-data:/data
+
+  # Optional: PostgreSQL for persistent storage
+  # postgres:
+  #   image: postgres:15-alpine
+  #   environment:
+  #     - POSTGRES_USER=strata
+  #     - POSTGRES_PASSWORD=changeme
+  #     - POSTGRES_DB=strata_ds
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - postgres-data:/var/lib/postgresql/data
+  #   restart: unless-stopped
+
+# volumes:
+#   redis-data:
+#   postgres-data:

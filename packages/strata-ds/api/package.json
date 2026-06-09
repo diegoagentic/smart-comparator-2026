@@ -1,0 +1,67 @@
+{
+  "name": "strata-ds-api",
+  "version": "1.0.0",
+  "description": "RESTful API for Strata DS White Label Design System",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "eslint src --ext .ts",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "webhook": "tsx src/config/figma-webhook-setup.ts",
+    "webhook:setup": "tsx src/config/figma-webhook-setup.ts setup",
+    "webhook:verify": "tsx src/config/figma-webhook-setup.ts verify",
+    "webhook:list": "tsx src/config/figma-webhook-setup.ts list",
+    "test:flow": "tsx src/utils/test-update-flow.ts"
+  },
+  "keywords": [
+    "design-system",
+    "api",
+    "rest",
+    "typescript",
+    "express"
+  ],
+  "author": "Strata DS Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.1.0",
+    "dotenv": "^16.3.1",
+    "express-rate-limit": "^7.1.5",
+    "node-cache": "^5.1.2",
+    "joi": "^17.11.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "compression": "^1.7.4",
+    "swagger-ui-express": "^5.0.0",
+    "swagger-jsdoc": "^6.2.8",
+    "axios": "^1.6.5"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/cors": "^2.8.17",
+    "@types/node": "^20.10.6",
+    "@types/morgan": "^1.9.9",
+    "@types/compression": "^1.7.5",
+    "@types/swagger-ui-express": "^4.1.6",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/jsonwebtoken": "^9.0.5",
+    "typescript": "^5.3.3",
+    "tsx": "^4.7.0",
+    "jest": "^29.7.0",
+    "@types/jest": "^29.5.11",
+    "ts-jest": "^29.1.1",
+    "eslint": "^8.56.0",
+    "@typescript-eslint/eslint-plugin": "^6.17.0",
+    "@typescript-eslint/parser": "^6.17.0",
+    "prettier": "^3.1.1"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

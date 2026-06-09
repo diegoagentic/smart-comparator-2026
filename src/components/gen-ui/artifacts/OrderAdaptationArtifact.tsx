@@ -144,7 +144,7 @@ export default function OrderAdaptationArtifact({ initialData, onConfirm, onCanc
                         onClick={() => setCurrentStep('review')}
                         className={`flex items-center gap-2 px-4 py-1.5 rounded-full transition-all ${currentStep === 'review' ? 'bg-background shadow-sm text-foreground ring-1 ring-border' : 'text-muted-foreground hover:text-foreground'}`}
                     >
-                        <span className={`flex items-center justify-center w-5 h-5 rounded-full text-[10px] font-bold ${currentStep === 'review' ? 'bg-primary/10 text-primary' : 'bg-zinc-200 dark:bg-zinc-700 text-zinc-500'}`}>1</span>
+                        <span className={`flex items-center justify-center w-5 h-5 rounded-full text-[10px] font-bold ${currentStep === 'review' ? 'bg-primary/10 text-primary' : 'bg-zinc-200 dark:bg-zinc-700 text-muted-foreground'}`}>1</span>
                         Review Assets
                     </button>
                     <div className="w-px h-4 bg-zinc-300 dark:bg-zinc-700 mx-1"></div>
@@ -152,7 +152,7 @@ export default function OrderAdaptationArtifact({ initialData, onConfirm, onCanc
                         onClick={() => setCurrentStep('discount')}
                         className={`flex items-center gap-2 px-4 py-1.5 rounded-full transition-all ${currentStep === 'discount' ? 'bg-background shadow-sm text-foreground ring-1 ring-border' : 'text-muted-foreground hover:text-foreground'}`}
                     >
-                        <span className={`flex items-center justify-center w-5 h-5 rounded-full text-[10px] font-bold ${currentStep === 'discount' ? 'bg-primary/10 text-primary' : 'bg-zinc-200 dark:bg-zinc-700 text-zinc-500'}`}>2</span>
+                        <span className={`flex items-center justify-center w-5 h-5 rounded-full text-[10px] font-bold ${currentStep === 'discount' ? 'bg-primary/10 text-primary' : 'bg-zinc-200 dark:bg-zinc-700 text-muted-foreground'}`}>2</span>
                         Pricing
                     </button>
                     <div className="w-px h-4 bg-zinc-300 dark:bg-zinc-700 mx-1"></div>
@@ -160,7 +160,7 @@ export default function OrderAdaptationArtifact({ initialData, onConfirm, onCanc
                         onClick={() => setCurrentStep('finalize')}
                         className={`flex items-center gap-2 px-4 py-1.5 rounded-full transition-all ${currentStep === 'finalize' ? 'bg-background shadow-sm text-foreground ring-1 ring-border' : 'text-muted-foreground hover:text-foreground'}`}
                     >
-                        <span className={`flex items-center justify-center w-5 h-5 rounded-full text-[10px] font-bold ${currentStep === 'finalize' ? 'bg-primary/10 text-primary' : 'bg-zinc-200 dark:bg-zinc-700 text-zinc-500'}`}>3</span>
+                        <span className={`flex items-center justify-center w-5 h-5 rounded-full text-[10px] font-bold ${currentStep === 'finalize' ? 'bg-primary/10 text-primary' : 'bg-zinc-200 dark:bg-zinc-700 text-muted-foreground'}`}>3</span>
                         Finalize
                     </button>
                 </div>
@@ -250,7 +250,7 @@ export default function OrderAdaptationArtifact({ initialData, onConfirm, onCanc
                         </div>
 
                         {/* Right Panel: Preview */}
-                        <div className="w-1/3 border-l border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-950 hidden lg:flex flex-col">
+                        <div className="w-1/3 border-l border-border bg-zinc-100 dark:bg-zinc-950 hidden lg:flex flex-col">
 
                             <div className="p-3 border-b border-border bg-background text-sm font-medium flex items-center gap-2">
                                 <DocumentTextIcon className="w-4 h-4" /> Order Summary
@@ -258,7 +258,7 @@ export default function OrderAdaptationArtifact({ initialData, onConfirm, onCanc
                             <div className="flex-1 p-8 overflow-y-auto scrollbar-micro flex justify-center">
                                 <div className="bg-white w-full max-w-[300px] min-h-[500px] h-fit shadow-lg rounded-sm border p-6 text-[10px] flex flex-col text-zinc-900">
                                     <div className="font-bold text-lg mb-4 text-center text-zinc-950">ORDER #{initialData.poNumber}</div>
-                                    <div className="space-y-1 mb-4 text-zinc-700">
+                                    <div className="space-y-1 mb-4 text-muted-foreground">
                                         <div className="flex justify-between"><span>Customer:</span><span className="font-bold text-zinc-900">{initialData.customerId}</span></div>
                                         <div className="flex justify-between"><span>Date:</span><span>{initialData.requestedDate}</span></div>
                                     </div>
@@ -304,7 +304,7 @@ export default function OrderAdaptationArtifact({ initialData, onConfirm, onCanc
                                 You are about to create an order for <span className="font-bold text-foreground">{stats.total} items</span> totaling <span className="font-bold text-foreground">{formatCurrency(stats.totalValue)}</span>.
                             </p>
                             <div className="flex gap-4 w-full">
-                                <button onClick={() => setCurrentStep('review')} className="flex-1 py-3 border border-zinc-200 rounded-xl font-semibold hover:bg-zinc-50">Back</button>
+                                <button onClick={() => setCurrentStep('review')} className="flex-1 py-3 border border-zinc-200 rounded-xl font-semibold hover:bg-muted">Back</button>
                                 <button onClick={handleConfirm} className="flex-1 py-3 bg-primary text-primary-foreground rounded-xl font-bold shadow-lg hover:bg-primary/90">Create Order</button>
                             </div>
                         </div>

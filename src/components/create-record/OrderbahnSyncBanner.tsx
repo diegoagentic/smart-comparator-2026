@@ -36,30 +36,30 @@ export default function OrderbahnSyncBanner({
     }
 
     return (
-        <div className="px-6 py-2.5 border-b border-indigo-200/50 dark:border-indigo-500/20 bg-indigo-50/70 dark:bg-indigo-500/10 flex items-center justify-between gap-4 animate-in fade-in slide-in-from-top-1 duration-200">
+        <div className="px-6 py-2.5 border-b border-amber-200/60 dark:border-amber-500/20 bg-amber-50/70 dark:bg-amber-500/10 flex items-center justify-between gap-4 animate-in fade-in slide-in-from-top-1 duration-200">
             <div className="flex items-center gap-2.5 min-w-0">
                 {state === 'syncing' ? (
-                    <RefreshCw className="size-4 text-indigo-600 dark:text-indigo-400 animate-spin shrink-0" />
+                    <RefreshCw className="size-4 text-amber-600 dark:text-amber-400 animate-spin shrink-0" />
                 ) : state === 'synced' ? (
                     <span className="flex items-center justify-center size-5 rounded-full bg-green-500 dark:bg-green-400 text-white shrink-0">
                         <Check className="size-3" strokeWidth={3} />
                     </span>
                 ) : (
-                    <Sparkles className="size-4 text-indigo-600 dark:text-indigo-400 shrink-0" />
+                    <Sparkles className="size-4 text-amber-600 dark:text-amber-400 shrink-0" />
                 )}
                 <div className="text-[12.5px] leading-tight min-w-0">
                     {state === 'pending' && (
                         <>
-                            <span className="font-semibold text-indigo-900 dark:text-indigo-200">
+                            <span className="font-semibold text-amber-900 dark:text-amber-200">
                                 Orderbahn detected {changesCount} catalog change{changesCount === 1 ? '' : 's'}
                             </span>{' '}
-                            <span className="text-indigo-700/90 dark:text-indigo-300/80">
+                            <span className="text-amber-700/90 dark:text-amber-300/80">
                                 since this preview opened. Sync to apply latest values before creating.
                             </span>
                         </>
                     )}
                     {state === 'syncing' && (
-                        <span className="text-indigo-700 dark:text-indigo-300">
+                        <span className="text-amber-700 dark:text-amber-300">
                             Syncing with Orderbahn database…
                         </span>
                     )}
@@ -76,7 +76,7 @@ export default function OrderbahnSyncBanner({
                     onClick={handleSync}
                     title="Pull the latest catalog and vendor data from Orderbahn"
                     aria-label="Sync with Orderbahn database"
-                    className="inline-flex items-center gap-1.5 rounded-full bg-indigo-600 dark:bg-indigo-500 hover:bg-indigo-700 dark:hover:bg-indigo-600 text-white px-3 py-1.5 text-[12px] font-semibold transition-colors shrink-0"
+                    className="inline-flex items-center gap-1.5 rounded-full bg-amber-600 dark:bg-amber-500 hover:bg-amber-700 dark:hover:bg-amber-600 text-white px-3 py-1.5 text-[12px] font-semibold transition-colors shrink-0"
                 >
                     <RefreshCw className="size-3" />
                     Sync now

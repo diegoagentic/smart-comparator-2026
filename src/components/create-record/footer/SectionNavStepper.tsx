@@ -52,7 +52,7 @@ export default function SectionNavStepper({ view, setView, issuesByStep }: Secti
                                     className={`inline-flex items-center justify-center min-w-[16px] h-4 px-1 rounded-full text-[9.5px] font-bold ${
                                         isActive
                                             ? 'bg-zinc-900 text-red-400'
-                                            : 'bg-red-50 dark:bg-red-500/15 text-red-700 dark:text-red-400'
+                                            : 'bg-red-50 dark:bg-red-500/15 border border-red-200 dark:border-red-500/20 text-red-700 dark:text-red-400'
                                     }`}
                                 >
                                     {issues}

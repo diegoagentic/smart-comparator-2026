@@ -1,0 +1,8 @@
+packages/strata-ds/.storybook
+packages/strata-ds/src/app
+packages/strata-ds/src/stories
+packages/strata-ds/src/examples
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx

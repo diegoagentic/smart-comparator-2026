@@ -1,0 +1,103 @@
+{
+    "color": {
+        "background": {
+            "value": "{color.zinc.900}"
+        },
+        "foreground": {
+            "value": "{color.zinc.100}"
+        },
+        "card": {
+            "value": "{color.zinc.900}"
+        },
+        "card-foreground": {
+            "value": "{color.zinc.100}"
+        },
+        "popover": {
+            "value": "{color.zinc.900}"
+        },
+        "popover-foreground": {
+            "value": "{color.zinc.100}"
+        },
+        "primary": {
+            "value": "{color.brand.500}"
+        },
+        "primary-foreground": {
+            "value": "{color.zinc.900}"
+        },
+        "secondary": {
+            "value": "{color.zinc.800}"
+        },
+        "secondary-foreground": {
+            "value": "{color.zinc.100}"
+        },
+        "muted": {
+            "value": "{color.zinc.800}"
+        },
+        "muted-foreground": {
+            "value": "{color.zinc.400}"
+        },
+        "accent": {
+            "value": "{color.zinc.800}"
+        },
+        "accent-foreground": {
+            "value": "{color.zinc.100}"
+        },
+        "destructive": {
+            "value": "{color.red.900}"
+        },
+        "destructive-foreground": {
+            "value": "{color.red.50}"
+        },
+        "border": {
+            "value": "{color.zinc.800}"
+        },
+        "input": {
+            "value": "{color.zinc.800}"
+        },
+        "input-background": {
+            "value": "{color.zinc.800}"
+        },
+        "ring": {
+            "value": "{color.zinc.400}"
+        },
+        "chart-1": {
+            "value": "{color.indigo.500}"
+        },
+        "chart-2": {
+            "value": "{color.green.500}"
+        },
+        "chart-3": {
+            "value": "{color.red.500}"
+        },
+        "chart-4": {
+            "value": "{color.amber.500}"
+        },
+        "chart-5": {
+            "value": "{color.indigo.400}"
+        },
+        "sidebar": {
+            "value": "{color.zinc.900}"
+        },
+        "sidebar-foreground": {
+            "value": "{color.zinc.100}"
+        },
+        "sidebar-primary": {
+            "value": "{color.brand.500}"
+        },
+        "sidebar-primary-foreground": {
+            "value": "{color.zinc.900}"
+        },
+        "sidebar-accent": {
+            "value": "{color.zinc.800}"
+        },
+        "sidebar-accent-foreground": {
+            "value": "{color.zinc.100}"
+        },
+        "sidebar-border": {
+            "value": "{color.zinc.800}"
+        },
+        "sidebar-ring": {
+            "value": "{color.zinc.400}"
+        }
+    }
+}

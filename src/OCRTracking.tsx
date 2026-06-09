@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { ScanEye, FileText, AlertTriangle, CheckCircle2, Upload, Eye, MoreHorizontal, Sparkles, Search, LayoutGrid, List, ChevronDown, ChevronUp, X, FilePlus2, Archive, Loader2, Flame, Trash2 } from 'lucide-react'
-import { DocumentTextIcon } from '@heroicons/react/24/outline'
+import { ScanEye, FileText, AlertTriangle, CheckCircle2, Upload, Eye, MoreHorizontal, Sparkles, Search, LayoutGrid, List, ChevronDown, ChevronUp, X, FilePlus2, Archive, Loader2, Flame, Trash2, Download } from 'lucide-react'
+import { exportOcrPdf } from './utils/exportOcrPdf'
 import Navbar from './components/Navbar'
 import Breadcrumbs from './components/Breadcrumbs'
 import DocumentPreviewModal from './components/DocumentPreviewModal'
@@ -81,7 +81,22 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
     const [viewMode, setViewMode] = useState<'kanban' | 'list'>('kanban')
     const [searchQuery, setSearchQuery] = useState('')
     const [activeTab, setActiveTab] = useState<'all' | 'identified' | 'capturing' | 'inconsistencies' | 'in_progress' | 'processed' | 'deprecated'>('all')
+    const [deprecatedFilter, setDeprecatedFilter] = useState('All')
+    const [timeFilter, setTimeFilter] = useState('All Time')
+    const [isTimeDropdownOpen, setIsTimeDropdownOpen] = useState(false)
+    const [downloadingId, setDownloadingId] = useState<string | null>(null)
     const { toasts, addToast, dismissToast } = useToast()
+
+    const handleDownload = async (e: React.MouseEvent, doc: typeof OCR_DOCUMENTS[0]) => {
+        e.stopPropagation()
+        if (downloadingId) return
+        setDownloadingId(doc.id)
+        try {
+            await exportOcrPdf({ id: doc.id, name: doc.name, vendor: doc.vendor, type: doc.type, fields: doc.fields, confidence: doc.confidence, status: doc.status })
+        } finally {
+            setDownloadingId(null)
+        }
+    }
 
     const handleResolve = (docId: string) => {
         setDocuments(prev => prev.map(d => d.id === docId ? { ...d, status: 'processed', inconsistencyCount: 0, confidence: 99 } : d))
@@ -286,7 +301,7 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                                             className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all flex items-center gap-2 outline-none whitespace-nowrap ${
                                                 activeTab === tab.id
                                                     ? 'bg-primary text-primary-foreground shadow-sm'
-                                                    : 'text-muted-foreground hover:bg-brand-300 dark:hover:bg-brand-600/50 hover:text-zinc-900 dark:hover:text-white'
+                                                    : 'text-muted-foreground hover:bg-brand-300 dark:hover:bg-brand-600/50 hover:text-foreground'
                                             }`}
                                         >
                                             {tab.label}
@@ -328,10 +343,10 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                                     />
                                 </div>
                                 <div className="flex items-center border border-border rounded-lg overflow-hidden">
-                                    <button onClick={() => setViewMode('list')} title="List view" aria-label="List view" className={`p-2 transition-colors ${viewMode === 'list' ? 'bg-zinc-100 dark:bg-zinc-800 text-foreground' : 'text-muted-foreground hover:bg-muted'}`}>
+                                    <button onClick={() => setViewMode('list')} title="List view" aria-label="List view" className={`p-2 transition-colors ${viewMode === 'list' ? 'bg-muted text-foreground' : 'text-muted-foreground hover:bg-muted'}`}>
                                         <List className="h-4 w-4" />
                                     </button>
-                                    <button onClick={() => setViewMode('kanban')} title="Board view" aria-label="Board view" className={`p-2 transition-colors ${viewMode === 'kanban' ? 'bg-zinc-100 dark:bg-zinc-800 text-foreground' : 'text-muted-foreground hover:bg-muted'}`}>
+                                    <button onClick={() => setViewMode('kanban')} title="Board view" aria-label="Board view" className={`p-2 transition-colors ${viewMode === 'kanban' ? 'bg-muted text-foreground' : 'text-muted-foreground hover:bg-muted'}`}>
                                         <LayoutGrid className="h-4 w-4" />
                                     </button>
                                 </div>
@@ -388,7 +403,7 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                                                                             doc.status === 'processed' ? 'bg-green-600 text-white' :
                                                                             doc.status === 'in_progress' ? 'bg-indigo-600 text-white' :
                                                                             doc.status === 'inconsistencies' ? 'bg-amber-600 text-white' :
-                                                                            doc.status === 'capturing' ? 'bg-violet-600 text-white' :
+                                                                            doc.status === 'capturing' ? 'bg-ai text-white' :
                                                                             'bg-blue-600 text-white'
                                                                         }`}>
                                                                         <Icon className={`h-4 w-4 ${doc.status === 'in_progress' ? 'animate-spin' : ''}`} />
@@ -515,17 +530,30 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                                                                 </div>
                                                                 <div className="flex items-center gap-1">
                                                                     {doc.status !== 'identified' && (
-                                                                        <button
-                                                                            onClick={(e) => {
-                                                                                e.stopPropagation();
-                                                                                setPreviewDoc(doc);
-                                                                            }}
-                                                                            className="p-1.5 rounded-md text-muted-foreground hover:text-ai hover:bg-ai/10 transition-all"
-                                                                            title="Preview document and review extracted fields"
-                                                                            aria-label="Preview document"
-                                                                        >
-                                                                            <DocumentTextIcon className="h-4 w-4" />
-                                                                        </button>
+                                                                        <>
+                                                                            <button
+                                                                                onClick={(e) => {
+                                                                                    e.stopPropagation();
+                                                                                    setPreviewDoc(doc);
+                                                                                }}
+                                                                                className="p-1.5 rounded-md text-muted-foreground hover:text-ai hover:bg-ai/10 transition-all"
+                                                                                title="Preview document and review extracted fields"
+                                                                                aria-label="Preview document"
+                                                                            >
+                                                                                <Eye className="h-4 w-4" />
+                                                                            </button>
+                                                                            <button
+                                                                                onClick={(e) => handleDownload(e, doc)}
+                                                                                disabled={downloadingId === doc.id}
+                                                                                className="p-1.5 rounded-md text-muted-foreground hover:text-primary hover:bg-primary/10 disabled:opacity-50 transition-all"
+                                                                                title="Download OCR report as PDF"
+                                                                                aria-label="Download PDF"
+                                                                            >
+                                                                                {downloadingId === doc.id
+                                                                                    ? <Loader2 className="h-4 w-4 animate-spin" />
+                                                                                    : <Download className="h-4 w-4" />}
+                                                                            </button>
+                                                                        </>
                                                                     )}
                                                                     <button
                                                                         onClick={(e) => {

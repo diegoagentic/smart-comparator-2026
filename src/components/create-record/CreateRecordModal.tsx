@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useMemo, useState } from 'react'
 import { Dialog, Transition, TransitionChild, DialogPanel } from '@headlessui/react'
-import { X, CheckCircle2, AlertTriangle } from 'lucide-react'
+import { X, RefreshCw } from 'lucide-react'
 import { type PaneView } from './left-rail/PreflightLeftRail'
 import ModalFooter from './footer/ModalFooter'
 import SectionNavStepper from './footer/SectionNavStepper'
@@ -144,61 +144,22 @@ export default function CreateRecordModal({
                                     <>
                                 {(() => {
                                     const cfg = configFor(recordType)
-                                    const TypeIcon = cfg.icon
                                     return (
-                                        <header className="px-5 py-3 flex items-center gap-4 border-b border-border">
-                                            {/* Brand block — record type + vendor · doc id */}
-                                            <div className="flex items-center gap-2.5 min-w-0 shrink-0">
-                                                <div className="flex items-center justify-center size-9 rounded-lg bg-brand-300 dark:bg-brand-500 text-zinc-900 shrink-0">
-                                                    <TypeIcon className="size-5" />
+                                        <header className="px-6 py-4 flex items-center justify-between border-b border-border shrink-0">
+                                            <div className="min-w-0">
+                                                <div className="text-[15px] font-semibold text-foreground leading-tight">
+                                                    Orderbahn — {cfg.label.charAt(0).toUpperCase() + cfg.label.slice(1)}
                                                 </div>
-                                                <div className="min-w-0">
-                                                    <div className="text-[14px] font-semibold tracking-tight text-foreground leading-tight truncate">
-                                                        {cfg.label}
-                                                    </div>
-                                                    <div className="text-[11px] text-muted-foreground leading-tight mt-0.5 truncate">
-                                                        {document.vendor} · <span className="font-mono text-foreground/80">{document.id}</span>
-                                                    </div>
+                                                <div className="text-[12px] text-muted-foreground leading-tight mt-0.5">
+                                                    {document.vendor} · <span className="font-mono">{document.id}</span>
                                                 </div>
                                             </div>
-
-                                            <div className="h-7 w-px bg-border shrink-0" />
-
-                                            {/* Stepper — single source of section navigation */}
-                                            <SectionNavStepper
-                                                view={view}
-                                                setView={setView}
-                                                issuesByStep={{
-                                                    header: headerCounts.issues,
-                                                    lineItems: lineCounts.issues,
-                                                }}
-                                            />
-
-                                            <div className="flex-1" />
-
                                             <div className="flex items-center gap-2 shrink-0">
-                                                {summary.valid ? (
-                                                    <span title="All required fields resolved — record can be created" className="inline-flex items-center gap-1 rounded-full bg-green-50 dark:bg-green-500/15 text-green-700 dark:text-green-400 px-2 py-0.5 text-[10.5px] font-medium">
-                                                        <CheckCircle2 className="size-3" /> Ready
-                                                    </span>
-                                                ) : (
-                                                    <span title={summary.requiredUnresolved > 0 ? `${summary.requiredUnresolved} required field${summary.requiredUnresolved === 1 ? '' : 's'} blocking record creation` : 'Some fields need attention before creating the record'} className="inline-flex items-center gap-1 rounded-full bg-amber-50 dark:bg-amber-500/15 text-amber-700 dark:text-amber-400 px-2 py-0.5 text-[10.5px] font-medium">
-                                                        <AlertTriangle className="size-3" />
-                                                        {summary.requiredUnresolved > 0
-                                                            ? `${summary.requiredUnresolved} required`
-                                                            : 'Action needed'}
-                                                    </span>
-                                                )}
-                                                {overrideCount > 0 && (
-                                                    <span title={`${overrideCount} manual change${overrideCount === 1 ? '' : 's'} you've made on top of AI extraction`} className="inline-flex items-center gap-1 rounded-full bg-muted text-foreground/80 px-2 py-0.5 text-[10.5px] font-medium">
-                                                        {overrideCount} {overrideCount === 1 ? 'change' : 'changes'}
-                                                    </span>
-                                                )}
                                                 <PreflightSummaryPopover summary={summary} />
                                                 <button
                                                     onClick={onClose}
                                                     title="Close without creating record"
-                                                    className="inline-flex items-center justify-center size-7 rounded-full hover:bg-muted text-muted-foreground hover:text-foreground transition-colors ml-1"
+                                                    className="inline-flex items-center justify-center size-7 rounded-full hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
                                                     aria-label="Close"
                                                 >
                                                     <X className="size-4" />
@@ -217,6 +178,26 @@ export default function CreateRecordModal({
                                     recordType={recordType}
                                     fieldState={fieldState}
                                 />
+
+                                {/* Section navigation row */}
+                                <div className="px-6 py-2.5 border-b border-border flex items-center justify-between shrink-0">
+                                    <SectionNavStepper
+                                        view={view}
+                                        setView={setView}
+                                        issuesByStep={{
+                                            header: headerCounts.issues,
+                                            lineItems: lineCounts.issues,
+                                        }}
+                                    />
+                                    <button
+                                        onClick={() => {}}
+                                        title="Refresh field values from Orderbahn catalog"
+                                        className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card hover:bg-muted px-3 py-1.5 text-[12px] font-medium text-muted-foreground hover:text-foreground transition-colors"
+                                    >
+                                        <RefreshCw className="size-3.5" />
+                                        Refresh
+                                    </button>
+                                </div>
 
                                 <div className="flex-1 overflow-y-auto px-6 py-5 scrollbar-minimal">
                                     {view === 'header' && (

@@ -1,0 +1,124 @@
+{
+  "$schema": "Color Reference extracted from ColorsView.tsx - Source of Truth",
+  "description": "Canonical color values from Strata Design System visual documentation. This file serves as the authoritative reference for validating token files.",
+  "extractedFrom": "src/app/components/ColorsView.tsx",
+  "extractedDate": "2026-02-12",
+  "palettes": {
+    "brand": {
+      "description": "Primary signal color for Strata (Volt Lime)",
+      "complete": true,
+      "colors": {
+        "50": "#fdfee7",
+        "100": "#F4F8E1",
+        "200": "#F4FFC9",
+        "300": "#E6F993",
+        "400": "#DAF75F",
+        "500": "#C3E433",
+        "600": "#A0C114",
+        "700": "#718B03",
+        "800": "#507206",
+        "900": "#2A3400",
+        "950": "#233502"
+      },
+      "notes": {
+        "primary-light": "brand-300 (#E6F993) - Primary Brand Color for Light Mode",
+        "primary-dark": "brand-500 (#C3E433) - Primary Brand Color for Dark Mode"
+      }
+    },
+    "zinc": {
+      "description": "11-step sharp greyscale foundation for primary backgrounds, borders, and text",
+      "complete": true,
+      "colors": {
+        "50": "#fafafa",
+        "100": "#EBECEE",
+        "200": "#E0E2E5",
+        "300": "#D0D4D8",
+        "400": "#B4BBC2",
+        "500": "#959DA7",
+        "600": "#546070",
+        "700": "#333F4E",
+        "800": "#141E2C",
+        "900": "#02060C",
+        "950": "#09090b"
+      }
+    },
+    "red": {
+      "description": "Red spectrum for tertiary data and critical visualizations",
+      "complete": false,
+      "displayed_shades": ["100", "200", "300", "400", "500"],
+      "colors": {
+        "100": "#FFECEE",
+        "200": "#FFD6DC",
+        "300": "#F99DAA",
+        "400": "#ED5F74",
+        "500": "#E52D49"
+      },
+      "notes": "Only shades 100-500 are displayed in data visualization section. Full palette may exist in tokens.json."
+    },
+    "indigo": {
+      "description": "Blue-indigo spectrum optimized for primary data series and main charts",
+      "complete": false,
+      "displayed_shades": ["100", "200", "300", "400", "500"],
+      "colors": {
+        "100": "#e0e7ff",
+        "200": "#c7d2fe",
+        "300": "#a5b4fc",
+        "400": "#818cf8",
+        "500": "#6366f1"
+      },
+      "notes": "Only shades 100-500 are displayed in data visualization section. Full palette may exist in tokens.json."
+    },
+    "amber": {
+      "description": "Amber-orange spectrum for supplementary data and warm tones",
+      "complete": false,
+      "displayed_shades": ["100", "200", "300", "400", "500"],
+      "colors": {
+        "100": "#fef3c7",
+        "200": "#fde68a",
+        "300": "#fcd34d",
+        "400": "#fbbf24",
+        "500": "#f59e0b"
+      },
+      "notes": "Only shades 100-500 are displayed in data visualization section. Full palette may exist in tokens.json."
+    },
+    "green": {
+      "description": "Green palette (emerald) - not fully displayed in ColorsView",
+      "complete": false,
+      "displayed_shades": [],
+      "colors": {},
+      "notes": "Referenced in semantic feedback (emerald-600: #10b981) but full palette not displayed. Check tokens.json for complete palette."
+    },
+    "blue": {
+      "description": "Blue palette - not fully displayed in ColorsView",
+      "complete": false,
+      "displayed_shades": [],
+      "colors": {},
+      "notes": "Blue palette shown in semantic feedback but uses standard Tailwind values. Skipping validation since not prominently displayed in visual gallery."
+    }
+  },
+  "semantic_feedback": {
+    "success": {
+      "token": "emerald-600",
+      "hex": "#10b981"
+    },
+    "warning": {
+      "token": "amber-600",
+      "hex": "#f59e0b"
+    },
+    "error": {
+      "token": "red-500",
+      "hex": "#E52D49"
+    },
+    "info": {
+      "token": "blue-600",
+      "hex": "#3b82f6"
+    }
+  },
+  "validation_rules": {
+    "brand_primary_light": "Must use brand-300 (#E6F993) for primary actions in light mode",
+    "brand_primary_dark": "Must use brand-500 (#C3E433) for primary actions in dark mode",
+    "no_custom_colors": "No custom color values allowed outside documented palettes",
+    "no_mono_palette": "Custom 'mono' palette must not exist - use zinc instead",
+    "wcag_compliance": "All color combinations must meet WCAG AA minimum contrast requirements"
+  }
+}

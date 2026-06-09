@@ -111,18 +111,14 @@
     z-index: 1;
 }
 
-:root {
-  --bg: #EBECEE;
-  --card: #FAFAFA;
-  --surface: #FFFFFF;
-  --border: #E5E5E5;
-  --border-strong: #D0D4D8;
-  --muted: #959DA7;
-  --fg: #0a0a0a;
-  --fg-dim: #546070;
-  --brand-50:#FDFEE7; --brand-100:#F4F8E1; --brand-200:#F4FFC9; --brand-300:#E6F993;
-  --brand-400:#DAF75F; --brand-500:#C3E433; --brand-600:#A0C114;
-}
+/* NOTE: a previous `:root { --bg, --card, --border, --brand-* ... }` block
+   was removed here — it shadowed the theme tokens defined in
+   `./styles/theme.css` (which provides both light and dark values via
+   `.dark` selector). The override pinned `--card` to `#FAFAFA` even in
+   dark mode, so `bg-card` rendered as cream on a dark background. The
+   override variables had zero usages in src/, so removing them only
+   restores the theme.css fallback. If you need any of these tokens in
+   the future, define them in theme.css with both light and dark values. */
 
 html, body { font-family: Inter, system-ui, sans-serif; }
 
@@ -131,6 +127,10 @@ html, body { font-family: Inter, system-ui, sans-serif; }
   background-image:
     radial-gradient(circle at 1px 1px, rgba(15,23,42,0.06) 1px, transparent 0);
   background-size: 18px 18px;
+}
+.dark .page-backdrop {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0);
 }
 
 /* Scrollbar polish */
@@ -143,6 +143,8 @@ html, body { font-family: Inter, system-ui, sans-serif; }
 }
 .scroll-polish::-webkit-scrollbar-thumb:hover { background: #B4BBC2; background-clip: padding-box; border: 2px solid transparent; }
 .scroll-polish::-webkit-scrollbar-track { background: transparent; }
+.dark .scroll-polish::-webkit-scrollbar-thumb { background: #3f3f46; background-clip: padding-box; }
+.dark .scroll-polish::-webkit-scrollbar-thumb:hover { background: #52525b; background-clip: padding-box; }
 
 /* Tiny reveal animation for the modal */
 @keyframes fadeUp {
@@ -164,6 +166,7 @@ html, body { font-family: Inter, system-ui, sans-serif; }
 /* Field card hover */
 .field-row { transition: background 120ms ease, border-color 120ms ease; }
 .field-row:hover { background: #FBFBFC; }
+.dark .field-row:hover { background: rgba(255, 255, 255, 0.03); }
 
 /* Accent chevrons, shimmer, etc */
 .shimmer::before {
@@ -190,6 +193,15 @@ input[type="checkbox"].strata-check {
 input[type="checkbox"].strata-check:checked {
   background: #0B0B0C; border-color: #0B0B0C;
 }
+.dark input[type="checkbox"].strata-check {
+  border-color: #52525b; background: #18181b;
+}
+.dark input[type="checkbox"].strata-check:checked {
+  background: #fafafa; border-color: #fafafa;
+}
+.dark input[type="checkbox"].strata-check:checked::after {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'><path d='M3.5 8.5l3 3 6-6' stroke='%230B0B0C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+}
 input[type="checkbox"].strata-check:checked::after {
   content: ""; position: absolute; inset: 0;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'><path d='M3.5 8.5l3 3 6-6' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
@@ -208,12 +220,18 @@ input[type="checkbox"].strata-check:checked::after {
   border-radius: 6px;
   white-space: nowrap;
 }
+.dark .tag-mono {
+  color: #a1a1aa;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
 
 /* Eyebrow */
 .eyebrow {
   font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
   text-transform: uppercase; color: #546070;
 }
+.dark .eyebrow { color: #a1a1aa; }
 
 /* Progress segments */
 .seg {
@@ -221,6 +239,7 @@ input[type="checkbox"].strata-check:checked::after {
   background: #EBECEE; display: flex; gap: 2px;
 }
 .seg > span { display:block; height: 100%; }
+.dark .seg { background: rgba(255, 255, 255, 0.08); }
 
 /* Ring ticks for circular progress */
 .ring-wrap { position: relative; width: 72px; height: 72px; }

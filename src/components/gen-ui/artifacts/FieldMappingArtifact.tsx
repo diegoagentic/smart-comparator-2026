@@ -33,9 +33,9 @@ export default function FieldMappingArtifact({ data }: { data: any }) {
     const allConfirmed = reviewFields.every(f => f.status === 'confirmed');
 
     return (
-        <div className="bg-white dark:bg-zinc-800 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm overflow-hidden w-full max-w-lg">
+        <div className="bg-card rounded-xl border border-border shadow-sm overflow-hidden w-full max-w-lg">
             {/* Header */}
-            <div className="bg-zinc-50 dark:bg-zinc-800/50 px-4 py-3 border-b border-zinc-100 dark:border-zinc-800 flex items-center justify-between">
+            <div className="bg-muted dark:bg-zinc-800/50 px-4 py-3 border-b border-zinc-100 dark:border-zinc-800 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                     <div className="p-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg">
                         <DocumentMagnifyingGlassIcon className="w-4 h-4" />
@@ -60,7 +60,7 @@ export default function FieldMappingArtifact({ data }: { data: any }) {
                     <div className="grid grid-cols-2 gap-2">
                         {data.detectedFields.map((field: any, idx: number) => (
                             <div key={idx} className="flex justify-between items-center p-2 rounded-lg bg-green-50/50 dark:bg-green-900/10 border border-green-100 dark:border-green-900/20">
-                                <span className="text-[10px] font-medium text-zinc-600 dark:text-zinc-400">{field.name}</span>
+                                <span className="text-[10px] font-medium text-muted-foreground">{field.name}</span>
                                 <span className="text-[9px] font-bold text-green-600 dark:text-green-400">{(field.confidence * 100).toFixed(0)}%</span>
                             </div>
                         ))}
@@ -78,8 +78,8 @@ export default function FieldMappingArtifact({ data }: { data: any }) {
                             <div
                                 key={idx}
                                 className={`p-3 rounded-lg border transition-all ${field.status === 'confirmed'
-                                    ? 'bg-zinc-50 dark:bg-zinc-800/30 border-zinc-200 dark:border-zinc-800 opacity-75'
-                                    : 'bg-white dark:bg-zinc-800 border-amber-200 dark:border-amber-900/50 shadow-sm'
+                                    ? 'bg-muted dark:bg-zinc-800/30 border-border opacity-75'
+                                    : 'bg-card border-amber-200 dark:border-amber-900/50 shadow-sm'
                                     }`}
                             >
                                 <div className="flex justify-between items-start mb-2">
@@ -87,13 +87,13 @@ export default function FieldMappingArtifact({ data }: { data: any }) {
                                         <span className={`w-1.5 h-1.5 rounded-full ${field.status === 'confirmed' ? 'bg-green-500' : 'bg-amber-500'}`} />
                                         <span className="text-xs font-semibold text-foreground">{field.name}</span>
                                     </div>
-                                    <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${field.status === 'confirmed' ? 'bg-zinc-100 text-zinc-500' : 'bg-amber-100 text-amber-700'
+                                    <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${field.status === 'confirmed' ? 'bg-zinc-100 text-muted-foreground' : 'bg-amber-100 text-amber-700'
                                         }`}>
                                         {(field.confidence * 100).toFixed(0)}% Match
                                     </span>
                                 </div>
 
-                                <div className="flex items-center gap-2 text-xs text-zinc-500 dark:text-zinc-400 bg-zinc-50 dark:bg-zinc-800 p-2 rounded border border-zinc-100 dark:border-zinc-700/50">
+                                <div className="flex items-center gap-2 text-xs text-muted-foreground bg-muted dark:bg-zinc-800 p-2 rounded border border-zinc-100 dark:border-zinc-700/50">
                                     <span className="font-mono text-[10px] truncate max-w-[120px]">{field.text}</span>
                                     <ArrowRightIcon className="w-3 h-3 text-zinc-300" />
                                     <span className="font-medium text-foreground flex items-center gap-1">
