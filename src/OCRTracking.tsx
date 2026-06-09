@@ -349,6 +349,24 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                             <DeprecatedGrid
                                 docs={deprecatedDocs}
                                 onPreview={handlePreviewDeprecated}
+                                onRestore={(d) => {
+                                    setDeprecatedDocs(prev => prev.filter(x => x.id !== d.id))
+                                    setDocuments(prev => [{
+                                        id: d.id,
+                                        name: d.name,
+                                        vendor: d.vendor,
+                                        type: d.type as OcrDocType,
+                                        date: d.date ?? d.deprecatedAt,
+                                        status: (d.originalStatus ?? 'in_progress') as OcrDocStatus,
+                                        lineItems: 0,
+                                        assigneeId: 'me',
+                                    }, ...prev])
+                                    addToast('success', `Restored ${d.id} · ${d.vendor}`)
+                                }}
+                                onDownloadOriginal={(d) => {
+                                    openOriginalMockPdf({ id: d.id, name: d.name, vendor: d.vendor || 'Unknown Vendor', type: d.type })
+                                        .catch(() => addToast('error', `Could not open original PDF · ${d.name}`))
+                                }}
                             />
                         )}
 

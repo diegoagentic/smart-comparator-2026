@@ -1,111 +1,157 @@
-import { Eye, Sparkles, ArrowRight } from 'lucide-react'
-import { DocumentTextIcon } from '@heroicons/react/24/outline'
-import type { DeprecatedDoc } from './types'
-import { DEPRECATION_REASON_META, ORIGINAL_STATUS_LABEL } from './types'
+import { FileText, Info, RotateCcw, Download, AlertTriangle, AlertOctagon, Copy, Archive } from 'lucide-react'
+import type { DeprecatedDoc, DeprecationReason } from './types'
 import { formatRelativeDate } from './mockData'
 
 interface DeprecatedCardProps {
     doc: DeprecatedDoc
     onPreview: (doc: DeprecatedDoc) => void
+    onRestore?: (doc: DeprecatedDoc) => void
+    onDownloadOriginal?: (doc: DeprecatedDoc) => void
 }
 
-export default function DeprecatedCard({ doc, onPreview }: DeprecatedCardProps) {
-    const reason = DEPRECATION_REASON_META[doc.deprecationReason]
-    const reasonLabel = doc.deprecationReason === 'other' && doc.deprecationCustomReason
-        ? doc.deprecationCustomReason
-        : reason.label
+// Map raw deprecation reasons to the display category and visual style.
+// Quarantined = unsupported_type, Failed = failed_processing,
+// Duplicated = duplicate, Manually Archived = manually_archived,
+// Other = everything else.
+type DisplayCategory = 'Quarantined' | 'Failed' | 'Duplicated' | 'Manually Archived' | 'Other'
+
+interface CategoryStyle {
+    label: DisplayCategory
+    icon: typeof FileText
+    classes: string
+    iconColor: string
+}
+
+function categorize(reason: DeprecationReason): CategoryStyle {
+    switch (reason) {
+        case 'unsupported_type':
+            return {
+                label: 'Quarantined',
+                icon: AlertTriangle,
+                classes: 'bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300',
+                iconColor: 'text-amber-600 dark:text-amber-300',
+            }
+        case 'failed_processing':
+            return {
+                label: 'Failed',
+                icon: AlertTriangle,
+                classes: 'bg-red-50 text-red-700 dark:bg-red-500/15 dark:text-red-300',
+                iconColor: 'text-red-600 dark:text-red-300',
+            }
+        case 'duplicate':
+            return {
+                label: 'Duplicated',
+                icon: Copy,
+                classes: 'bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300',
+                iconColor: 'text-blue-600 dark:text-blue-300',
+            }
+        case 'manually_archived':
+            return {
+                label: 'Manually Archived',
+                icon: Archive,
+                classes: 'bg-zinc-100 text-zinc-700 dark:bg-zinc-700/40 dark:text-zinc-300',
+                iconColor: 'text-zinc-600 dark:text-zinc-300',
+            }
+        default:
+            return {
+                label: 'Other',
+                icon: Info,
+                classes: 'bg-zinc-100 text-zinc-700 dark:bg-zinc-700/40 dark:text-zinc-300',
+                iconColor: 'text-zinc-500 dark:text-zinc-400',
+            }
+    }
+}
+
+function shortType(t: string): string {
+    if (t === 'Purchase Order') return 'QUOTE'
+    if (t === 'Quote') return 'QUOTE'
+    if (t === 'Acknowledgment') return 'QUOTE'
+    if (t === 'Invoice') return 'INVOICE'
+    return t.toUpperCase()
+}
+
+export default function DeprecatedCard({ doc, onPreview, onRestore, onDownloadOriginal }: DeprecatedCardProps) {
+    const cat = categorize(doc.deprecationReason)
+    const CatIcon = cat.icon
+    const reasonHover =
+        doc.deprecationReason === 'other' && doc.deprecationCustomReason
+            ? doc.deprecationCustomReason
+            : `${cat.label} · ${doc.deprecationReason.replace(/_/g, ' ')}`
 
     return (
-        <div
-            className="relative bg-card/70 dark:bg-zinc-800/40 rounded-2xl border border-dashed border-zinc-300 dark:border-zinc-700 hover:border-zinc-400 dark:hover:border-zinc-600 hover:shadow-md transition-all overflow-hidden flex flex-col"
-        >
-            <div className="p-4 flex-1 flex flex-col">
-                {/* Header — muted avatar + vendor */}
-                <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2 min-w-0">
-                        <div
-                            title={`Archived document — ${reasonLabel}`}
-                            className="h-8 w-8 rounded-full flex items-center justify-center bg-zinc-200 dark:bg-zinc-700 text-muted-foreground shrink-0"
-                        >
-                            <DocumentTextIcon className="h-4 w-4" />
+        <div className="group bg-card border border-border rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+            <div className="p-4">
+                {/* Header */}
+                <div className="flex items-start justify-between gap-2 mb-3">
+                    <div className="flex items-start gap-2.5 min-w-0">
+                        <div className="h-9 w-9 rounded-lg bg-muted flex items-center justify-center shrink-0">
+                            <FileText className="h-4 w-4 text-muted-foreground" />
                         </div>
                         <div className="min-w-0">
-                            <p className="text-sm font-bold text-foreground/80 truncate">{doc.vendor}</p>
-                            <p className="text-[10px] text-muted-foreground font-mono">{doc.id}</p>
+                            <p className="text-sm font-bold text-foreground truncate">{doc.vendor || 'Unknown Vendor'}</p>
+                            <p className="text-[11px] text-muted-foreground font-mono truncate">{doc.id}</p>
                         </div>
                     </div>
+                    <button
+                        onClick={(e) => { e.stopPropagation(); onRestore?.(doc) }}
+                        title="Restore document"
+                        aria-label="Restore document"
+                        className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                    >
+                        <RotateCcw className="h-4 w-4" />
+                    </button>
                 </div>
 
-                {/* Reason badge — top-prominent */}
-                <div
-                    title={reason.description}
-                    className={`inline-flex w-fit items-center gap-1 rounded-full px-2 py-0.5 text-[10.5px] font-semibold mb-3 ${reason.badge}`}
-                >
-                    {reasonLabel}
+                {/* Reason badge + info */}
+                <div className="flex items-center gap-2 mb-4">
+                    <span
+                        className={`inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-md ${cat.classes}`}
+                    >
+                        <CatIcon className={`h-3 w-3 ${cat.iconColor}`} />
+                        {cat.label}
+                    </span>
+                    <button
+                        title={reasonHover}
+                        aria-label="Why was this archived?"
+                        className="p-0.5 rounded-full text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                        <Info className="h-3.5 w-3.5" />
+                    </button>
                 </div>
 
                 {/* Document meta */}
-                <div className="space-y-1.5 mb-3">
-                    <div className="flex justify-between text-[12px]">
-                        <span className="text-muted-foreground">Document</span>
-                        <span title={doc.name} className="font-medium text-foreground/80 truncate ml-2 max-w-[150px]">{doc.name}</span>
+                <div className="space-y-1.5 mb-4">
+                    <div className="flex items-center justify-between text-sm">
+                        <span className="text-muted-foreground">Document Type</span>
+                        <span className="font-semibold text-foreground">{shortType(doc.type)}</span>
                     </div>
-                    <div className="flex justify-between text-[12px]">
-                        <span className="text-muted-foreground">Type</span>
-                        <span className="font-medium text-foreground/80">{doc.type}</span>
+                    <div className="flex items-center justify-between text-sm">
+                        <span className="text-muted-foreground">Filename</span>
+                        <span title={doc.name} className="font-semibold text-foreground truncate ml-2 max-w-[180px]">{doc.name}</span>
                     </div>
-                    <div className="flex justify-between text-[12px]">
-                        <span className="text-muted-foreground">Fields</span>
-                        <span title="Fields extracted by OCR" className="font-medium text-foreground/80">{doc.fields}</span>
+                    <div className="flex items-center justify-between text-sm">
+                        <span className="text-muted-foreground">Line Items</span>
+                        <span className="font-semibold text-muted-foreground">—</span>
                     </div>
                 </div>
 
-                {/* Replacement link if applicable */}
-                {doc.replacementId && (
-                    <div
-                        title="The document that replaced this one"
-                        className="flex items-center gap-1 text-[11px] text-blue-700 dark:text-blue-400 bg-blue-50/60 dark:bg-blue-500/10 px-2 py-1 rounded-md mb-3 w-fit"
+                {/* Footer */}
+                <div className="border-t border-border pt-3 flex items-center justify-between">
+                    <button
+                        onClick={() => onPreview(doc)}
+                        className="text-xs text-muted-foreground hover:text-foreground transition-colors text-left"
+                        title="Preview document"
                     >
-                        <ArrowRight className="h-3 w-3" />
-                        <span className="font-mono font-medium">{doc.replacementId}</span>
-                    </div>
-                )}
-
-                {/* Spacer to push footer down */}
-                <div className="flex-1" />
-
-                {/* Footer: original status + deprecated time + preview action */}
-                <div className="pt-3 border-t border-zinc-200/60 dark:border-zinc-700/60 flex items-center justify-between gap-2">
-                    <div className="flex flex-col min-w-0">
-                        <span title={`Original pipeline stage before being archived`} className="text-[10px] font-medium text-muted-foreground truncate">
-                            {ORIGINAL_STATUS_LABEL[doc.originalStatus]}
-                        </span>
-                        <span title={`Archived on ${doc.deprecatedAt}`} className="text-[10px] text-muted-foreground/70">
-                            Archived {formatRelativeDate(doc.deprecatedAt)}
-                        </span>
-                    </div>
-                    <div className="flex items-center gap-1 shrink-0">
-                        {doc.confidence != null && (
-                            <span
-                                title="OCR confidence at archive time"
-                                className={`inline-flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.5 rounded-full ${
-                                    doc.confidence > 90 ? 'bg-green-50 text-green-700 dark:bg-green-500/15 dark:text-green-300' :
-                                    doc.confidence >= 75 ? 'bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300' :
-                                    'bg-red-50 text-red-700 dark:bg-red-500/15 dark:text-red-300'
-                                }`}
-                            >
-                                <Sparkles className="h-2.5 w-2.5" />{doc.confidence}%
-                            </span>
-                        )}
-                        <button
-                            onClick={() => onPreview(doc)}
-                            title="Preview the archived document (read-only)"
-                            aria-label="Preview document"
-                            className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-                        >
-                            <Eye className="h-3.5 w-3.5" />
-                        </button>
-                    </div>
+                        Deprecated {formatRelativeDate(doc.deprecatedAt)}
+                    </button>
+                    <button
+                        onClick={(e) => { e.stopPropagation(); onDownloadOriginal?.(doc) }}
+                        title="Download original PDF"
+                        aria-label="Download original PDF"
+                        className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                    >
+                        <Download className="h-4 w-4" />
+                    </button>
                 </div>
             </div>
         </div>
