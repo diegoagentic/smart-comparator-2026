@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ScanEye, FileText, CheckCircle2, AlertTriangle, Upload, Search, LayoutGrid, List, X, Archive, Sparkles, Loader2, MoreHorizontal } from 'lucide-react'
+import { ScanEye, FileText, CheckCircle2, AlertTriangle, Upload, Search, LayoutGrid, List, X, Archive, Sparkles, Loader2, MoreHorizontal, ChevronDown } from 'lucide-react'
 import Navbar from './components/Navbar'
 import Breadcrumbs from './components/Breadcrumbs'
 import DocumentPreviewModal from './components/DocumentPreviewModal'
@@ -12,6 +12,7 @@ import DocumentDeprecationModal from './components/DocumentDeprecationModal'
 import { DEPRECATED_DOCS } from './components/deprecated/mockData'
 import type { DeprecatedDoc, DeprecationReason, ActiveStatus } from './components/deprecated/types'
 import OcrDocCard, { type OcrDocStatus, type OcrDocType } from './components/ocr/OcrDocCard'
+import { TEAM_MEMBERS, avatarGradient } from './components/team/teamMembers'
 
 interface OcrDoc {
     id: string
@@ -264,9 +265,9 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                                 </div>
                             </div>
 
-                            {/* Bottom Row: Search + View Toggle + Actions */}
+                            {/* Bottom Row: Search · Filter · Avatar group · spacer · View toggle · Upload */}
                             <div className="flex items-center gap-3 flex-wrap">
-                                <div className="relative flex-1 max-w-sm">
+                                <div className="relative flex-1 max-w-sm min-w-[200px]">
                                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                                     <input
                                         type="text"
@@ -277,12 +278,56 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                                         className="w-full pl-9 pr-3 py-2 text-sm bg-background border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-muted-foreground"
                                     />
                                 </div>
-                                <div className="flex items-center border border-border rounded-lg overflow-hidden">
-                                    <button onClick={() => setViewMode('list')} title="List view" aria-label="List view" className={`p-2 transition-colors ${viewMode === 'list' ? 'bg-muted text-foreground' : 'text-muted-foreground hover:bg-muted'}`}>
-                                        <List className="h-4 w-4" />
-                                    </button>
-                                    <button onClick={() => setViewMode('kanban')} title="Board view" aria-label="Board view" className={`p-2 transition-colors ${viewMode === 'kanban' ? 'bg-muted text-foreground' : 'text-muted-foreground hover:bg-muted'}`}>
-                                        <LayoutGrid className="h-4 w-4" />
+
+                                {/* Filter dropdown (placeholder — matches prod "All" pill) */}
+                                <button
+                                    title="Filter documents (placeholder)"
+                                    className="flex items-center gap-2 px-3 py-2 text-sm bg-background border border-input rounded-lg text-foreground hover:bg-muted transition-colors min-w-[110px]"
+                                >
+                                    <span className="text-muted-foreground">All</span>
+                                    <ChevronDown className="h-4 w-4 text-muted-foreground ml-auto" />
+                                </button>
+
+                                {/* Avatar group — team members with access (CC CM DP DZ JV JV +6 style) */}
+                                <div className="flex items-center -space-x-2">
+                                    {TEAM_MEMBERS.slice(0, 6).map(m => (
+                                        <div
+                                            key={m.id}
+                                            title={`${m.name} · ${m.role}`}
+                                            className={`h-8 w-8 rounded-full bg-gradient-to-br ${avatarGradient(m.id)} ring-2 ring-card flex items-center justify-center text-white text-[10px] font-bold`}
+                                        >
+                                            {m.initials}
+                                        </div>
+                                    ))}
+                                    {TEAM_MEMBERS.length > 6 && (
+                                        <div
+                                            title={`${TEAM_MEMBERS.length - 6} more team members`}
+                                            className="h-8 w-8 rounded-full bg-muted ring-2 ring-card flex items-center justify-center text-foreground text-[10px] font-bold"
+                                        >
+                                            +{TEAM_MEMBERS.length - 6}
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="ml-auto flex items-center gap-2">
+                                    {/* View toggle */}
+                                    <div className="flex items-center border border-border rounded-lg overflow-hidden">
+                                        <button onClick={() => setViewMode('list')} title="List view" aria-label="List view" className={`p-2 transition-colors ${viewMode === 'list' ? 'bg-muted text-foreground' : 'text-muted-foreground hover:bg-muted'}`}>
+                                            <List className="h-4 w-4" />
+                                        </button>
+                                        <button onClick={() => setViewMode('kanban')} title="Board view" aria-label="Board view" className={`p-2 transition-colors ${viewMode === 'kanban' ? 'bg-muted text-foreground' : 'text-muted-foreground hover:bg-muted'}`}>
+                                            <LayoutGrid className="h-4 w-4" />
+                                        </button>
+                                    </div>
+
+                                    {/* Upload Document — prominent lime brand button */}
+                                    <button
+                                        onClick={() => setShowUpload(true)}
+                                        title="Upload a new document"
+                                        className="flex items-center gap-2 px-4 py-2 text-sm font-bold bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors shadow-sm"
+                                    >
+                                        <Upload className="h-4 w-4" />
+                                        Upload Document
                                     </button>
                                 </div>
                             </div>
@@ -299,13 +344,13 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                             />
                         )}
 
-                        {/* Kanban View */}
+                        {/* Kanban View — flex horizontal scroll, fixed-width columns to match prod card width */}
                         {activeTab !== 'deprecated' && viewMode === 'kanban' && (
-                            <div className="grid grid-cols-6 gap-3">
+                            <div className="flex gap-4 overflow-x-auto pb-3 -mx-2 px-2">
                                 {COLUMNS.map(column => {
                                     const docs = filteredDocs.filter(d => d.status === column.id)
                                     return (
-                                        <div key={column.id} className="space-y-3">
+                                        <div key={column.id} className="space-y-3 min-w-[300px] flex-shrink-0">
                                             {/* Column Header */}
                                             <div className="flex items-center gap-2 mb-1">
                                                 <span className={`text-sm font-semibold ${column.color}`}>{column.label}</span>
@@ -407,7 +452,7 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
             <DocumentPreviewModal
                 isOpen={!!previewDoc}
                 onClose={() => setPreviewDoc(null)}
-                document={previewDoc ? { id: previewDoc.id, name: previewDoc.name, vendor: previewDoc.vendor, type: previewDoc.type, fields: previewDoc.fields, confidence: previewDoc.confidence, status: previewDoc.status, inconsistencyCount: previewDoc.inconsistencyCount } : null}
+                document={previewDoc ? { id: previewDoc.id, name: previewDoc.name, vendor: previewDoc.vendor, type: previewDoc.type, fields: 0, confidence: null, status: previewDoc.status, inconsistencyCount: 0 } : null}
                 onResolve={handleResolve}
                 onMarkDeprecated={(_docId) => {
                     if (previewDoc) openDeprecation(previewDoc)
