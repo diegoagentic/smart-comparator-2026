@@ -203,7 +203,7 @@ export default function DocumentReviewModal({ isOpen, onClose, doc, onSave, onDo
                         leaveFrom="opacity-100 scale-100"
                         leaveTo="opacity-0 scale-95"
                     >
-                        <DialogPanel className="w-full max-w-5xl h-[85vh] rounded-2xl border border-border bg-card shadow-2xl overflow-hidden flex flex-col">
+                        <DialogPanel className="w-[95vw] max-w-[1600px] h-[95vh] rounded-2xl border border-border bg-card shadow-2xl overflow-hidden flex flex-col">
                             {/* Header */}
                             <div className="flex items-start justify-between p-6 pb-4 border-b border-border">
                                 <div className="flex items-center gap-3 min-w-0">
@@ -223,9 +223,13 @@ export default function DocumentReviewModal({ isOpen, onClose, doc, onSave, onDo
                                         <ExternalLink className="h-3.5 w-3.5" />
                                         View Original PDF
                                     </button>
-                                    {isReviewed && (
+                                    {isReviewed ? (
                                         <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1.5 rounded-md bg-green-50 text-green-700 dark:bg-green-500/15 dark:text-green-300">
                                             <CheckCircle2 className="h-3.5 w-3.5" /> Reviewed
+                                        </span>
+                                    ) : (
+                                        <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1.5 rounded-md bg-yellow-50 text-yellow-700 dark:bg-yellow-500/15 dark:text-yellow-300">
+                                            <CheckCircle2 className="h-3.5 w-3.5" /> Pending Review
                                         </span>
                                     )}
                                     <button
@@ -272,19 +276,19 @@ export default function DocumentReviewModal({ isOpen, onClose, doc, onSave, onDo
                                         <ChevronDown className="h-3.5 w-3.5" />
                                     </button>
                                     {exportOpen && (
-                                        <div className="absolute right-0 mt-1 w-56 bg-card border border-border rounded-xl shadow-lg z-10 p-1">
+                                        <div className="absolute right-0 mt-1 w-60 bg-card border border-border rounded-xl shadow-xl z-10 p-1.5">
                                             <button
                                                 onClick={handleExportSif}
-                                                className="w-full flex items-center gap-2 px-3 py-2 text-sm text-foreground hover:bg-muted rounded-lg transition-colors"
+                                                className="w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-foreground hover:bg-primary/10 hover:text-foreground rounded-lg transition-colors group"
                                             >
-                                                <Download className="h-4 w-4 text-muted-foreground" />
+                                                <Download className="h-4 w-4 text-muted-foreground group-hover:text-primary-foreground/80 group-hover:text-foreground" />
                                                 Export to SIF
                                             </button>
                                             <button
                                                 onClick={() => { setExportOpen(false); onDownloadOriginal?.(doc) }}
-                                                className="w-full flex items-center gap-2 px-3 py-2 text-sm text-foreground hover:bg-muted rounded-lg transition-colors"
+                                                className="w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-foreground hover:bg-primary/10 hover:text-foreground rounded-lg transition-colors group"
                                             >
-                                                <FileText className="h-4 w-4 text-muted-foreground" />
+                                                <FileText className="h-4 w-4 text-muted-foreground group-hover:text-foreground" />
                                                 Download Original PDF
                                             </button>
                                         </div>
