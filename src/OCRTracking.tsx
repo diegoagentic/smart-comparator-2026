@@ -234,8 +234,8 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
 
             <Navbar onLogout={onLogout} activeTab="OCR" onNavigateToWorkspace={() => onNavigate('transactions')} onNavigate={onNavigate} />
 
-            {/* Main Content — same structure as Transactions: pt-24 px-4 max-w-7xl mx-auto */}
-            <div className="pt-24 px-4 max-w-7xl mx-auto space-y-6">
+            {/* Main Content — wider container to fit 8 tabs without horizontal scroll */}
+            <div className="pt-24 px-4 max-w-screen-2xl mx-auto space-y-6">
 
                 {/* Breadcrumbs */}
                 <div className="mb-4">
