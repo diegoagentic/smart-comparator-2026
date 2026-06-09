@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ScanEye, FileText, CheckCircle2, AlertTriangle, Upload, Search, LayoutGrid, List, X, Archive, Sparkles, Loader2, MoreHorizontal, ChevronDown } from 'lucide-react'
+import { ScanEye, FileText, CheckCircle2, AlertTriangle, Upload, Search, LayoutGrid, List, X, Archive, Sparkles, Loader2, MoreHorizontal, ChevronDown, Send, Trash2 } from 'lucide-react'
 import Navbar from './components/Navbar'
 import Breadcrumbs from './components/Breadcrumbs'
 import DocumentPreviewModal from './components/DocumentPreviewModal'
@@ -383,7 +383,7 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                             </div>
                         )}
 
-                        {/* List View */}
+                        {/* List View — matches prod: Document hash + line items / Vendor + type pill / Status / Review Status / Date / Actions */}
                         {activeTab !== 'deprecated' && viewMode === 'list' && (
                             <div className="overflow-hidden rounded-xl border border-border">
                                 <table className="w-full">
@@ -391,57 +391,110 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                                         <tr className="border-b border-border bg-muted/30">
                                             <th className="text-left text-[10px] font-bold text-muted-foreground uppercase tracking-wider px-4 py-3">Document</th>
                                             <th className="text-left text-[10px] font-bold text-muted-foreground uppercase tracking-wider px-4 py-3">Vendor</th>
-                                            <th className="text-left text-[10px] font-bold text-muted-foreground uppercase tracking-wider px-4 py-3">Type</th>
                                             <th className="text-left text-[10px] font-bold text-muted-foreground uppercase tracking-wider px-4 py-3">Status</th>
-                                            <th className="text-left text-[10px] font-bold text-muted-foreground uppercase tracking-wider px-4 py-3">Line Items</th>
+                                            <th className="text-left text-[10px] font-bold text-muted-foreground uppercase tracking-wider px-4 py-3">Review Status</th>
                                             <th className="text-left text-[10px] font-bold text-muted-foreground uppercase tracking-wider px-4 py-3">Date</th>
                                             <th className="text-right text-[10px] font-bold text-muted-foreground uppercase tracking-wider px-4 py-3">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {filteredDocs.map(doc => (
-                                            <tr key={doc.id} className="border-b border-border hover:bg-muted/30 transition-colors">
-                                                <td className="px-4 py-3">
-                                                    <div className="flex items-center gap-2">
-                                                        <FileText className="h-4 w-4 text-muted-foreground" />
-                                                        <div>
-                                                            <div className="text-sm font-medium text-foreground">{doc.name}</div>
-                                                            <div className="text-[10px] text-muted-foreground font-mono">{doc.id}</div>
+                                        {filteredDocs.map(doc => {
+                                            const isReconciledLike = doc.status === 'processed' || doc.status === 'completed'
+                                            const isProcessing = doc.status === 'identified' || doc.status === 'capturing'
+                                            const assignee = doc.assigneeId ? TEAM_MEMBERS.find(m => m.id === doc.assigneeId) : null
+                                            return (
+                                                <tr key={doc.id} className="border-b border-border hover:bg-muted/30 transition-colors">
+                                                    <td className="px-4 py-3">
+                                                        <div className="flex items-center gap-2">
+                                                            <FileText className="h-4 w-4 text-muted-foreground" />
+                                                            <div>
+                                                                <div className="text-sm font-bold text-foreground font-mono">{doc.id}</div>
+                                                                <div className="text-[11px] text-muted-foreground">{doc.lineItems > 0 ? `${doc.lineItems} line items` : '—'}</div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </td>
-                                                <td className="px-4 py-3 text-sm text-foreground">{doc.vendor}</td>
-                                                <td className="px-4 py-3"><span className="text-xs font-medium px-2 py-1 rounded-md bg-muted text-muted-foreground">{doc.type}</span></td>
-                                                <td className="px-4 py-3">
-                                                    <span className={`text-xs font-semibold px-2 py-1 rounded-md ${
-                                                        doc.status === 'processed' || doc.status === 'completed' ? 'bg-success-light text-success' :
-                                                        doc.status === 'in_progress' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-500/15 dark:text-indigo-400' :
-                                                        doc.status === 'inconsistencies' ? 'bg-error-light text-error' :
-                                                        doc.status === 'capturing' ? 'bg-ai-light text-ai' :
-                                                        'bg-info-light text-info'
-                                                    }`}>
-                                                        {doc.status === 'identified' ? 'Ingesting' :
-                                                         doc.status === 'capturing' ? 'Needs Attention' :
-                                                         doc.status === 'inconsistencies' ? 'Awaiting Expert' :
-                                                         doc.status === 'in_progress' ? 'In-progress' :
-                                                         doc.status === 'completed' ? 'Completed' :
-                                                         'Reconciled'}
-                                                    </span>
-                                                </td>
-                                                <td className="px-4 py-3 text-sm text-foreground">{doc.lineItems} line items</td>
-                                                <td className="px-4 py-3 text-xs text-muted-foreground">{doc.date}</td>
-                                                <td className="px-4 py-3 text-right">
-                                                    <button
-                                                        onClick={() => setPreviewDoc(doc)}
-                                                        className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
-                                                        title="Review Fields"
-                                                        aria-label="Review document fields"
-                                                    >
-                                                        <FileText className="h-4 w-4" />
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        ))}
+                                                    </td>
+                                                    <td className="px-4 py-3">
+                                                        <div className="text-sm font-bold text-foreground">{doc.vendor}</div>
+                                                        <div className="mt-0.5">
+                                                            <span className={`inline-block text-[10px] font-bold px-1.5 py-0.5 rounded-md uppercase tracking-wide ${
+                                                                doc.type === 'Quote' ? 'bg-purple-100 text-purple-700 dark:bg-purple-500/15 dark:text-purple-300' :
+                                                                doc.type === 'Purchase Order' ? 'bg-muted text-muted-foreground' :
+                                                                doc.type === 'Acknowledgment' ? 'bg-muted text-muted-foreground' :
+                                                                'bg-muted text-muted-foreground'
+                                                            }`}>{doc.type}</span>
+                                                        </div>
+                                                    </td>
+                                                    <td className="px-4 py-3">
+                                                        <span className={`text-xs font-semibold px-2.5 py-1 rounded-md ${
+                                                            isReconciledLike ? 'bg-green-50 text-green-700 dark:bg-green-500/15 dark:text-green-300' :
+                                                            doc.status === 'in_progress' ? 'bg-orange-50 text-orange-700 dark:bg-orange-500/15 dark:text-orange-300' :
+                                                            doc.status === 'inconsistencies' ? 'bg-red-50 text-red-700 dark:bg-red-500/15 dark:text-red-300' :
+                                                            isProcessing ? 'bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300' :
+                                                            'bg-muted text-muted-foreground'
+                                                        }`}>
+                                                            {isReconciledLike ? 'Validated' :
+                                                             doc.status === 'in_progress' ? 'In Progress' :
+                                                             doc.status === 'inconsistencies' ? 'Awaiting Expert' :
+                                                             isProcessing ? 'Processing' : doc.status}
+                                                        </span>
+                                                    </td>
+                                                    <td className="px-4 py-3">
+                                                        {isReconciledLike ? (
+                                                            <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-md bg-green-50 text-green-700 dark:bg-green-500/15 dark:text-green-300">
+                                                                <CheckCircle2 className="h-3 w-3" /> Reviewed
+                                                            </span>
+                                                        ) : isProcessing ? (
+                                                            <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-md bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300">
+                                                                <Loader2 className="h-3 w-3 animate-spin" /> Calculating…
+                                                            </span>
+                                                        ) : (
+                                                            <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-md bg-yellow-50 text-yellow-700 dark:bg-yellow-500/15 dark:text-yellow-300">
+                                                                <AlertTriangle className="h-3 w-3" /> Pending For Review
+                                                            </span>
+                                                        )}
+                                                    </td>
+                                                    <td className="px-4 py-3 text-xs text-muted-foreground">{doc.date}</td>
+                                                    <td className="px-4 py-3">
+                                                        <div className="flex items-center justify-end gap-1.5">
+                                                            <button
+                                                                onClick={() => setPreviewDoc(doc)}
+                                                                className="p-1.5 rounded-md text-foreground hover:bg-muted transition-colors"
+                                                                title="Review Fields"
+                                                                aria-label="Review document fields"
+                                                            >
+                                                                <FileText className="h-4 w-4" />
+                                                            </button>
+                                                            {isReconciledLike && (
+                                                                <button
+                                                                    onClick={() => handleCreateRecord(doc)}
+                                                                    className="p-1.5 rounded-md text-green-600 bg-green-50 dark:text-green-300 dark:bg-green-500/15 hover:brightness-95 transition-all"
+                                                                    title="Send"
+                                                                    aria-label="Send to Orderbahn"
+                                                                >
+                                                                    <Send className="h-4 w-4" />
+                                                                </button>
+                                                            )}
+                                                            <button
+                                                                onClick={() => openDeprecation(doc)}
+                                                                className="p-1.5 rounded-md text-red-600 bg-red-50 dark:text-red-300 dark:bg-red-500/15 hover:brightness-95 transition-all"
+                                                                title="Deprecate"
+                                                                aria-label="Deprecate document"
+                                                            >
+                                                                <Trash2 className="h-4 w-4" />
+                                                            </button>
+                                                            {assignee && (
+                                                                <div
+                                                                    title={assignee.name}
+                                                                    className={`h-7 w-7 rounded-full bg-gradient-to-br ${avatarGradient(assignee.id)} flex items-center justify-center text-white text-[10px] font-bold ml-1`}
+                                                                >
+                                                                    {assignee.initials}
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })}
                                     </tbody>
                                 </table>
                             </div>
@@ -495,14 +548,26 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                 }}
             />
 
-            {/* Upload Document Modal — type select → dropzone */}
+            {/* Upload Document Modal — 5-step flow: select → dropzone → review → uploading → complete */}
             <UploadDocumentModal
                 isOpen={showUpload}
                 onClose={() => setShowUpload(false)}
-                onConfirm={(docType) => {
-                    const newId = `OCR-${String(documents.length + 1).padStart(3, '0')}`
-                    setProcessingDoc(newId)
-                    addToast('info', `Processing new ${docType} document…`)
+                onConfirm={(docType, uploadedFiles) => {
+                    if (uploadedFiles.length === 0) return
+                    // Each uploaded file becomes a new doc in 'identified' status (Processing in UI).
+                    const newDocs: OcrDoc[] = uploadedFiles.map(f => ({
+                        id: Math.random().toString(36).slice(2, 10),
+                        name: f.name,
+                        vendor: 'Unknown Vendor',
+                        type: docType,
+                        date: 'today',
+                        status: 'identified' as const,
+                        lineItems: 0,
+                        assigneeId: 'me',
+                    }))
+                    setDocuments(prev => [...newDocs, ...prev])
+                    setProcessingDoc(newDocs[0].id)
+                    addToast('success', `Processing new file${newDocs.length === 1 ? '' : 's'}…`)
                     setTimeout(() => setProcessingDoc(null), 3000)
                 }}
             />
