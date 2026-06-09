@@ -110,17 +110,19 @@ export default function OcrDocCard({ doc, onPreview, onResolve, onSend, onDeprec
                 <div className="border-t border-border pt-3 flex items-center justify-between">
                     <span className="text-xs text-muted-foreground">{formatRelativeTime(doc.date)}</span>
                     <div className="flex items-center gap-1">
+                        {/* Action icons — colors use Tailwind raw to match prod (yellow/green/red).
+                            DS semantic tokens (warning/success/destructive) skew orange-ish here. */}
                         {isReconciled ? (
                             <span
                                 title="Reviewed"
-                                className="p-1.5 rounded-md text-success bg-success-light dark:bg-success/15 inline-flex"
+                                className="p-1.5 rounded-md text-green-600 bg-green-50 dark:text-green-300 dark:bg-green-500/15 inline-flex"
                             >
                                 <CheckCircle2 className="h-4 w-4" />
                             </span>
                         ) : (
                             <span
                                 title="Pending For Review"
-                                className="p-1.5 rounded-md text-warning bg-warning-light dark:bg-warning/15 inline-flex"
+                                className="p-1.5 rounded-md text-yellow-600 bg-yellow-50 dark:text-yellow-300 dark:bg-yellow-500/15 inline-flex"
                             >
                                 <AlertCircle className="h-4 w-4" />
                             </span>
@@ -138,7 +140,7 @@ export default function OcrDocCard({ doc, onPreview, onResolve, onSend, onDeprec
                                 onClick={(e) => { e.stopPropagation(); onSend() }}
                                 title="Send"
                                 aria-label="Send to Orderbahn"
-                                className="p-1.5 rounded-md text-success bg-success-light dark:bg-success/15 hover:brightness-95 transition-all"
+                                className="p-1.5 rounded-md text-green-600 bg-green-50 dark:text-green-300 dark:bg-green-500/15 hover:brightness-95 transition-all"
                             >
                                 <Send className="h-4 w-4" />
                             </button>
@@ -147,7 +149,7 @@ export default function OcrDocCard({ doc, onPreview, onResolve, onSend, onDeprec
                                 onClick={(e) => { e.stopPropagation(); onResolve() }}
                                 title="Awaiting full review"
                                 aria-label="Mark as reviewed"
-                                className="p-1.5 rounded-md text-success bg-success-light dark:bg-success/15 hover:brightness-95 transition-all"
+                                className="p-1.5 rounded-md text-green-600 bg-green-50 dark:text-green-300 dark:bg-green-500/15 hover:brightness-95 transition-all"
                             >
                                 <CheckSquare className="h-4 w-4" />
                             </button>
@@ -156,7 +158,7 @@ export default function OcrDocCard({ doc, onPreview, onResolve, onSend, onDeprec
                             onClick={(e) => { e.stopPropagation(); onDeprecate() }}
                             title="Deprecate"
                             aria-label="Deprecate document"
-                            className="p-1.5 rounded-md text-destructive bg-destructive/10 dark:bg-destructive/15 hover:brightness-95 transition-all"
+                            className="p-1.5 rounded-md text-red-600 bg-red-50 dark:text-red-300 dark:bg-red-500/15 hover:brightness-95 transition-all"
                         >
                             <Trash2 className="h-4 w-4" />
                         </button>

@@ -27,17 +27,36 @@ interface OcrDoc {
     assigneeId?: string
 }
 
+// Mock seed sized to match prod counts (All 21 · In-Progress 6 · Reconciled 15).
+// Literal cards from prod screenshot 2026-06-09: ergotron, Better Source,
+// AmTab, Magnuson Group, Leland Furniture. Rest is filler.
 const OCR_DOCUMENTS: OcrDoc[] = [
-    { id: 'OCR-001', name: 'ACK-7842_AIS.pdf', vendor: 'AIS Furniture', type: 'Acknowledgment', date: 'Today, 2:30 PM', status: 'identified', lineItems: 4 },
-    { id: 'OCR-002', name: 'PO-1029_ApexFurniture.pdf', vendor: 'Apex Furniture', type: 'Purchase Order', date: 'Today, 1:15 PM', status: 'capturing', lineItems: 7 },
-    { id: 'OCR-003', name: 'ACK-7839_Steelcase.pdf', vendor: 'Steelcase', type: 'Acknowledgment', date: 'Yesterday', status: 'inconsistencies', lineItems: 3 },
-    { id: 'OCR-004', name: 'INV-4521_HermanMiller.pdf', vendor: 'Herman Miller', type: 'Invoice', date: 'Yesterday', status: 'inconsistencies', lineItems: 5 },
-    { id: 'OCR-005', name: 'ACK-7835_Knoll.pdf', vendor: 'Knoll', type: 'Acknowledgment', date: '2 days ago', status: 'processed', lineItems: 2 },
-    { id: 'OCR-006', name: 'PO-1025_Haworth.pdf', vendor: 'Haworth', type: 'Purchase Order', date: '2 days ago', status: 'processed', lineItems: 4 },
-    { id: 'OCR-007', name: 'ACK-7831_9to5.pdf', vendor: '9to5 Seating', type: 'Acknowledgment', date: '3 days ago', status: 'processed', lineItems: 1 },
-    { id: 'OCR-008', name: 'ACK-7855_Knoll.pdf', vendor: 'Knoll', type: 'Acknowledgment', date: 'Today, 10:42 AM', status: 'in_progress', lineItems: 3, assigneeId: 'sarah' },
-    { id: 'OCR-009', name: 'PO-1031_ApexFurniture.pdf', vendor: 'Apex Furniture', type: 'Purchase Order', date: 'Today, 11:08 AM', status: 'in_progress', lineItems: 6, assigneeId: 'marcus' },
-    { id: 'OCR-010', name: 'PO-1027_Steelcase.pdf', vendor: 'Steelcase', type: 'Purchase Order', date: 'Today, 9:15 AM', status: 'in_progress', lineItems: 4, assigneeId: 'priya' },
+    // ── In-Progress (6) ──
+    { id: 'OCR-001', name: '330357 - 1.pdf', vendor: 'ergotron', type: 'Quote', date: '21 days ago', status: 'in_progress', lineItems: 3, assigneeId: 'noah' },
+    { id: 'OCR-002', name: 'Custer - Func.pdf', vendor: 'Better Source', type: 'Quote', date: '21 days ago', status: 'in_progress', lineItems: 2, assigneeId: 'noah' },
+    // filler — not from prod screenshot
+    { id: 'OCR-003', name: 'PO-1027_Steelcase.pdf', vendor: 'Steelcase', type: 'Purchase Order', date: 'today', status: 'in_progress', lineItems: 4, assigneeId: 'marcus' },
+    { id: 'OCR-004', name: 'ACK-7855_Knoll.pdf', vendor: 'Knoll', type: 'Acknowledgment', date: 'yesterday', status: 'in_progress', lineItems: 3, assigneeId: 'sarah' },
+    { id: 'OCR-005', name: 'QT-2891_HermanMiller.pdf', vendor: 'Herman Miller', type: 'Quote', date: 'today', status: 'in_progress', lineItems: 5, assigneeId: 'priya' },
+    { id: 'OCR-006', name: 'PO-1031_ApexFurniture.pdf', vendor: 'Apex Furniture', type: 'Purchase Order', date: '3 days ago', status: 'in_progress', lineItems: 6, assigneeId: 'daniel' },
+
+    // ── Reconciled (15) ──
+    { id: 'OCR-007', name: 'S-QUO017792.pdf', vendor: 'AmTab', type: 'Quote', date: '21 days ago', status: 'processed', lineItems: 5, assigneeId: 'noah' },
+    { id: 'OCR-008', name: 'QT007508.pdf', vendor: 'Magnuson Group', type: 'Quote', date: '21 days ago', status: 'processed', lineItems: 2, assigneeId: 'noah' },
+    { id: 'OCR-009', name: '852078cb.pdf', vendor: 'Leland Furniture', type: 'Purchase Order', date: '3 days ago', status: 'processed', lineItems: 3, assigneeId: 'me' },
+    // filler — not from prod screenshot
+    { id: 'OCR-010', name: 'ACK-7835_Knoll.pdf', vendor: 'Knoll', type: 'Acknowledgment', date: '5 days ago', status: 'processed', lineItems: 2 },
+    { id: 'OCR-011', name: 'PO-1025_Haworth.pdf', vendor: 'Haworth', type: 'Purchase Order', date: '6 days ago', status: 'processed', lineItems: 4 },
+    { id: 'OCR-012', name: 'ACK-7831_9to5.pdf', vendor: '9to5 Seating', type: 'Acknowledgment', date: '7 days ago', status: 'processed', lineItems: 1 },
+    { id: 'OCR-013', name: 'QT-5523_HON.pdf', vendor: 'HON', type: 'Quote', date: '8 days ago', status: 'processed', lineItems: 6 },
+    { id: 'OCR-014', name: 'PO-2103_Allsteel.pdf', vendor: 'Allsteel', type: 'Purchase Order', date: '9 days ago', status: 'processed', lineItems: 3 },
+    { id: 'OCR-015', name: 'ACK-9087_KI.pdf', vendor: 'KI Furniture', type: 'Acknowledgment', date: '10 days ago', status: 'processed', lineItems: 4 },
+    { id: 'OCR-016', name: 'INV-3354_Global.pdf', vendor: 'Global Furniture', type: 'Invoice', date: '12 days ago', status: 'processed', lineItems: 5 },
+    { id: 'OCR-017', name: 'QT-7741_OFS.pdf', vendor: 'OFS Brands', type: 'Quote', date: '14 days ago', status: 'processed', lineItems: 2 },
+    { id: 'OCR-018', name: 'PO-4490_SitOnIt.pdf', vendor: 'SitOnIt Seating', type: 'Purchase Order', date: '15 days ago', status: 'processed', lineItems: 3 },
+    { id: 'OCR-019', name: 'ACK-8821_Teknion.pdf', vendor: 'Teknion', type: 'Acknowledgment', date: '17 days ago', status: 'processed', lineItems: 2 },
+    { id: 'OCR-020', name: 'QT-1102_Kimball.pdf', vendor: 'Kimball', type: 'Quote', date: '19 days ago', status: 'processed', lineItems: 4 },
+    { id: 'OCR-021', name: 'PO-6678_NationalOffice.pdf', vendor: 'National Office Furniture', type: 'Purchase Order', date: '20 days ago', status: 'processed', lineItems: 6 },
 ]
 
 const COLUMNS = [
