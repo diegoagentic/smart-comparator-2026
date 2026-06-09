@@ -22,7 +22,7 @@ export interface ConvertedDocument {
 
 function App() {
   const { user, initialLoading, signOut, showSessionWarning, refreshSession } = useAuth()
-  const [currentPage, setCurrentPage] = useState<Page>('transactions')
+  const [currentPage, setCurrentPage] = useState<Page>('ocr')
   const [convertedDoc, setConvertedDoc] = useState<ConvertedDocument | null>(null)
 
   const handleNavigate = (page: string) => {

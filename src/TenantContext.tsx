@@ -12,12 +12,12 @@ interface TenantContextType {
     currentTenant: Tenant;
 }
 
-const ALL_TENANTS: Tenant[] = ['Meridian Office', 'Strata', 'Apex Interiors', 'ClearSpace Design'];
+const ALL_TENANTS: Tenant[] = ['SPECIAL T', 'Meridian Office', 'Strata', 'Apex Interiors', 'ClearSpace Design'];
 
 const TenantContext = createContext<TenantContextType | undefined>(undefined);
 
 export function TenantProvider({ children }: { children: ReactNode }) {
-    const [selectedTenants, setSelectedTenants] = useState<Tenant[]>(['Meridian Office']);
+    const [selectedTenants, setSelectedTenants] = useState<Tenant[]>(['SPECIAL T']);
 
     const toggleTenant = (tenant: Tenant) => {
         setSelectedTenants(prev => {

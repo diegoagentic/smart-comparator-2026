@@ -35,14 +35,15 @@ export default function Navbar({ onLogout, activeTab = 'Transactions', onNavigat
         return () => document.removeEventListener('mousedown', handleClickOutside)
     }, [isTenantOpen])
 
-    const tabs: { name: string; label: string; page: string; icon: any }[] = [
+    const tabs: { name: string; label: string; page: string; icon: any; hidden?: boolean }[] = [
         { name: 'OCR', label: 'OCR', page: 'ocr', icon: ScanEye },
-        { name: 'Transactions', label: 'Transactions', page: 'transactions', icon: Banknote },
-        { name: 'DocumentConversion', label: 'Document Conversion', page: 'document-conversion', icon: FileOutput },
+        { name: 'Transactions', label: 'Transactions', page: 'transactions', icon: Banknote, hidden: true },
+        { name: 'DocumentConversion', label: 'Document Conversion', page: 'document-conversion', icon: FileOutput, hidden: true },
     ]
+    const visibleTabs = tabs.filter(t => !t.hidden)
 
     const displayName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Sara Chen'
-    const userRole = 'Account Manager'
+    const userRole = (user?.user_metadata as { role?: string } | undefined)?.role ?? 'Expert'
 
     return (
         <>
@@ -59,7 +60,7 @@ export default function Navbar({ onLogout, activeTab = 'Transactions', onNavigat
                         <div className="w-px h-6 bg-border mx-1"></div>
                         <div className="hidden sm:flex items-center gap-1 px-2" ref={tenantRef}>
                             <div>
-                                <div className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider leading-none">SMART COMPARATOR</div>
+                                <div className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider leading-none">TENANT</div>
                                 <button
                                     onClick={() => setIsTenantOpen(!isTenantOpen)}
                                     className="flex items-center gap-1.5 text-sm font-bold text-foreground leading-tight hover:text-primary transition-colors"
@@ -110,7 +111,7 @@ export default function Navbar({ onLogout, activeTab = 'Transactions', onNavigat
 
                     {/* Center: Nav Tabs */}
                     <div className="flex items-center gap-1 mx-auto">
-                        {tabs.map(tab => {
+                        {visibleTabs.map(tab => {
                             const isActive = activeTab === tab.name
                             const Icon = tab.icon
                             return (
