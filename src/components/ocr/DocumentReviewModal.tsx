@@ -279,16 +279,16 @@ export default function DocumentReviewModal({ isOpen, onClose, doc, onSave, onDo
                                         <div className="absolute right-0 mt-1 w-60 bg-card border border-border rounded-xl shadow-xl z-10 p-1.5">
                                             <button
                                                 onClick={handleExportSif}
-                                                className="w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-foreground hover:bg-primary/10 hover:text-foreground rounded-lg transition-colors group"
+                                                className="w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-foreground hover:bg-muted rounded-lg transition-colors"
                                             >
-                                                <Download className="h-4 w-4 text-muted-foreground group-hover:text-primary-foreground/80 group-hover:text-foreground" />
+                                                <Download className="h-4 w-4 text-muted-foreground" />
                                                 Export to SIF
                                             </button>
                                             <button
                                                 onClick={() => { setExportOpen(false); onDownloadOriginal?.(doc) }}
-                                                className="w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-foreground hover:bg-primary/10 hover:text-foreground rounded-lg transition-colors group"
+                                                className="w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-foreground hover:bg-muted rounded-lg transition-colors"
                                             >
-                                                <FileText className="h-4 w-4 text-muted-foreground group-hover:text-foreground" />
+                                                <FileText className="h-4 w-4 text-muted-foreground" />
                                                 Download Original PDF
                                             </button>
                                         </div>
