@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import { ScanEye, FileText, AlertTriangle, CheckCircle2, Upload, Eye, MoreHorizontal, Sparkles, Search, LayoutGrid, List, ChevronDown, ChevronUp, X, FilePlus2, Archive, Loader2, Flame, Trash2, Download } from 'lucide-react'
-import { exportOcrPdf } from './utils/exportOcrPdf'
+import { ScanEye, FileText, CheckCircle2, AlertTriangle, Upload, Search, LayoutGrid, List, X, Archive, Sparkles, Loader2, MoreHorizontal } from 'lucide-react'
 import Navbar from './components/Navbar'
 import Breadcrumbs from './components/Breadcrumbs'
 import DocumentPreviewModal from './components/DocumentPreviewModal'
@@ -11,48 +10,32 @@ import { ToastContainer, useToast } from './components/AuthToast'
 import DeprecatedGrid from './components/deprecated/DeprecatedGrid'
 import DocumentDeprecationModal from './components/DocumentDeprecationModal'
 import { DEPRECATED_DOCS } from './components/deprecated/mockData'
-import { isUnsupportedDocType } from './components/deprecated/types'
 import type { DeprecatedDoc, DeprecationReason, ActiveStatus } from './components/deprecated/types'
-import AssignPopover from './components/team/AssignPopover'
-import { getTeamMember, CURRENT_USER_ID } from './components/team/teamMembers'
+import OcrDocCard, { type OcrDocStatus, type OcrDocType } from './components/ocr/OcrDocCard'
 
 interface OcrDoc {
     id: string
     name: string
     vendor: string
-    type: string
-    pages: number
-    fields: number
+    type: OcrDocType
     date: string
-    status: 'identified' | 'capturing' | 'inconsistencies' | 'in_progress' | 'processed' | 'completed' | 'deprecated'
-    confidence: number | null
-    inconsistencyCount: number
-    /** Team member id who owns this document (any active human-action stage). */
+    status: OcrDocStatus
+    lineItems: number
+    /** Team member id who owns this document (drives the top-right avatar). */
     assigneeId?: string
-    // In-progress only — populated when an Expert Hub member claimed the doc
-    expertName?: string
-    expertInitials?: string
-    workstream?: string
-    startedRelative?: string
-    resolvedCount?: number
-    etaMinutes?: number
 }
 
 const OCR_DOCUMENTS: OcrDoc[] = [
-    { id: 'OCR-001', name: 'ACK-7842_AIS.pdf', vendor: 'AIS Furniture', type: 'Acknowledgment', pages: 3, fields: 50, date: 'Today, 2:30 PM', status: 'identified', confidence: null, inconsistencyCount: 0 },
-    { id: 'OCR-002', name: 'PO-1029_ApexFurniture.pdf', vendor: 'Apex Furniture', type: 'Purchase Order', pages: 5, fields: 82, date: 'Today, 1:15 PM', status: 'capturing', confidence: 72, inconsistencyCount: 0 },
-    { id: 'OCR-003', name: 'ACK-7839_Steelcase.pdf', vendor: 'Steelcase', type: 'Acknowledgment', pages: 2, fields: 35, date: 'Yesterday', status: 'inconsistencies', confidence: 83, inconsistencyCount: 3 },
-    { id: 'OCR-004', name: 'INV-4521_HermanMiller.pdf', vendor: 'Herman Miller', type: 'Invoice', pages: 4, fields: 61, date: 'Yesterday', status: 'inconsistencies', confidence: 88, inconsistencyCount: 5 },
-    { id: 'OCR-005', name: 'ACK-7835_Knoll.pdf', vendor: 'Knoll', type: 'Acknowledgment', pages: 2, fields: 28, date: '2 days ago', status: 'processed', confidence: 99, inconsistencyCount: 0 },
-    { id: 'OCR-006', name: 'PO-1025_Haworth.pdf', vendor: 'Haworth', type: 'Purchase Order', pages: 3, fields: 45, date: '2 days ago', status: 'processed', confidence: 97, inconsistencyCount: 0 },
-    { id: 'OCR-007', name: 'ACK-7831_9to5.pdf', vendor: '9to5 Seating', type: 'Acknowledgment', pages: 1, fields: 12, date: '3 days ago', status: 'processed', confidence: 100, inconsistencyCount: 0 },
-    // In-progress — Expert Hub members actively resolving inconsistencies
-    { id: 'OCR-008', name: 'ACK-7855_Knoll.pdf', vendor: 'Knoll', type: 'Acknowledgment', pages: 2, fields: 32, date: 'Today, 10:42 AM', status: 'in_progress', confidence: 86, inconsistencyCount: 8,
-      assigneeId: 'sarah', expertName: 'Sarah Johnson', expertInitials: 'SJ', workstream: 'Pricing review', startedRelative: '12m ago', resolvedCount: 5, etaMinutes: 15 },
-    { id: 'OCR-009', name: 'PO-1031_ApexFurniture.pdf', vendor: 'Apex Furniture', type: 'Purchase Order', pages: 4, fields: 47, date: 'Today, 11:08 AM', status: 'in_progress', confidence: 81, inconsistencyCount: 12,
-      assigneeId: 'marcus', expertName: 'Marcus Webb', expertInitials: 'MW', workstream: 'Catalog match', startedRelative: '4m ago', resolvedCount: 3, etaMinutes: 30 },
-    { id: 'OCR-010', name: 'PO-1027_Steelcase.pdf', vendor: 'Steelcase', type: 'Purchase Order', pages: 3, fields: 41, date: 'Today, 9:15 AM', status: 'in_progress', confidence: 94, inconsistencyCount: 9,
-      assigneeId: 'priya', expertName: 'Priya Shah', expertInitials: 'PS', workstream: 'Vendor mapping', startedRelative: '38m ago', resolvedCount: 7, etaMinutes: 5 },
+    { id: 'OCR-001', name: 'ACK-7842_AIS.pdf', vendor: 'AIS Furniture', type: 'Acknowledgment', date: 'Today, 2:30 PM', status: 'identified', lineItems: 4 },
+    { id: 'OCR-002', name: 'PO-1029_ApexFurniture.pdf', vendor: 'Apex Furniture', type: 'Purchase Order', date: 'Today, 1:15 PM', status: 'capturing', lineItems: 7 },
+    { id: 'OCR-003', name: 'ACK-7839_Steelcase.pdf', vendor: 'Steelcase', type: 'Acknowledgment', date: 'Yesterday', status: 'inconsistencies', lineItems: 3 },
+    { id: 'OCR-004', name: 'INV-4521_HermanMiller.pdf', vendor: 'Herman Miller', type: 'Invoice', date: 'Yesterday', status: 'inconsistencies', lineItems: 5 },
+    { id: 'OCR-005', name: 'ACK-7835_Knoll.pdf', vendor: 'Knoll', type: 'Acknowledgment', date: '2 days ago', status: 'processed', lineItems: 2 },
+    { id: 'OCR-006', name: 'PO-1025_Haworth.pdf', vendor: 'Haworth', type: 'Purchase Order', date: '2 days ago', status: 'processed', lineItems: 4 },
+    { id: 'OCR-007', name: 'ACK-7831_9to5.pdf', vendor: '9to5 Seating', type: 'Acknowledgment', date: '3 days ago', status: 'processed', lineItems: 1 },
+    { id: 'OCR-008', name: 'ACK-7855_Knoll.pdf', vendor: 'Knoll', type: 'Acknowledgment', date: 'Today, 10:42 AM', status: 'in_progress', lineItems: 3, assigneeId: 'sarah' },
+    { id: 'OCR-009', name: 'PO-1031_ApexFurniture.pdf', vendor: 'Apex Furniture', type: 'Purchase Order', date: 'Today, 11:08 AM', status: 'in_progress', lineItems: 6, assigneeId: 'marcus' },
+    { id: 'OCR-010', name: 'PO-1027_Steelcase.pdf', vendor: 'Steelcase', type: 'Purchase Order', date: 'Today, 9:15 AM', status: 'in_progress', lineItems: 4, assigneeId: 'priya' },
 ]
 
 const COLUMNS = [
@@ -71,7 +54,6 @@ interface OCRTrackingProps {
 }
 
 export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }: OCRTrackingProps) {
-    const [selectedDoc, setSelectedDoc] = useState<string | null>(null)
     const [showUpload, setShowUpload] = useState(false)
     const [processingDoc, setProcessingDoc] = useState<string | null>(null)
     const [createRecordDoc, setCreateRecordDoc] = useState<typeof OCR_DOCUMENTS[0] | null>(null)
@@ -82,61 +64,17 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
     const [viewMode, setViewMode] = useState<'kanban' | 'list'>('kanban')
     const [searchQuery, setSearchQuery] = useState('')
     const [activeTab, setActiveTab] = useState<'all' | 'identified' | 'capturing' | 'inconsistencies' | 'in_progress' | 'processed' | 'completed' | 'deprecated'>('all')
-    const [deprecatedFilter, setDeprecatedFilter] = useState('All')
-    const [timeFilter, setTimeFilter] = useState('All Time')
-    const [isTimeDropdownOpen, setIsTimeDropdownOpen] = useState(false)
-    const [downloadingId, setDownloadingId] = useState<string | null>(null)
     const { toasts, addToast, dismissToast } = useToast()
 
-    const handleDownload = async (e: React.MouseEvent, doc: typeof OCR_DOCUMENTS[0]) => {
-        e.stopPropagation()
-        if (downloadingId) return
-        setDownloadingId(doc.id)
-        try {
-            await exportOcrPdf({ id: doc.id, name: doc.name, vendor: doc.vendor, type: doc.type, fields: doc.fields, confidence: doc.confidence, status: doc.status })
-        } finally {
-            setDownloadingId(null)
-        }
-    }
-
     const handleResolve = (docId: string) => {
-        setDocuments(prev => prev.map(d => d.id === docId ? { ...d, status: 'processed', inconsistencyCount: 0, confidence: 99 } : d))
+        setDocuments(prev => prev.map(d => d.id === docId ? { ...d, status: 'processed' } : d))
     }
 
-    const handleAssign = (docId: string, memberId: string | null) => {
-        setDocuments(prev => prev.map(d => {
-            if (d.id !== docId) return d
-            const next = { ...d, assigneeId: memberId ?? undefined }
-            // Keep denormalized expert fields in sync for in-progress cards
-            if (d.status === 'in_progress') {
-                const member = getTeamMember(memberId)
-                if (member) {
-                    next.expertName = member.name
-                    next.expertInitials = member.initials
-                } else {
-                    next.expertName = undefined
-                    next.expertInitials = undefined
-                }
-            }
-            return next
-        }))
-
-        const doc = documents.find(d => d.id === docId)
-        if (memberId === CURRENT_USER_ID) {
-            addToast('success', `${docId} assigned to you`)
-        } else if (memberId === null) {
-            addToast('info', `${docId} unassigned${doc ? ` · ${doc.vendor}` : ''}`)
-        } else {
-            const member = getTeamMember(memberId)
-            if (member) addToast('success', `${docId} assigned to ${member.name}`)
-        }
-    }
-
-    const recordTypeFromDoc = (doc: typeof OCR_DOCUMENTS[0]): RecordType =>
+    const recordTypeFromDoc = (doc: OcrDoc): RecordType =>
         doc.type === 'Acknowledgment' ? 'ACK' : 'PO'
 
-    const handleCreateRecord = (doc: typeof OCR_DOCUMENTS[0]) => {
-        const preflight = getPreflightForDoc(doc)
+    const handleCreateRecord = (doc: OcrDoc) => {
+        const preflight = getPreflightForDoc(doc as unknown as Parameters<typeof getPreflightForDoc>[0])
         if (preflightHasInconsistencies(preflight)) {
             setCreateRecordDoc(doc)
             return
@@ -145,8 +83,7 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
         addToast('success', `Record ${recordId} created · ${doc.vendor}`)
     }
 
-    // Deprecation flow: open modal from preview
-    const openDeprecation = (doc: typeof OCR_DOCUMENTS[0]) => {
+    const openDeprecation = (doc: OcrDoc) => {
         setDeprecationTarget(doc)
     }
 
@@ -164,12 +101,12 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
             name: original.name,
             vendor: original.vendor,
             type: original.type,
-            pages: original.pages,
-            fields: original.fields,
+            pages: 0,
+            fields: 0,
             date: original.date,
             status: 'deprecated',
-            confidence: original.confidence,
-            inconsistencyCount: original.inconsistencyCount,
+            confidence: null,
+            inconsistencyCount: 0,
             deprecationReason: payload.reason,
             deprecationCustomReason: payload.customReason,
             replacementId: payload.replacementId,
@@ -197,19 +134,15 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
     }
 
     const handlePreviewDeprecated = (doc: DeprecatedDoc) => {
-        // Adapt DeprecatedDoc → preview-doc shape (subset of fields preview needs)
         setPreviewDoc({
             id: doc.id,
             name: doc.name,
             vendor: doc.vendor,
-            type: doc.type,
-            pages: doc.pages ?? 0,
-            fields: doc.fields,
+            type: doc.type as OcrDocType,
             date: doc.date ?? doc.deprecatedAt,
             status: 'deprecated',
-            confidence: doc.confidence,
-            inconsistencyCount: doc.inconsistencyCount,
-        } as unknown as typeof OCR_DOCUMENTS[0])
+            lineItems: 0,
+        })
     }
 
     const filteredDocs = documents.filter(d => {
@@ -232,18 +165,18 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
     return (
         <div className="min-h-screen bg-background font-sans text-foreground pb-10">
 
+            {/* Breadcrumb hoisted above navbar — matches prod top-left position */}
+            <div className="fixed top-2 left-6 z-50 text-xs opacity-80 hover:opacity-100 transition-opacity pointer-events-auto">
+                <Breadcrumbs items={[
+                    { label: 'Smart Comparator', onClick: () => onNavigate('transactions') },
+                    { label: 'OCR Tracking', active: true }
+                ]} />
+            </div>
+
             <Navbar onLogout={onLogout} activeTab="OCR" onNavigateToWorkspace={() => onNavigate('transactions')} onNavigate={onNavigate} />
 
             {/* Main Content — wider container to fit 8 tabs without horizontal scroll */}
             <div className="pt-24 px-4 max-w-screen-2xl mx-auto space-y-6">
-
-                {/* Breadcrumbs */}
-                <div className="mb-4">
-                    <Breadcrumbs items={[
-                        { label: 'Smart Comparator', onClick: () => onNavigate('transactions') },
-                        { label: 'OCR Tracking' }
-                    ]} />
-                </div>
 
                 {/* Upload Zone (conditional) */}
                 {showUpload && (
@@ -285,7 +218,6 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                                 <h3 className="text-lg font-semibold text-foreground flex items-center gap-2 whitespace-nowrap">
                                     Smart Comparator
                                 </h3>
-                                <div className="hidden sm:block w-px h-6 bg-border mx-2"></div>
                                 {/* Tabs — funnel stages + Deprecated archive (separated by divider) */}
                                 <div className="flex gap-1 bg-muted p-1 rounded-lg w-fit overflow-x-auto max-w-full">
                                     {[
@@ -372,7 +304,6 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                             <div className="grid grid-cols-6 gap-3">
                                 {COLUMNS.map(column => {
                                     const docs = filteredDocs.filter(d => d.status === column.id)
-                                    const Icon = column.icon
                                     return (
                                         <div key={column.id} className="space-y-3">
                                             {/* Column Header */}
@@ -384,231 +315,14 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                                             {/* Cards */}
                                             <div className="space-y-3">
                                                 {docs.map(doc => (
-                                                    <div
+                                                    <OcrDocCard
                                                         key={doc.id}
-                                                        className={`group relative bg-card dark:bg-zinc-800 rounded-2xl border transition-all duration-200 overflow-hidden flex flex-col ${
-                                                            selectedDoc === doc.id
-                                                                ? 'border-brand-400/50 ring-1 ring-brand-400/20 shadow-lg'
-                                                                : 'border-border shadow-sm hover:shadow-md'
-                                                        }`}
-                                                    >
-                                                        <div className="p-4">
-                                                            <div className="flex items-center justify-between mb-3">
-                                                                <div className="flex items-center gap-2">
-                                                                    <div title={
-                                                                        doc.status === 'processed' ? 'Validated · ready to create record' :
-                                                                        doc.status === 'in_progress' ? `In-progress · ${doc.expertName ?? 'Expert Hub member'} resolving inconsistencies` :
-                                                                        doc.status === 'inconsistencies' ? 'Awaiting Expert · inconsistencies detected' :
-                                                                        doc.status === 'capturing' ? 'Needs Attention · low-confidence fields' :
-                                                                        'Ingesting · scanning and extracting'
-                                                                    }
-                                                                        className={`h-9 w-9 rounded-full flex items-center justify-center text-xs font-bold shadow-sm ${
-                                                                            doc.status === 'processed' ? 'bg-green-600 text-white' :
-                                                                            doc.status === 'in_progress' ? 'bg-indigo-600 text-white' :
-                                                                            doc.status === 'inconsistencies' ? 'bg-amber-600 text-white' :
-                                                                            doc.status === 'capturing' ? 'bg-ai text-white' :
-                                                                            'bg-blue-600 text-white'
-                                                                        }`}>
-                                                                        <Icon className={`h-4 w-4 ${doc.status === 'in_progress' ? 'animate-spin' : ''}`} />
-                                                                    </div>
-                                                                    <div>
-                                                                        <p className="text-sm font-bold text-foreground">{doc.vendor}</p>
-                                                                        <p className="text-[10px] text-muted-foreground font-mono">{doc.id}</p>
-                                                                    </div>
-                                                                </div>
-                                                                {/* Assignee chip / Assign button — only for human-action stages */}
-                                                                {(doc.status === 'inconsistencies' || doc.status === 'in_progress' || doc.status === 'processed') && (
-                                                                    <AssignPopover
-                                                                        assigneeId={doc.assigneeId}
-                                                                        onAssign={(memberId) => handleAssign(doc.id, memberId)}
-                                                                        triggerLabel={
-                                                                            doc.status === 'inconsistencies' ? 'Assign expert' :
-                                                                            doc.status === 'processed' ? 'Assign owner' :
-                                                                            'Assign'
-                                                                        }
-                                                                        filterRoles={doc.status === 'inconsistencies' || doc.status === 'in_progress' ? ['Expert Hub', 'Account Manager'] : undefined}
-                                                                        hoverContent={
-                                                                            doc.status === 'in_progress' && doc.workstream ? (
-                                                                                <div className="space-y-2">
-                                                                                    <div className="flex justify-between text-[11.5px]">
-                                                                                        <span className="text-muted-foreground">Workstream</span>
-                                                                                        <span className="font-medium text-foreground">{doc.workstream}</span>
-                                                                                    </div>
-                                                                                    {doc.startedRelative && (
-                                                                                        <div className="flex justify-between text-[11.5px]">
-                                                                                            <span className="text-muted-foreground">Started</span>
-                                                                                            <span className="font-medium text-foreground">{doc.startedRelative}</span>
-                                                                                        </div>
-                                                                                    )}
-                                                                                    {doc.resolvedCount != null && doc.inconsistencyCount > 0 && (
-                                                                                        <div>
-                                                                                            <div className="flex justify-between text-[11.5px] mb-1">
-                                                                                                <span className="text-muted-foreground">Progress</span>
-                                                                                                <span className="font-mono font-semibold text-foreground">{doc.resolvedCount}/{doc.inconsistencyCount} ({Math.round((doc.resolvedCount / doc.inconsistencyCount) * 100)}%)</span>
-                                                                                            </div>
-                                                                                            <div className="h-1 rounded-full overflow-hidden bg-muted">
-                                                                                                <div
-                                                                                                    className="h-full bg-indigo-500 dark:bg-indigo-400 rounded-full"
-                                                                                                    style={{ width: `${Math.round((doc.resolvedCount / doc.inconsistencyCount) * 100)}%` }}
-                                                                                                />
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    )}
-                                                                                    {doc.etaMinutes != null && (
-                                                                                        <div className="flex justify-between text-[11.5px]">
-                                                                                            <span className="text-muted-foreground">ETA</span>
-                                                                                            <span className="font-medium text-indigo-700 dark:text-indigo-300">~{doc.etaMinutes} min</span>
-                                                                                        </div>
-                                                                                    )}
-                                                                                </div>
-                                                                            ) : doc.status === 'inconsistencies' ? (
-                                                                                <div className="text-[11.5px] text-muted-foreground">
-                                                                                    Awaiting kickoff — the expert hasn't started resolving inconsistencies yet.
-                                                                                </div>
-                                                                            ) : doc.status === 'processed' ? (
-                                                                                <div className="text-[11.5px] text-muted-foreground">
-                                                                                    Owns the next step: turning this validated document into an Orderbahn record.
-                                                                                </div>
-                                                                            ) : null
-                                                                        }
-                                                                    />
-                                                                )}
-                                                            </div>
-
-                                                            <div className="space-y-2 mb-3">
-                                                                <div className="flex justify-between text-sm">
-                                                                    <span className="text-muted-foreground">Document</span>
-                                                                    <span title={doc.name} className="font-medium text-foreground truncate ml-2 max-w-[140px]">{doc.name}</span>
-                                                                </div>
-                                                                <div className="flex justify-between text-sm">
-                                                                    <span className="text-muted-foreground">Fields</span>
-                                                                    <span title="Fields extracted by OCR from this document" className="font-medium text-foreground">{doc.fields} fields</span>
-                                                                </div>
-                                                            </div>
-
-                                                            {doc.inconsistencyCount > 0 && (
-                                                                <div title="Fields with inconsistencies — require resolution before record creation" className="flex items-center gap-1.5 text-xs text-error font-medium bg-error-light dark:bg-error/10 px-2 py-1 rounded-md mb-3">
-                                                                    <AlertTriangle className="h-3 w-3" />{doc.inconsistencyCount} inconsistencies
-                                                                </div>
-                                                            )}
-
-                                                            {isUnsupportedDocType(doc.type) && (
-                                                                <div
-                                                                    title={`${doc.type}s aren't processed in this phase. Recommended action: archive (Mark as Deprecated → Out of scope).`}
-                                                                    className="flex items-center gap-1.5 text-[11px] text-orange-700 dark:text-orange-300 font-medium bg-orange-50 dark:bg-orange-500/10 ring-1 ring-inset ring-orange-200 dark:ring-orange-500/20 px-2 py-1 rounded-md mb-3"
-                                                                >
-                                                                    <Archive className="h-3 w-3" />
-                                                                    {doc.type}s out of scope · archive suggested
-                                                                </div>
-                                                            )}
-
-
-                                                            {/* Status + Date + Actions — matches Transactions card footer */}
-                                                            <div className="pt-3 border-t border-border flex items-center justify-between">
-                                                                <div className="flex items-center gap-2">
-                                                                    {doc.confidence ? (
-                                                                        <span title="Confidence Score" className={`text-[10px] font-semibold px-2 py-0.5 rounded-full inline-flex items-center gap-1 ${
-                                                                            doc.confidence > 90 ? 'bg-green-50 text-green-700 dark:bg-green-500/15 dark:text-green-300 ring-1 ring-inset ring-green-600/20 dark:ring-green-400/30' :
-                                                                            doc.confidence >= 75 ? 'bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300 ring-1 ring-inset ring-amber-600/20 dark:ring-amber-400/30' :
-                                                                            'bg-red-50 text-red-700 dark:bg-red-500/15 dark:text-red-300 ring-1 ring-inset ring-red-600/20 dark:ring-red-400/30'
-                                                                        }`}>
-                                                                            <Flame className="h-3 w-3 fill-current" />{doc.confidence}%
-                                                                        </span>
-                                                                    ) : doc.status === 'identified' ? (
-                                                                        <select
-                                                                            value={doc.type}
-                                                                            onChange={(e) => setDocuments(prev => prev.map(d => d.id === doc.id ? { ...d, type: e.target.value } : d))}
-                                                                            onClick={(e) => e.stopPropagation()}
-                                                                            title="Select document type"
-                                                                            className="text-[10px] font-medium text-muted-foreground bg-muted border border-border rounded-md px-1.5 py-0.5 hover:bg-background focus:outline-none focus:ring-1 focus:ring-primary/40 cursor-pointer"
-                                                                        >
-                                                                            <option value="Purchase Order">Purchase Order</option>
-                                                                            <option value="Acknowledgment">Acknowledgment</option>
-                                                                            <option value="Invoice">Invoice</option>
-                                                                            <option value="Quote">Quote</option>
-                                                                        </select>
-                                                                    ) : (
-                                                                        <span title="Document type detected by OCR" className="text-[10px] font-medium text-muted-foreground">{doc.type}</span>
-                                                                    )}
-                                                                </div>
-                                                                <div className="flex items-center gap-1">
-                                                                    {doc.status !== 'identified' && (
-                                                                        <>
-                                                                            <button
-                                                                                onClick={(e) => {
-                                                                                    e.stopPropagation();
-                                                                                    setPreviewDoc(doc);
-                                                                                }}
-                                                                                className="p-1.5 rounded-md text-muted-foreground hover:text-ai hover:bg-ai/10 transition-all"
-                                                                                title="Preview document and review extracted fields"
-                                                                                aria-label="Preview document"
-                                                                            >
-                                                                                <Eye className="h-4 w-4" />
-                                                                            </button>
-                                                                            <button
-                                                                                onClick={(e) => handleDownload(e, doc)}
-                                                                                disabled={downloadingId === doc.id}
-                                                                                className="p-1.5 rounded-md text-muted-foreground hover:text-primary hover:bg-primary/10 disabled:opacity-50 transition-all"
-                                                                                title="Download OCR report as PDF"
-                                                                                aria-label="Download PDF"
-                                                                            >
-                                                                                {downloadingId === doc.id
-                                                                                    ? <Loader2 className="h-4 w-4 animate-spin" />
-                                                                                    : <Download className="h-4 w-4" />}
-                                                                            </button>
-                                                                        </>
-                                                                    )}
-                                                                    <button
-                                                                        onClick={(e) => {
-                                                                            e.stopPropagation();
-                                                                            openDeprecation(doc);
-                                                                        }}
-                                                                        className="p-1.5 rounded-md text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-all"
-                                                                        title="Mark as Deprecated — move to archive"
-                                                                        aria-label="Deprecate document"
-                                                                    >
-                                                                        <Trash2 className="h-4 w-4" />
-                                                                    </button>
-                                                                    {(doc.status === 'identified' || doc.status === 'processed') && (
-                                                                        <button
-                                                                            onClick={() => setSelectedDoc(selectedDoc === doc.id ? null : doc.id)}
-                                                                            title={selectedDoc === doc.id ? 'Collapse details' : 'Show actions and details'}
-                                                                            aria-label={selectedDoc === doc.id ? 'Collapse details' : 'Show details'}
-                                                                            className="p-1.5 text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted transition-colors"
-                                                                        >
-                                                                            {selectedDoc === doc.id ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
-                                                                        </button>
-                                                                    )}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        {/* Expanded detail */}
-                                                        {selectedDoc === doc.id && (
-                                                            <div className="px-4 pb-4 pt-0 space-y-2 border-t border-border">
-                                                                {doc.status === 'identified' && (
-                                                                    <div className="space-y-2.5 py-1">
-                                                                        <span className="text-xs text-muted-foreground font-medium">Ingesting document...</span>
-                                                                        <div className="h-1.5 bg-muted rounded-full overflow-hidden">
-                                                                            <div className="h-full bg-info rounded-full animate-[ingestProgress_3s_ease-out_forwards]" />
-                                                                        </div>
-                                                                        <style>{`@keyframes ingestProgress { from { width: 5%; } to { width: 60%; } }`}</style>
-                                                                        <p className="text-[10px] text-muted-foreground">Scanning pages and extracting fields...</p>
-                                                                    </div>
-                                                                )}
-                                                                {doc.status === 'processed' && (
-                                                                    <button
-                                                                        onClick={(e) => { e.stopPropagation(); handleCreateRecord(doc); }}
-                                                                        title={`Create an Orderbahn ${recordTypeFromDoc(doc) === 'PO' ? 'Purchase Order' : 'Acknowledgement'} record from this document`}
-                                                                        className="w-full flex items-center gap-2 px-3 py-2 text-xs font-medium bg-brand-300 dark:bg-brand-500 text-zinc-900 rounded-lg transition-colors hover:bg-brand-400 dark:hover:bg-brand-600/50"
-                                                                    >
-                                                                        <FilePlus2 className="h-3.5 w-3.5" />
-                                                                        Create Record
-                                                                    </button>
-                                                                )}
-                                                            </div>
-                                                        )}
-                                                    </div>
+                                                        doc={doc}
+                                                        onPreview={() => setPreviewDoc(doc)}
+                                                        onResolve={() => handleResolve(doc.id)}
+                                                        onSend={() => handleCreateRecord(doc)}
+                                                        onDeprecate={() => openDeprecation(doc)}
+                                                    />
                                                 ))}
                                                 {docs.length === 0 && (
                                                     <div className="border-2 border-dashed border-border rounded-xl p-6 text-center">
@@ -632,7 +346,7 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                                             <th className="text-left text-[10px] font-bold text-muted-foreground uppercase tracking-wider px-4 py-3">Vendor</th>
                                             <th className="text-left text-[10px] font-bold text-muted-foreground uppercase tracking-wider px-4 py-3">Type</th>
                                             <th className="text-left text-[10px] font-bold text-muted-foreground uppercase tracking-wider px-4 py-3">Status</th>
-                                            <th className="text-left text-[10px] font-bold text-muted-foreground uppercase tracking-wider px-4 py-3">Confidence</th>
+                                            <th className="text-left text-[10px] font-bold text-muted-foreground uppercase tracking-wider px-4 py-3">Line Items</th>
                                             <th className="text-left text-[10px] font-bold text-muted-foreground uppercase tracking-wider px-4 py-3">Date</th>
                                             <th className="text-right text-[10px] font-bold text-muted-foreground uppercase tracking-wider px-4 py-3">Actions</th>
                                         </tr>
@@ -645,48 +359,39 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                                                         <FileText className="h-4 w-4 text-muted-foreground" />
                                                         <div>
                                                             <div className="text-sm font-medium text-foreground">{doc.name}</div>
-                                                            <div className="text-[10px] text-muted-foreground">{doc.id} · {doc.pages} pages · {doc.fields} fields</div>
+                                                            <div className="text-[10px] text-muted-foreground font-mono">{doc.id}</div>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td className="px-4 py-3 text-sm text-foreground">{doc.vendor}</td>
                                                 <td className="px-4 py-3"><span className="text-xs font-medium px-2 py-1 rounded-md bg-muted text-muted-foreground">{doc.type}</span></td>
                                                 <td className="px-4 py-3">
-                                                    <span title={
-                                                        doc.status === 'processed' ? 'Reconciled · ready to create record' :
-                                                        doc.status === 'in_progress' ? `In-progress · ${doc.expertName ?? 'expert'} resolving inconsistencies` :
-                                                        doc.status === 'inconsistencies' ? 'Awaiting Expert Hub resolution of inconsistencies' :
-                                                        doc.status === 'capturing' ? 'Needs Attention · low-confidence fields' :
-                                                        'Ingesting · scanning and extracting'
-                                                    } className={`text-xs font-semibold px-2 py-1 rounded-md ${
-                                                        doc.status === 'processed' ? 'bg-success-light text-success' :
+                                                    <span className={`text-xs font-semibold px-2 py-1 rounded-md ${
+                                                        doc.status === 'processed' || doc.status === 'completed' ? 'bg-success-light text-success' :
                                                         doc.status === 'in_progress' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-500/15 dark:text-indigo-400' :
                                                         doc.status === 'inconsistencies' ? 'bg-error-light text-error' :
                                                         doc.status === 'capturing' ? 'bg-ai-light text-ai' :
                                                         'bg-info-light text-info'
                                                     }`}>
-                                                        {doc.status === 'identified' ? 'Ingesting' : doc.status === 'capturing' ? 'Needs Attention' : doc.status === 'inconsistencies' ? 'Awaiting Expert' : doc.status === 'in_progress' ? 'In-progress' : 'Reconciled'}
+                                                        {doc.status === 'identified' ? 'Ingesting' :
+                                                         doc.status === 'capturing' ? 'Needs Attention' :
+                                                         doc.status === 'inconsistencies' ? 'Awaiting Expert' :
+                                                         doc.status === 'in_progress' ? 'In-progress' :
+                                                         doc.status === 'completed' ? 'Completed' :
+                                                         'Reconciled'}
                                                     </span>
                                                 </td>
-                                                <td className="px-4 py-3">
-                                                    {doc.confidence ? (
-                                                        <span title="Confidence Score" className={`text-sm font-medium flex items-center gap-1 ${doc.confidence > 90 ? 'text-success' : doc.confidence >= 75 ? 'text-warning' : 'text-error'}`}>
-                                                            <Sparkles className="h-3 w-3" />{doc.confidence}%
-                                                        </span>
-                                                    ) : <span className="text-xs text-muted-foreground">—</span>}
-                                                </td>
+                                                <td className="px-4 py-3 text-sm text-foreground">{doc.lineItems} line items</td>
                                                 <td className="px-4 py-3 text-xs text-muted-foreground">{doc.date}</td>
                                                 <td className="px-4 py-3 text-right">
-                                                    <div className="flex items-center justify-end gap-1">
-                                                        <button
-                                                                            onClick={() => setPreviewDoc(doc)}
-                                                                            className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
-                                                                            title="Review Document"
-                                                                            aria-label="Review document"
-                                                                        >
-                                                                            <Eye className="h-4 w-4" />
-                                                                        </button>
-                                                    </div>
+                                                    <button
+                                                        onClick={() => setPreviewDoc(doc)}
+                                                        className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+                                                        title="Review Fields"
+                                                        aria-label="Review document fields"
+                                                    >
+                                                        <FileText className="h-4 w-4" />
+                                                    </button>
                                                 </td>
                                             </tr>
                                         ))}
