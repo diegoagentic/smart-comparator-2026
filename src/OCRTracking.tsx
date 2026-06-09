@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ScanEye, FileText, CheckCircle2, AlertTriangle, Upload, Search, LayoutGrid, List, X, Archive, Sparkles, Loader2, MoreHorizontal, ChevronDown, Send, Trash2 } from 'lucide-react'
+import { ScanEye, FileText, CheckCircle2, AlertTriangle, Upload, Search, LayoutGrid, List, X, Archive, Sparkles, Loader2, MoreHorizontal, ChevronDown, Send, Trash2, CheckSquare } from 'lucide-react'
 import Navbar from './components/Navbar'
 import Breadcrumbs from './components/Breadcrumbs'
 import DocumentPreviewModal from './components/DocumentPreviewModal'
@@ -87,8 +87,13 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
     const [activeTab, setActiveTab] = useState<'all' | 'identified' | 'capturing' | 'inconsistencies' | 'in_progress' | 'processed' | 'completed' | 'deprecated'>('all')
     const { toasts, addToast, dismissToast } = useToast()
 
-    const handleResolve = (docId: string) => {
-        setDocuments(prev => prev.map(d => d.id === docId ? { ...d, status: 'processed' } : d))
+    const handleMarkCompleted = (docId: string) => {
+        setDocuments(prev => prev.map(d => d.id === docId ? { ...d, status: 'completed' } : d))
+        addToast('success', `Document marked as Completed`)
+    }
+
+    const handlePreflightSync = (doc: OcrDoc) => {
+        addToast('info', `Preflight sync started · ${doc.vendor}`)
     }
 
     const recordTypeFromDoc = (doc: OcrDoc): RecordType =>
@@ -366,8 +371,8 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                                                         key={doc.id}
                                                         doc={doc}
                                                         onPreview={() => setPreviewDoc(doc)}
-                                                        onResolve={() => handleResolve(doc.id)}
-                                                        onSend={() => handleCreateRecord(doc)}
+                                                        onMarkCompleted={() => handleMarkCompleted(doc.id)}
+                                                        onPreflightSync={() => handlePreflightSync(doc)}
                                                         onDeprecate={() => openDeprecation(doc)}
                                                     />
                                                 ))}
@@ -429,7 +434,7 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                                                             isReconciledLike ? 'bg-green-50 text-green-700 dark:bg-green-500/15 dark:text-green-300' :
                                                             doc.status === 'in_progress' ? 'bg-orange-50 text-orange-700 dark:bg-orange-500/15 dark:text-orange-300' :
                                                             doc.status === 'inconsistencies' ? 'bg-red-50 text-red-700 dark:bg-red-500/15 dark:text-red-300' :
-                                                            isProcessing ? 'bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300' :
+                                                            isProcessing ? 'bg-blue-100 text-blue-800 dark:bg-blue-500/20 dark:text-blue-200' :
                                                             'bg-muted text-muted-foreground'
                                                         }`}>
                                                             {isReconciledLike ? 'Validated' :
@@ -444,7 +449,7 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                                                                 <CheckCircle2 className="h-3 w-3" /> Reviewed
                                                             </span>
                                                         ) : isProcessing ? (
-                                                            <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-md bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300">
+                                                            <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-md bg-blue-100 text-blue-800 dark:bg-blue-500/20 dark:text-blue-200">
                                                                 <Loader2 className="h-3 w-3 animate-spin" /> Calculating…
                                                             </span>
                                                         ) : (
@@ -464,15 +469,34 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                                                             >
                                                                 <FileText className="h-4 w-4" />
                                                             </button>
-                                                            {isReconciledLike && (
-                                                                <button
-                                                                    onClick={() => handleCreateRecord(doc)}
-                                                                    className="p-1.5 rounded-md text-green-600 bg-green-50 dark:text-green-300 dark:bg-green-500/15 hover:brightness-95 transition-all"
-                                                                    title="Send"
-                                                                    aria-label="Send to Orderbahn"
+                                                            {doc.status === 'processed' && (
+                                                                <>
+                                                                    <button
+                                                                        onClick={() => handlePreflightSync(doc)}
+                                                                        className="p-1.5 rounded-md text-green-600 bg-green-50 dark:text-green-300 dark:bg-green-500/15 hover:brightness-95 transition-all"
+                                                                        title="Preflight Sync"
+                                                                        aria-label="Preflight Sync"
+                                                                    >
+                                                                        <Send className="h-4 w-4" />
+                                                                    </button>
+                                                                    <button
+                                                                        onClick={() => handleMarkCompleted(doc.id)}
+                                                                        className="p-1.5 rounded-md text-green-700 bg-green-100 dark:text-green-200 dark:bg-green-500/25 hover:brightness-95 transition-all"
+                                                                        title="Mark as Completed"
+                                                                        aria-label="Mark as Completed"
+                                                                    >
+                                                                        <CheckSquare className="h-4 w-4" />
+                                                                    </button>
+                                                                </>
+                                                            )}
+                                                            {!isReconciledLike && !isProcessing && doc.status !== 'completed' && (
+                                                                <span
+                                                                    title="Mark as Reviewed first"
+                                                                    aria-label="Mark as Reviewed first (disabled — review first)"
+                                                                    className="p-1.5 rounded-md text-green-400 bg-green-50/60 dark:text-green-500 dark:bg-green-500/10 inline-flex cursor-not-allowed opacity-70"
                                                                 >
-                                                                    <Send className="h-4 w-4" />
-                                                                </button>
+                                                                    <CheckSquare className="h-4 w-4" />
+                                                                </span>
                                                             )}
                                                             <button
                                                                 onClick={() => openDeprecation(doc)}
@@ -508,7 +532,7 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                 isOpen={!!previewDoc}
                 onClose={() => setPreviewDoc(null)}
                 document={previewDoc ? { id: previewDoc.id, name: previewDoc.name, vendor: previewDoc.vendor, type: previewDoc.type, fields: 0, confidence: null, status: previewDoc.status, inconsistencyCount: 0 } : null}
-                onResolve={handleResolve}
+                onResolve={handleMarkCompleted}
                 onMarkDeprecated={(_docId) => {
                     if (previewDoc) openDeprecation(previewDoc)
                 }}
@@ -554,7 +578,8 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                 onClose={() => setShowUpload(false)}
                 onConfirm={(docType, uploadedFiles) => {
                     if (uploadedFiles.length === 0) return
-                    // Each uploaded file becomes a new doc in 'identified' status (Processing in UI).
+                    // Each uploaded file becomes a new doc. Pipeline simulation:
+                    // identified (Processing) → in_progress (after 3s) → ready for review.
                     const newDocs: OcrDoc[] = uploadedFiles.map(f => ({
                         id: Math.random().toString(36).slice(2, 10),
                         name: f.name,
@@ -562,13 +587,20 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                         type: docType,
                         date: 'today',
                         status: 'identified' as const,
-                        lineItems: 0,
+                        lineItems: Math.floor(Math.random() * 5) + 1,
                         assigneeId: 'me',
                     }))
+                    const newIds = newDocs.map(d => d.id)
                     setDocuments(prev => [...newDocs, ...prev])
                     setProcessingDoc(newDocs[0].id)
                     addToast('success', `Processing new file${newDocs.length === 1 ? '' : 's'}…`)
-                    setTimeout(() => setProcessingDoc(null), 3000)
+                    setTimeout(() => {
+                        setDocuments(prev => prev.map(d =>
+                            newIds.includes(d.id) ? { ...d, status: 'in_progress' as const, vendor: 'New Vendor Co.' } : d
+                        ))
+                        setProcessingDoc(null)
+                        addToast('info', `${newIds.length} document${newIds.length === 1 ? '' : 's'} ready for review`)
+                    }, 3000)
                 }}
             />
 

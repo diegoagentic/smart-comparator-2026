@@ -18,8 +18,8 @@ export interface OcrDocCardData {
 interface OcrDocCardProps {
     doc: OcrDocCardData
     onPreview: () => void
-    onResolve: () => void
-    onSend: () => void
+    onMarkCompleted: () => void
+    onPreflightSync: () => void
     onDeprecate: () => void
 }
 
@@ -62,7 +62,7 @@ function typeLabel(type: OcrDocType): string {
     return String(type).toUpperCase()
 }
 
-export default function OcrDocCard({ doc, onPreview, onResolve, onSend, onDeprecate }: OcrDocCardProps) {
+export default function OcrDocCard({ doc, onPreview, onMarkCompleted, onPreflightSync, onDeprecate }: OcrDocCardProps) {
     const assignee = getTeamMember(doc.assigneeId)
     // For non-Reconciled/Completed states the 4 icons default to In-Progress mapping
     // (per Diego decision 2026-06-09 — confirm with prod for other states later).
@@ -135,24 +135,33 @@ export default function OcrDocCard({ doc, onPreview, onResolve, onSend, onDeprec
                         >
                             <FileText className="h-4 w-4" />
                         </button>
-                        {isReconciled ? (
+                        {isReconciled && (
                             <button
-                                onClick={(e) => { e.stopPropagation(); onSend() }}
-                                title="Send"
-                                aria-label="Send to Orderbahn"
+                                onClick={(e) => { e.stopPropagation(); onPreflightSync() }}
+                                title="Preflight Sync"
+                                aria-label="Preflight Sync"
                                 className="p-1.5 rounded-md text-green-600 bg-green-50 dark:text-green-300 dark:bg-green-500/15 hover:brightness-95 transition-all"
                             >
                                 <Send className="h-4 w-4" />
                             </button>
-                        ) : (
+                        )}
+                        {isReconciled ? (
                             <button
-                                onClick={(e) => { e.stopPropagation(); onResolve() }}
-                                title="Awaiting full review"
-                                aria-label="Mark as reviewed"
-                                className="p-1.5 rounded-md text-green-600 bg-green-50 dark:text-green-300 dark:bg-green-500/15 hover:brightness-95 transition-all"
+                                onClick={(e) => { e.stopPropagation(); onMarkCompleted() }}
+                                title="Mark as Completed"
+                                aria-label="Mark as Completed"
+                                className="p-1.5 rounded-md text-green-700 bg-green-100 dark:text-green-200 dark:bg-green-500/25 hover:brightness-95 transition-all"
                             >
                                 <CheckSquare className="h-4 w-4" />
                             </button>
+                        ) : (
+                            <span
+                                title="Mark as Reviewed first"
+                                aria-label="Mark as Reviewed first (disabled — review first)"
+                                className="p-1.5 rounded-md text-green-400 bg-green-50/60 dark:text-green-500 dark:bg-green-500/10 inline-flex cursor-not-allowed opacity-70"
+                            >
+                                <CheckSquare className="h-4 w-4" />
+                            </span>
                         )}
                         <button
                             onClick={(e) => { e.stopPropagation(); onDeprecate() }}
