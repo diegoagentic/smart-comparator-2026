@@ -24,7 +24,7 @@ interface OcrDoc {
     pages: number
     fields: number
     date: string
-    status: 'identified' | 'capturing' | 'inconsistencies' | 'in_progress' | 'processed'
+    status: 'identified' | 'capturing' | 'inconsistencies' | 'in_progress' | 'processed' | 'completed' | 'deprecated'
     confidence: number | null
     inconsistencyCount: number
     /** Team member id who owns this document (any active human-action stage). */
@@ -61,6 +61,7 @@ const COLUMNS = [
     { id: 'inconsistencies', label: 'Awaiting Expert', icon: AlertTriangle, color: 'text-warning', bg: 'bg-warning-light dark:bg-warning/10', border: 'border-warning/20' },
     { id: 'in_progress', label: 'In-progress', icon: Loader2, color: 'text-indigo-600 dark:text-indigo-400', bg: 'bg-indigo-50 dark:bg-indigo-500/10', border: 'border-indigo-200 dark:border-indigo-500/20' },
     { id: 'processed', label: 'Reconciled', icon: CheckCircle2, color: 'text-success', bg: 'bg-success-light dark:bg-success/10', border: 'border-success/20' },
+    { id: 'completed', label: 'Completed', icon: CheckCircle2, color: 'text-success', bg: 'bg-success-light dark:bg-success/10', border: 'border-success/20' },
 ]
 
 interface OCRTrackingProps {
@@ -80,7 +81,7 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
     const [deprecatedDocs, setDeprecatedDocs] = useState<DeprecatedDoc[]>(DEPRECATED_DOCS)
     const [viewMode, setViewMode] = useState<'kanban' | 'list'>('kanban')
     const [searchQuery, setSearchQuery] = useState('')
-    const [activeTab, setActiveTab] = useState<'all' | 'identified' | 'capturing' | 'inconsistencies' | 'in_progress' | 'processed' | 'deprecated'>('all')
+    const [activeTab, setActiveTab] = useState<'all' | 'identified' | 'capturing' | 'inconsistencies' | 'in_progress' | 'processed' | 'completed' | 'deprecated'>('all')
     const [deprecatedFilter, setDeprecatedFilter] = useState('All')
     const [timeFilter, setTimeFilter] = useState('All Time')
     const [isTimeDropdownOpen, setIsTimeDropdownOpen] = useState(false)
@@ -224,6 +225,7 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
         inconsistencies: documents.filter(d => d.status === 'inconsistencies').length,
         in_progress: documents.filter(d => d.status === 'in_progress').length,
         processed: documents.filter(d => d.status === 'processed').length,
+        completed: documents.filter(d => d.status === 'completed').length,
         deprecated: deprecatedDocs.length,
     }
 
@@ -292,7 +294,8 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                                         { id: 'capturing', label: 'Needs Attention', count: counts.capturing, hint: 'Fields extracted with low confidence — manual review suggested' },
                                         { id: 'inconsistencies', label: 'Awaiting Expert', count: counts.inconsistencies, hint: 'Inconsistencies detected — needs Expert Hub resolution' },
                                         { id: 'in_progress', label: 'In-progress', count: counts.in_progress, hint: 'An Expert Hub member is actively resolving inconsistencies on these documents' },
-                                        { id: 'processed', label: 'Validated', count: counts.processed, hint: 'Reconciled documents ready to create as Orderbahn records' },
+                                        { id: 'processed', label: 'Reconciled', count: counts.processed, hint: 'Reconciled documents ready to create as Orderbahn records' },
+                                        { id: 'completed', label: 'Completed', count: counts.completed, hint: 'Documents fully processed and turned into Orderbahn records' },
                                     ].map(tab => (
                                         <button
                                             key={tab.id}
@@ -366,7 +369,7 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
 
                         {/* Kanban View */}
                         {activeTab !== 'deprecated' && viewMode === 'kanban' && (
-                            <div className="grid grid-cols-5 gap-3">
+                            <div className="grid grid-cols-6 gap-3">
                                 {COLUMNS.map(column => {
                                     const docs = filteredDocs.filter(d => d.status === column.id)
                                     const Icon = column.icon
