@@ -12,6 +12,7 @@ import DocumentDeprecationModal from './components/DocumentDeprecationModal'
 import { DEPRECATED_DOCS } from './components/deprecated/mockData'
 import type { DeprecatedDoc, DeprecationReason, ActiveStatus } from './components/deprecated/types'
 import OcrDocCard, { type OcrDocStatus, type OcrDocType } from './components/ocr/OcrDocCard'
+import UploadDocumentModal from './components/ocr/UploadDocumentModal'
 import { TEAM_MEMBERS, avatarGradient } from './components/team/teamMembers'
 
 interface OcrDoc {
@@ -178,24 +179,6 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
 
             {/* Main Content — wider container to fit 8 tabs without horizontal scroll */}
             <div className="pt-24 px-4 max-w-screen-2xl mx-auto space-y-6">
-
-                {/* Upload Zone (conditional) */}
-                {showUpload && (
-                    <div className="border-2 border-dashed border-ai/30 dark:border-ai/20 bg-ai-light/30 dark:bg-ai/5 rounded-2xl p-8 text-center transition-all relative">
-                        <button onClick={() => setShowUpload(false)} className="absolute top-3 right-3 p-1 rounded-lg hover:bg-muted text-muted-foreground" title="Close"><X className="h-4 w-4" /></button>
-                        <div className="flex flex-col items-center gap-3">
-                            <div className="w-14 h-14 rounded-2xl bg-ai/10 flex items-center justify-center"><Upload className="h-7 w-7 text-ai" /></div>
-                            <div>
-                                <p className="text-sm font-semibold text-foreground">Drop your document here or click to browse</p>
-                                <p className="text-xs text-muted-foreground mt-1">Supports PDF, CSV, Excel — PO, ACK, or Invoice documents</p>
-                            </div>
-                            <button onClick={() => { setShowUpload(false); setProcessingDoc('OCR-NEW'); setTimeout(() => setProcessingDoc(null), 3000); }}
-                                className="mt-2 px-6 py-2.5 bg-ai text-white rounded-lg text-sm font-medium hover:bg-ai/90 transition-colors flex items-center gap-2">
-                                <Sparkles className="h-4 w-4" /> Simulate Upload & Process
-                            </button>
-                        </div>
-                    </div>
-                )}
 
                 {/* Processing Indicator */}
                 {processingDoc && (
@@ -490,6 +473,18 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                     const doc = createRecordDoc
                     setCreateRecordDoc(null)
                     if (doc) addToast('success', `Record ${recordId} created · ${doc.vendor}`)
+                }}
+            />
+
+            {/* Upload Document Modal — type select → dropzone */}
+            <UploadDocumentModal
+                isOpen={showUpload}
+                onClose={() => setShowUpload(false)}
+                onConfirm={(docType) => {
+                    const newId = `OCR-${String(documents.length + 1).padStart(3, '0')}`
+                    setProcessingDoc(newId)
+                    addToast('info', `Processing new ${docType} document…`)
+                    setTimeout(() => setProcessingDoc(null), 3000)
                 }}
             />
 

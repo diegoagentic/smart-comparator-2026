@@ -111,11 +111,17 @@ export default function OcrDocCard({ doc, onPreview, onResolve, onSend, onDeprec
                     <span className="text-xs text-muted-foreground">{formatRelativeTime(doc.date)}</span>
                     <div className="flex items-center gap-1">
                         {isReconciled ? (
-                            <span title="Reviewed" className="p-1.5 text-success inline-flex">
+                            <span
+                                title="Reviewed"
+                                className="p-1.5 rounded-md text-success bg-success-light dark:bg-success/15 inline-flex"
+                            >
                                 <CheckCircle2 className="h-4 w-4" />
                             </span>
                         ) : (
-                            <span title="Pending For Review" className="p-1.5 text-warning inline-flex">
+                            <span
+                                title="Pending For Review"
+                                className="p-1.5 rounded-md text-warning bg-warning-light dark:bg-warning/15 inline-flex"
+                            >
                                 <AlertCircle className="h-4 w-4" />
                             </span>
                         )}
@@ -123,7 +129,7 @@ export default function OcrDocCard({ doc, onPreview, onResolve, onSend, onDeprec
                             onClick={(e) => { e.stopPropagation(); onPreview() }}
                             title="Review Fields"
                             aria-label="Review document fields"
-                            className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                            className="p-1.5 rounded-md text-foreground hover:bg-muted transition-colors"
                         >
                             <FileText className="h-4 w-4" />
                         </button>
@@ -132,7 +138,7 @@ export default function OcrDocCard({ doc, onPreview, onResolve, onSend, onDeprec
                                 onClick={(e) => { e.stopPropagation(); onSend() }}
                                 title="Send"
                                 aria-label="Send to Orderbahn"
-                                className="p-1.5 rounded-md text-success hover:bg-success-light dark:hover:bg-success/10 transition-colors"
+                                className="p-1.5 rounded-md text-success bg-success-light dark:bg-success/15 hover:brightness-95 transition-all"
                             >
                                 <Send className="h-4 w-4" />
                             </button>
@@ -141,7 +147,7 @@ export default function OcrDocCard({ doc, onPreview, onResolve, onSend, onDeprec
                                 onClick={(e) => { e.stopPropagation(); onResolve() }}
                                 title="Awaiting full review"
                                 aria-label="Mark as reviewed"
-                                className="p-1.5 rounded-md text-success hover:bg-success-light dark:hover:bg-success/10 transition-colors"
+                                className="p-1.5 rounded-md text-success bg-success-light dark:bg-success/15 hover:brightness-95 transition-all"
                             >
                                 <CheckSquare className="h-4 w-4" />
                             </button>
@@ -150,7 +156,7 @@ export default function OcrDocCard({ doc, onPreview, onResolve, onSend, onDeprec
                             onClick={(e) => { e.stopPropagation(); onDeprecate() }}
                             title="Deprecate"
                             aria-label="Deprecate document"
-                            className="p-1.5 rounded-md text-destructive hover:bg-destructive/10 transition-colors"
+                            className="p-1.5 rounded-md text-destructive bg-destructive/10 dark:bg-destructive/15 hover:brightness-95 transition-all"
                         >
                             <Trash2 className="h-4 w-4" />
                         </button>
