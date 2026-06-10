@@ -93,7 +93,7 @@ export default function ComparisonReviewModal({ isOpen, onClose, report, process
                         leaveFrom="opacity-100 scale-100"
                         leaveTo="opacity-0 scale-95"
                     >
-                        <DialogPanel className="w-full max-w-2xl max-h-[90vh] rounded-2xl border border-border bg-card shadow-2xl overflow-hidden flex flex-col">
+                        <DialogPanel className="w-full max-w-2xl h-[85vh] max-h-[760px] rounded-2xl border border-border bg-card shadow-2xl overflow-hidden flex flex-col">
 
                             {/* Processing state */}
                             {processing && (
@@ -138,38 +138,67 @@ export default function ComparisonReviewModal({ isOpen, onClose, report, process
                                         </div>
                                     </div>
 
-                                    {/* Tabs */}
-                                    <div className="px-5 border-b border-border flex items-center gap-1">
-                                        <button
-                                            onClick={() => setTab('summary')}
-                                            className={`relative py-3 px-3 text-sm font-bold transition-colors ${
-                                                tab === 'summary' ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
-                                            }`}
-                                        >
-                                            Summary
-                                            {tab === 'summary' && <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-primary rounded-t-full" />}
-                                        </button>
-                                        <button
-                                            onClick={() => setTab('fields')}
-                                            className={`relative py-3 px-3 text-sm font-bold inline-flex items-center gap-2 transition-colors ${
-                                                tab === 'fields' ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
-                                            }`}
-                                        >
-                                            Fields
-                                            <span className="text-[10px] font-bold bg-muted text-muted-foreground px-1.5 py-0.5 rounded-full">{report.validated_fields?.length ?? 0}</span>
-                                            {tab === 'fields' && <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-primary rounded-t-full" />}
-                                        </button>
-                                        <button
-                                            onClick={() => setTab('lineItems')}
-                                            className={`relative py-3 px-3 text-sm font-bold inline-flex items-center gap-2 transition-colors ${
-                                                tab === 'lineItems' ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
-                                            }`}
-                                        >
-                                            Line Items
-                                            <span className="text-[10px] font-bold bg-muted text-muted-foreground px-1.5 py-0.5 rounded-full">{report.validated_line_items?.length ?? 0}</span>
-                                            {tab === 'lineItems' && <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-primary rounded-t-full" />}
-                                        </button>
-                                    </div>
+                                    {/* Tabs — Review (priority) + Fields + Line Items */}
+                                    {(() => {
+                                        const isCritical = report.derived_status === 'CRITICAL_ISSUES'
+                                        const isReviewNeeded = report.derived_status === 'REQUIRES_REVIEW'
+                                        const isClean = report.derived_status === 'EXACT_MATCH' || report.derived_status === 'VERIFIED_WITH_MINOR_CHANGES'
+                                        const reviewLabel = isCritical
+                                            ? 'Action Required'
+                                            : isReviewNeeded
+                                                ? 'Needs Review'
+                                                : isClean
+                                                    ? 'AI Review'
+                                                    : 'Review'
+                                        const dotClass = isCritical
+                                            ? 'bg-red-500 animate-pulse'
+                                            : isReviewNeeded
+                                                ? 'bg-yellow-500 animate-pulse'
+                                                : isClean
+                                                    ? 'bg-green-500'
+                                                    : 'bg-zinc-400'
+                                        const activeBg = isCritical
+                                            ? 'bg-red-50 dark:bg-red-500/10'
+                                            : isReviewNeeded
+                                                ? 'bg-yellow-50 dark:bg-yellow-500/10'
+                                                : 'bg-brand-300/20 dark:bg-brand-500/10'
+                                        return (
+                                            <div className="px-5 border-b border-border flex items-center gap-1 flex-wrap">
+                                                <button
+                                                    onClick={() => setTab('summary')}
+                                                    className={`relative py-2.5 px-3 my-1 text-sm font-bold inline-flex items-center gap-2 rounded-md transition-colors ${
+                                                        tab === 'summary'
+                                                            ? `${activeBg} text-foreground`
+                                                            : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                                                    }`}
+                                                >
+                                                    <span className={`h-2 w-2 rounded-full ${dotClass}`} />
+                                                    {reviewLabel}
+                                                    {tab === 'summary' && <span className="absolute -bottom-1 left-2 right-2 h-0.5 bg-primary rounded-t-full" />}
+                                                </button>
+                                                <button
+                                                    onClick={() => setTab('fields')}
+                                                    className={`relative py-2.5 px-3 my-1 text-sm font-bold inline-flex items-center gap-2 rounded-md transition-colors ${
+                                                        tab === 'fields' ? 'text-foreground bg-muted' : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                                                    }`}
+                                                >
+                                                    Fields
+                                                    <span className="text-[10px] font-bold bg-card border border-border text-muted-foreground px-1.5 py-0.5 rounded-full">{report.validated_fields?.length ?? 0}</span>
+                                                    {tab === 'fields' && <span className="absolute -bottom-1 left-2 right-2 h-0.5 bg-primary rounded-t-full" />}
+                                                </button>
+                                                <button
+                                                    onClick={() => setTab('lineItems')}
+                                                    className={`relative py-2.5 px-3 my-1 text-sm font-bold inline-flex items-center gap-2 rounded-md transition-colors ${
+                                                        tab === 'lineItems' ? 'text-foreground bg-muted' : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                                                    }`}
+                                                >
+                                                    Line Items
+                                                    <span className="text-[10px] font-bold bg-card border border-border text-muted-foreground px-1.5 py-0.5 rounded-full">{report.validated_line_items?.length ?? 0}</span>
+                                                    {tab === 'lineItems' && <span className="absolute -bottom-1 left-2 right-2 h-0.5 bg-primary rounded-t-full" />}
+                                                </button>
+                                            </div>
+                                        )
+                                    })()}
 
                                     {/* Body — tab content */}
                                     <div className="flex-1 overflow-y-auto p-5">
