@@ -116,6 +116,23 @@ const AIS_REQUIRES_REVIEW: ComparisonReport = {
         rationale: 'Confidence below auto-apply threshold (80%) due to two HIGH-severity quantity changes; manual review recommended but not blocking.',
         suggested_action: 'ACCEPT',
     },
+    validated_fields: [
+        { field_label: 'Vendor Name',         category: 'header',    po_value: 'AIS Furniture',              ack_value: 'AIS Furniture',              matched: true  },
+        { field_label: 'PO Number',           category: 'header',    po_value: 'PO-2055',                    ack_value: 'PO-2055',                    matched: true  },
+        { field_label: 'Customer / Bill To',  category: 'header',    po_value: 'Custer Inc.',                ack_value: 'Custer Inc.',                matched: true  },
+        { field_label: 'Ship-To Address',     category: 'logistics', po_value: '550 Bond St, Lincolnshire',  ack_value: '550 Bond St, Lincolnshire',  matched: true  },
+        { field_label: 'Estimated Ship Date', category: 'logistics', po_value: 'Nov 15, 2025',               ack_value: 'Nov 27, 2025',               matched: false },
+        { field_label: 'Payment Terms',       category: 'terms',     po_value: 'Net 30',                     ack_value: 'Net 30',                     matched: true  },
+        { field_label: 'Subtotal',            category: 'pricing',   po_value: '$26,012.50',                 ack_value: '$24,235.15',                 matched: false },
+        { field_label: 'Total Amount',        category: 'pricing',   po_value: '$27,494.11',                 ack_value: '$25,398.72',                 matched: false },
+    ],
+    validated_line_items: [
+        { line: 1, product_number: 'AIS-DESK-72',  description: 'Desk · 72" Laminate',          po_quantity: 4,  ack_quantity: 4,  po_unit_price: '$420.00',  ack_unit_price: '$420.00',  matched: true  },
+        { line: 2, product_number: 'AIS-CHAIR-A1', description: 'Task Chair · Ergonomic Mesh',  po_quantity: 6,  ack_quantity: 6,  po_unit_price: '$315.00',  ack_unit_price: '$315.00',  matched: true  },
+        { line: 5, product_number: 'AIS-LOUNGE-2', description: 'Lounge 2-Seat · Ocean Blue',   po_quantity: 2,  ack_quantity: 0,  po_unit_price: '$890.00',  ack_unit_price: '$890.00',  matched: false },
+        { line: 7, product_number: 'AIS-LOCK-T3',  description: 'Triple Locker · Steel',        po_quantity: 8,  ack_quantity: 6,  po_unit_price: '$680.00',  ack_unit_price: '$680.00',  matched: false },
+        { line: 9, product_number: 'AIS-RUG-08',   description: 'Area Rug · 8x10',              po_quantity: 1,  ack_quantity: 1,  po_unit_price: '$1,250.00', ack_unit_price: '$1,250.00', matched: true  },
+    ],
     created_at: '2026-04-10T08:42:00Z',
 }
 
@@ -180,6 +197,17 @@ const STEELCASE_CRITICAL: ComparisonReport = {
         rationale: 'Two HIGH-severity issues including an unauthorized product substitution. Mandatory user review before any action.',
         suggested_action: 'REJECT',
     },
+    validated_fields: [
+        { field_label: 'Vendor Name',         category: 'header',    po_value: 'Steelcase',                 ack_value: 'Steelcase',                  matched: true  },
+        { field_label: 'PO Number',           category: 'header',    po_value: 'PO-1027',                   ack_value: 'PO-1027',                    matched: true  },
+        { field_label: 'Estimated Ship Date', category: 'logistics', po_value: 'Oct 25, 2025',              ack_value: 'Nov 25, 2025',               matched: false },
+        { field_label: 'Total Amount',        category: 'pricing',   po_value: '$8,652.00',                 ack_value: '$8,652.00',                  matched: true  },
+    ],
+    validated_line_items: [
+        { line: 1, product_number: 'Series 2 (442A1B)', description: 'Task Chair · Ergonomic Series 2',  po_quantity: 12, ack_quantity: 3, po_unit_price: '$721.00', ack_unit_price: '$721.00', matched: false },
+        { line: 2, product_number: 'STC-DESK-66',        description: 'Adjustable Desk · 66" White',      po_quantity: 4,  ack_quantity: 4, po_unit_price: '$0.00',   ack_unit_price: '$0.00',   matched: true  },
+        { line: 3, product_number: 'STC-MON-32',         description: 'Monitor Arm · Dual',               po_quantity: 4,  ack_quantity: 4, po_unit_price: '$0.00',   ack_unit_price: '$0.00',   matched: true  },
+    ],
     created_at: '2026-04-09T14:30:00Z',
 }
 
@@ -212,6 +240,20 @@ const ERGOTRON_EXACT: ComparisonReport = {
         rationale: 'Perfect match across all 28 fields. Eligible for automatic acceptance.',
         suggested_action: 'ACCEPT',
     },
+    validated_fields: [
+        { field_label: 'Vendor Name',         category: 'header',    po_value: 'ergotron',           ack_value: 'ergotron',           matched: true },
+        { field_label: 'Quote Number',        category: 'header',    po_value: '330357 - 1',         ack_value: '330357 - 1',         matched: true },
+        { field_label: 'Customer / Bill To',  category: 'header',    po_value: 'Continua Interiors', ack_value: 'Continua Interiors', matched: true },
+        { field_label: 'Ship-To Address',     category: 'logistics', po_value: '550 Bond St',        ack_value: '550 Bond St',        matched: true },
+        { field_label: 'Estimated Ship Date', category: 'logistics', po_value: 'Sep 20, 2025',       ack_value: 'Sep 20, 2025',       matched: true },
+        { field_label: 'Payment Terms',       category: 'terms',     po_value: 'Net 30',             ack_value: 'Net 30',             matched: true },
+        { field_label: 'Total Amount',        category: 'pricing',   po_value: '$3,420.00',          ack_value: '$3,420.00',          matched: true },
+    ],
+    validated_line_items: [
+        { line: 1, product_number: 'WORKFIT-LX',  description: 'WorkFit-LX · Standing Desk Conv.', po_quantity: 3, ack_quantity: 3, po_unit_price: '$795.00', ack_unit_price: '$795.00', matched: true },
+        { line: 2, product_number: 'LX-DUAL-ARM', description: 'LX Dual Monitor Arm · Aluminum',   po_quantity: 3, ack_quantity: 3, po_unit_price: '$345.00', ack_unit_price: '$345.00', matched: true },
+        { line: 3, product_number: 'WORKFIT-MAT', description: 'WorkFit Anti-Fatigue Mat',         po_quantity: 3, ack_quantity: 3, po_unit_price: '$120.00', ack_unit_price: '$120.00', matched: true },
+    ],
     created_at: '2026-04-08T11:15:00Z',
 }
 

@@ -612,7 +612,8 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                 ackId={compareDoc?.ackId ?? compareDoc?.relatedDocId ?? ''}
                 onDecision={(report, action) => {
                     const verb = action === 'ACCEPT' ? 'accepted' : action === 'REJECT' ? 'rejected' : 'flagged for review'
-                    addToast('success', `${report.po_number} vs ${report.ack_id} ${verb} (simulated)`)
+                    const toastType = action === 'REJECT' ? 'error' : action === 'REQUEST_REVIEW' ? 'info' : 'success'
+                    addToast(toastType, `${report.po_number} vs ${report.ack_id} ${verb} (simulated)`)
                 }}
             />
 

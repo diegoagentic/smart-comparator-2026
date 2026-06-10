@@ -1,6 +1,6 @@
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Transition, TransitionChild, DialogPanel } from '@headlessui/react'
-import { X, ArrowLeftRight, Loader2, CheckCircle2, XCircle, MessageSquareWarning, GitCompare } from 'lucide-react'
+import { X, ArrowLeftRight, Loader2, CheckCircle2, XCircle, MessageSquareWarning, GitCompare, Check, X as XMark } from 'lucide-react'
 import type { ComparisonReport, DecisionAction } from './comparisonTypes'
 import DerivedStatusBadge from './DerivedStatusBadge'
 import AckSummaryCard from './AckSummaryCard'
@@ -41,7 +41,33 @@ function actionButtonClasses(action: DecisionAction, suggested?: DecisionAction)
         : 'bg-background border border-border text-foreground hover:bg-muted'
 }
 
+type ReviewTab = 'summary' | 'fields' | 'lineItems'
+
+function MatchedPill({ matched }: { matched: boolean }) {
+    if (matched) {
+        return (
+            <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-green-50 text-green-700 dark:bg-green-500/10 dark:text-green-300 whitespace-nowrap">
+                <Check className="h-3 w-3" />
+                Match
+            </span>
+        )
+    }
+    return (
+        <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-red-50 text-red-700 dark:bg-red-500/15 dark:text-red-300 whitespace-nowrap">
+            <XMark className="h-3 w-3" />
+            Differs
+        </span>
+    )
+}
+
 export default function ComparisonReviewModal({ isOpen, onClose, report, processing, onDecision }: ComparisonReviewModalProps) {
+    const [tab, setTab] = useState<ReviewTab>('summary')
+
+    // Reset to Summary every time the modal re-opens (avoid sticky tabs across reports).
+    useEffect(() => {
+        if (isOpen) setTab('summary')
+    }, [isOpen, report?.report_id])
+
     return (
         <Transition show={isOpen} as={Fragment}>
             <Dialog onClose={onClose} className="relative z-[200]">
@@ -112,10 +138,102 @@ export default function ComparisonReviewModal({ isOpen, onClose, report, process
                                         </div>
                                     </div>
 
-                                    {/* Body */}
-                                    <div className="flex-1 overflow-y-auto p-5 space-y-5">
-                                        <AckSummaryCard summary={report.summary} discrepancies={report.discrepancies} />
-                                        <DiscrepancyList discrepancies={report.discrepancies} />
+                                    {/* Tabs */}
+                                    <div className="px-5 border-b border-border flex items-center gap-1">
+                                        <button
+                                            onClick={() => setTab('summary')}
+                                            className={`relative py-3 px-3 text-sm font-bold transition-colors ${
+                                                tab === 'summary' ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
+                                            }`}
+                                        >
+                                            Summary
+                                            {tab === 'summary' && <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-primary rounded-t-full" />}
+                                        </button>
+                                        <button
+                                            onClick={() => setTab('fields')}
+                                            className={`relative py-3 px-3 text-sm font-bold inline-flex items-center gap-2 transition-colors ${
+                                                tab === 'fields' ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
+                                            }`}
+                                        >
+                                            Fields
+                                            <span className="text-[10px] font-bold bg-muted text-muted-foreground px-1.5 py-0.5 rounded-full">{report.validated_fields?.length ?? 0}</span>
+                                            {tab === 'fields' && <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-primary rounded-t-full" />}
+                                        </button>
+                                        <button
+                                            onClick={() => setTab('lineItems')}
+                                            className={`relative py-3 px-3 text-sm font-bold inline-flex items-center gap-2 transition-colors ${
+                                                tab === 'lineItems' ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
+                                            }`}
+                                        >
+                                            Line Items
+                                            <span className="text-[10px] font-bold bg-muted text-muted-foreground px-1.5 py-0.5 rounded-full">{report.validated_line_items?.length ?? 0}</span>
+                                            {tab === 'lineItems' && <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-primary rounded-t-full" />}
+                                        </button>
+                                    </div>
+
+                                    {/* Body — tab content */}
+                                    <div className="flex-1 overflow-y-auto p-5">
+                                        {tab === 'summary' && (
+                                            <div className="space-y-5">
+                                                <AckSummaryCard summary={report.summary} discrepancies={report.discrepancies} />
+                                                <DiscrepancyList discrepancies={report.discrepancies} />
+                                            </div>
+                                        )}
+                                        {tab === 'fields' && (
+                                            <div className="border border-border rounded-xl overflow-hidden">
+                                                <div className="grid grid-cols-[1.4fr_1fr_1fr_80px] bg-muted/30 border-b border-border px-4 py-2.5">
+                                                    <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Field</div>
+                                                    <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">PO value</div>
+                                                    <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">ACK value</div>
+                                                    <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider text-right">Status</div>
+                                                </div>
+                                                {(report.validated_fields ?? []).length === 0 ? (
+                                                    <div className="px-4 py-8 text-center text-xs text-muted-foreground">No fields validated.</div>
+                                                ) : (report.validated_fields ?? []).map((f, idx) => (
+                                                    <div key={idx} className={`grid grid-cols-[1.4fr_1fr_1fr_80px] gap-2 px-4 py-3 items-center border-b border-border last:border-b-0 ${f.matched ? '' : 'bg-red-50/30 dark:bg-red-500/5'}`}>
+                                                        <div>
+                                                            <div className="text-sm font-medium text-foreground">{f.field_label}</div>
+                                                            <div className="text-[10px] text-muted-foreground uppercase tracking-wider">{f.category.replace('_', ' ')}</div>
+                                                        </div>
+                                                        <div className={`text-sm font-mono ${f.matched ? 'text-foreground' : 'text-muted-foreground line-through decoration-red-400/60'}`}>{f.po_value}</div>
+                                                        <div className={`text-sm font-mono ${f.matched ? 'text-foreground' : 'text-red-700 dark:text-red-300 font-semibold'}`}>{f.ack_value}</div>
+                                                        <div className="flex justify-end"><MatchedPill matched={f.matched} /></div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                        {tab === 'lineItems' && (
+                                            <div className="border border-border rounded-xl overflow-x-auto">
+                                                <table className="w-full min-w-[760px]">
+                                                    <thead>
+                                                        <tr className="border-b border-border bg-muted/30">
+                                                            <th className="text-left text-[10px] font-bold text-muted-foreground uppercase tracking-wider px-3 py-2.5">#</th>
+                                                            <th className="text-left text-[10px] font-bold text-muted-foreground uppercase tracking-wider px-3 py-2.5">Product</th>
+                                                            <th className="text-left text-[10px] font-bold text-muted-foreground uppercase tracking-wider px-3 py-2.5">Description</th>
+                                                            <th className="text-left text-[10px] font-bold text-muted-foreground uppercase tracking-wider px-3 py-2.5">PO Qty</th>
+                                                            <th className="text-left text-[10px] font-bold text-muted-foreground uppercase tracking-wider px-3 py-2.5">ACK Qty</th>
+                                                            <th className="text-left text-[10px] font-bold text-muted-foreground uppercase tracking-wider px-3 py-2.5">Unit Price</th>
+                                                            <th className="text-right text-[10px] font-bold text-muted-foreground uppercase tracking-wider px-3 py-2.5">Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {(report.validated_line_items ?? []).length === 0 ? (
+                                                            <tr><td colSpan={7} className="px-3 py-8 text-center text-xs text-muted-foreground">No line items validated.</td></tr>
+                                                        ) : (report.validated_line_items ?? []).map(li => (
+                                                            <tr key={li.line} className={`border-b border-border last:border-b-0 ${li.matched ? '' : 'bg-red-50/30 dark:bg-red-500/5'}`}>
+                                                                <td className="px-3 py-3 text-sm font-mono text-muted-foreground">{li.line}</td>
+                                                                <td className="px-3 py-3 text-sm font-mono font-semibold text-foreground">{li.product_number}</td>
+                                                                <td className="px-3 py-3 text-sm text-foreground">{li.description}</td>
+                                                                <td className={`px-3 py-3 text-sm font-mono ${li.matched ? 'text-foreground' : 'text-muted-foreground line-through decoration-red-400/60'}`}>{li.po_quantity}</td>
+                                                                <td className={`px-3 py-3 text-sm font-mono ${li.matched ? 'text-foreground' : 'text-red-700 dark:text-red-300 font-bold'}`}>{li.ack_quantity}</td>
+                                                                <td className="px-3 py-3 text-sm font-mono text-foreground">{li.po_unit_price}</td>
+                                                                <td className="px-3 py-3 text-right"><MatchedPill matched={li.matched} /></td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        )}
                                     </div>
 
                                     {/* Footer — decision row */}

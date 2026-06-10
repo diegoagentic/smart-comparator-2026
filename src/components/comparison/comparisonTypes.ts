@@ -76,6 +76,10 @@ export interface ComparisonReport {
     is_latest: boolean
     summary: AckLevelSummary
     discrepancies: Discrepancy[]
+    /** Header-level fields the comparator inspected. Drives the "Fields" tab. */
+    validated_fields?: ValidatedField[]
+    /** Line items the comparator inspected. Drives the "Line Items" tab. */
+    validated_line_items?: ValidatedLineItem[]
     routing: {
         routing_decision: RoutingDecision
         confidence_score: number        // 0-100
@@ -83,6 +87,31 @@ export interface ComparisonReport {
         suggested_action?: DecisionAction
     }
     created_at: string                  // ISO 8601
+}
+
+// --- Validated detail panes -------------------------------------
+// Surfaced through the "Fields" and "Line Items" tabs of the Review modal —
+// these are the rows the comparator already verified (regardless of whether
+// they ended up matched or as a discrepancy). For each item the UI shows
+// PO value vs ACK value + a ✓/✗ marker so the user can audit at field level.
+
+export interface ValidatedField {
+    field_label: string
+    category: DiscrepancyCategory
+    po_value: string
+    ack_value: string
+    matched: boolean
+}
+
+export interface ValidatedLineItem {
+    line: number
+    product_number: string
+    description: string
+    po_quantity: number
+    ack_quantity: number
+    po_unit_price: string
+    ack_unit_price: string
+    matched: boolean
 }
 
 export interface EmailDraft {
