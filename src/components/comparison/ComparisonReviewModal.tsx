@@ -2,9 +2,11 @@ import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Transition, TransitionChild, DialogPanel } from '@headlessui/react'
 import { X, ArrowLeftRight, Loader2, CheckCircle2, XCircle, MessageSquareWarning, GitCompare, Check, X as XMark } from 'lucide-react'
 import type { ComparisonReport, DecisionAction } from './comparisonTypes'
+import type { TeamMember } from '../team/teamMembers'
 import DerivedStatusBadge from './DerivedStatusBadge'
 import AckSummaryCard from './AckSummaryCard'
 import DiscrepancyList from './DiscrepancyList'
+import AssignReviewerModal from './AssignReviewerModal'
 
 interface ComparisonReviewModalProps {
     isOpen: boolean
@@ -13,7 +15,9 @@ interface ComparisonReviewModalProps {
     report: ComparisonReport | null
     /** When true, render the spinner instead of the report. */
     processing: boolean
-    onDecision?: (action: DecisionAction) => void
+    /** Reviewer is populated only when action === 'REQUEST_REVIEW' and the
+        user picked a teammate to assign the report to. */
+    onDecision?: (action: DecisionAction, reviewer?: TeamMember) => void
 }
 
 function routingLabel(routing: ComparisonReport['routing']): string {
@@ -62,10 +66,14 @@ function MatchedPill({ matched }: { matched: boolean }) {
 
 export default function ComparisonReviewModal({ isOpen, onClose, report, processing, onDecision }: ComparisonReviewModalProps) {
     const [tab, setTab] = useState<ReviewTab>('summary')
+    const [showAssignReviewer, setShowAssignReviewer] = useState(false)
 
     // Reset to Summary every time the modal re-opens (avoid sticky tabs across reports).
     useEffect(() => {
-        if (isOpen) setTab('summary')
+        if (isOpen) {
+            setTab('summary')
+            setShowAssignReviewer(false)
+        }
     }, [isOpen, report?.report_id])
 
     return (
@@ -284,7 +292,8 @@ export default function ComparisonReviewModal({ isOpen, onClose, report, process
                                                 Accept
                                             </button>
                                             <button
-                                                onClick={() => onDecision?.('REQUEST_REVIEW')}
+                                                onClick={() => setShowAssignReviewer(true)}
+                                                title="Assign this report to a teammate for a second look"
                                                 className={`inline-flex items-center justify-center gap-1.5 px-3 py-2.5 text-sm font-bold rounded-lg transition-colors ${actionButtonClasses('REQUEST_REVIEW', report.routing.suggested_action)}`}
                                             >
                                                 <MessageSquareWarning className="h-4 w-4" />
@@ -306,6 +315,16 @@ export default function ComparisonReviewModal({ isOpen, onClose, report, process
                     </TransitionChild>
                 </div>
             </Dialog>
+
+            <AssignReviewerModal
+                isOpen={showAssignReviewer}
+                onClose={() => setShowAssignReviewer(false)}
+                report={report}
+                onAssign={member => {
+                    setShowAssignReviewer(false)
+                    onDecision?.('REQUEST_REVIEW', member)
+                }}
+            />
         </Transition>
     )
 }

@@ -28,6 +28,14 @@ function actionLabel(action: DecisionAction): string {
     return action === 'REQUEST_REVIEW' ? 'Review' : action.charAt(0) + action.slice(1).toLowerCase()
 }
 
+function decisionPillLabel(action: DecisionAction): string {
+    switch (action) {
+        case 'ACCEPT':         return 'Accepted'
+        case 'REJECT':         return 'Rejected'
+        case 'REQUEST_REVIEW': return 'Flagged'
+    }
+}
+
 function DiscrepancyRow({
     d,
     defaultOpen,
@@ -57,7 +65,7 @@ function DiscrepancyRow({
                 {resolved ? (
                     <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider ${actionClasses(decision!)}`}>
                         <CheckCircle2 className="h-3 w-3" />
-                        {actionLabel(decision!)}ed
+                        {decisionPillLabel(decision!)}
                     </span>
                 ) : (
                     <span className={`inline-flex items-center text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider ${severityClasses(d.business_severity)}`}>

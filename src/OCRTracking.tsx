@@ -43,7 +43,7 @@ const OCR_DOCUMENTS: OcrDoc[] = [
     // Order: Steelcase (CRITICAL_ISSUES) first so the most-urgent compare flow
     // appears at the top of the funnel during demo walkthroughs. Other docs follow.
     { id: 'OCR-003', name: 'PO-1027_Steelcase.pdf', vendor: 'Steelcase', type: 'Purchase Order', date: 'today', status: 'in_progress', lineItems: 4, assigneeId: 'marcus', relatedDocId: 'OCR-010', poNumber: 'PO-1027', ackId: 'ACK-7839' },
-    { id: 'OCR-001', name: '330357 - 1.pdf', vendor: 'ergotron', type: 'Quote', date: '21 days ago', status: 'in_progress', lineItems: 3, assigneeId: 'noah', relatedDocId: 'OCR-019', poNumber: 'PO-330357', ackId: 'ACK-330357' },
+    { id: 'OCR-001', name: '330357 - 1.pdf', vendor: 'ergotron', type: 'Purchase Order', date: '21 days ago', status: 'in_progress', lineItems: 3, assigneeId: 'noah', relatedDocId: 'OCR-019', poNumber: 'PO-330357', ackId: 'ACK-330357' },
     { id: 'OCR-002', name: 'Custer - Func.pdf', vendor: 'Better Source', type: 'Quote', date: '21 days ago', status: 'in_progress', lineItems: 2, assigneeId: 'noah' },
     { id: 'OCR-006', name: 'PO-2055_AIS.pdf', vendor: 'AIS Furniture', type: 'Purchase Order', date: '3 days ago', status: 'in_progress', lineItems: 6, assigneeId: 'daniel', relatedDocId: 'OCR-015', poNumber: 'PO-2055', ackId: 'ACK-3099' },
     // filler — not from prod screenshot
@@ -403,7 +403,14 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                                                         onMarkCompleted={() => handleMarkCompleted(doc.id)}
                                                         onPreflightSync={() => handlePreflightSync(doc)}
                                                         onDeprecate={() => openDeprecation(doc)}
-                                                        onCompare={doc.relatedDocId ? () => setCompareDoc(doc) : undefined}
+                                                        onCompare={
+                                                            // PO vs ACK comparison only applies to Purchase Orders.
+                                                            // Per the Python service contract (ai-python-strata-ack-comparison),
+                                                            // compare endpoints take po_json + ack_json — Quotes are not in scope.
+                                                            doc.type === 'Purchase Order' && doc.relatedDocId
+                                                                ? () => setCompareDoc(doc)
+                                                                : undefined
+                                                        }
                                                     />
                                                 ))}
                                                 {docs.length === 0 && (
@@ -612,10 +619,14 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                 onClose={() => setCompareDoc(null)}
                 poNumber={compareDoc?.poNumber ?? compareDoc?.id ?? ''}
                 ackId={compareDoc?.ackId ?? compareDoc?.relatedDocId ?? ''}
-                onDecision={(report, action) => {
-                    const verb = action === 'ACCEPT' ? 'accepted' : action === 'REJECT' ? 'rejected' : 'flagged for review'
+                onDecision={(report, action, reviewer) => {
                     const toastType = action === 'REJECT' ? 'error' : action === 'REQUEST_REVIEW' ? 'info' : 'success'
-                    addToast(toastType, `${report.po_number} vs ${report.ack_id} ${verb} (simulated)`)
+                    if (action === 'REQUEST_REVIEW' && reviewer) {
+                        addToast(toastType, `${report.po_number} vs ${report.ack_id} assigned to ${reviewer.name} for review`)
+                    } else {
+                        const verb = action === 'ACCEPT' ? 'accepted' : action === 'REJECT' ? 'rejected' : 'flagged for review'
+                        addToast(toastType, `${report.po_number} vs ${report.ack_id} ${verb} (simulated)`)
+                    }
                 }}
             />
 

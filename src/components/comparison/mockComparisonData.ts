@@ -242,7 +242,7 @@ const ERGOTRON_EXACT: ComparisonReport = {
     },
     validated_fields: [
         { field_label: 'Vendor Name',         category: 'header',    po_value: 'ergotron',           ack_value: 'ergotron',           matched: true },
-        { field_label: 'Quote Number',        category: 'header',    po_value: '330357 - 1',         ack_value: '330357 - 1',         matched: true },
+        { field_label: 'PO Number',           category: 'header',    po_value: 'PO-330357',          ack_value: 'PO-330357',          matched: true },
         { field_label: 'Customer / Bill To',  category: 'header',    po_value: 'Continua Interiors', ack_value: 'Continua Interiors', matched: true },
         { field_label: 'Ship-To Address',     category: 'logistics', po_value: '550 Bond St',        ack_value: '550 Bond St',        matched: true },
         { field_label: 'Estimated Ship Date', category: 'logistics', po_value: 'Sep 20, 2025',       ack_value: 'Sep 20, 2025',       matched: true },
