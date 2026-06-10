@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ScanEye, FileText, CheckCircle2, AlertTriangle, Upload, Search, LayoutGrid, List, X, Archive, Sparkles, Loader2, MoreHorizontal, ChevronDown, Send, Trash2, CheckSquare } from 'lucide-react'
+import { ScanEye, FileText, CheckCircle2, AlertTriangle, Upload, Search, LayoutGrid, List, X, Archive, Sparkles, Loader2, MoreHorizontal, ChevronDown, Send, Trash2, CheckSquare, GitCompare } from 'lucide-react'
 import Navbar from './components/Navbar'
 import Breadcrumbs from './components/Breadcrumbs'
 import DocumentReviewModal from './components/ocr/DocumentReviewModal'
@@ -498,6 +498,19 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                                                     <td className="px-4 py-3 text-xs text-muted-foreground">{doc.date}</td>
                                                     <td className="px-4 py-3">
                                                         <div className="flex items-center justify-end gap-1.5">
+                                                            {/* Compare PO vs ACK — only on Purchase Orders that have a linked ACK.
+                                                                Per ai-python-strata-ack-comparison contract: compare endpoints take
+                                                                po_json + ack_json — Quotes / Invoices / ACKs are not in scope. */}
+                                                            {doc.type === 'Purchase Order' && doc.relatedDocId && (
+                                                                <button
+                                                                    onClick={() => setCompareDoc(doc)}
+                                                                    className="p-1.5 rounded-md text-foreground bg-brand-300/30 hover:bg-brand-300/50 dark:bg-brand-500/15 dark:hover:bg-brand-500/25 ring-1 ring-brand-300/50 dark:ring-brand-500/30 transition-colors"
+                                                                    title="Compare PO vs linked ACK"
+                                                                    aria-label="Compare PO vs linked ACK"
+                                                                >
+                                                                    <GitCompare className="h-4 w-4" />
+                                                                </button>
+                                                            )}
                                                             <button
                                                                 onClick={() => setPreviewDoc(doc)}
                                                                 className="p-1.5 rounded-md text-foreground hover:bg-muted transition-colors"
