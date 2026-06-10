@@ -3,6 +3,7 @@ import { Dialog, Transition, TransitionChild, DialogPanel } from '@headlessui/re
 import { X, ExternalLink, CheckCircle2, ChevronDown, Download, FileText, Pencil, Plus, Trash2, Box } from 'lucide-react'
 import type { OcrDocCardData } from './OcrDocCard'
 import CatalogVerifyPill from './CatalogVerifyPill'
+import AITrainingConsentModal from './AITrainingConsentModal'
 
 interface DocumentReviewModalProps {
     isOpen: boolean
@@ -147,12 +148,23 @@ export default function DocumentReviewModal({ isOpen, onClose, doc, onSave, onDo
     const sections = useMemo(() => doc ? buildHeaderSections(doc) : [], [doc])
     // Local mutable copy so users can replace a SKU via the catalog verify popover.
     const [lineItems, setLineItems] = useState<LineItem[]>([])
+    // Change tracking — drives whether the consent modal opens on Save.
+    const [editedCount, setEditedCount] = useState(0)
+    const [replacedCount, setReplacedCount] = useState(0)
+    const [showConsent, setShowConsent] = useState(false)
+
     useEffect(() => {
         setLineItems(doc ? buildLineItems(doc) : [])
+        setEditedCount(0)
+        setReplacedCount(0)
+        setShowConsent(false)
     }, [doc])
+
+    const trackEdit = () => setEditedCount(c => c + 1)
 
     const handleReplaceSku = (originalSku: string, newSku: string) => {
         setLineItems(prev => prev.map(li => li.productNumber === originalSku ? { ...li, productNumber: newSku } : li))
+        setReplacedCount(c => c + 1)
     }
 
     if (!doc) return null
@@ -170,9 +182,34 @@ export default function DocumentReviewModal({ isOpen, onClose, doc, onSave, onDo
         { qty: 0, list: 0, sell: 0, cost: 0 }
     )
 
-    const handleSave = () => {
+    const finalizeSave = () => {
         onSave?.(doc)
         onClose()
+    }
+
+    const handleSave = () => {
+        // Only open the consent modal if the user actually changed something
+        // during this session — pure-read sessions skip the prompt.
+        if (editedCount + replacedCount > 0) {
+            setShowConsent(true)
+        } else {
+            finalizeSave()
+        }
+    }
+
+    const handleConsentAccept = () => {
+        setShowConsent(false)
+        finalizeSave()
+    }
+
+    const handleConsentDecline = () => {
+        setShowConsent(false)
+        finalizeSave()
+    }
+
+    const handleConsentCancel = () => {
+        setShowConsent(false)
+        // Stay on the review modal, keep counters / edits intact.
     }
 
     const handleExportSif = () => {
@@ -188,6 +225,7 @@ export default function DocumentReviewModal({ isOpen, onClose, doc, onSave, onDo
     }
 
     return (
+        <>
         <Transition show={isOpen} as={Fragment}>
             <Dialog onClose={onClose} className="relative z-[200]">
                 <TransitionChild
@@ -323,7 +361,7 @@ export default function DocumentReviewModal({ isOpen, onClose, doc, onSave, onDo
                                                     {section.rows.map(row => (
                                                         <div key={row.label} className="grid grid-cols-[200px_1fr] px-4 py-3 border-b border-border last:border-b-0 hover:bg-muted/20 transition-colors">
                                                             <div className="text-sm text-muted-foreground">{row.label}</div>
-                                                            <EditableValue value={row.value} editable={row.editable} />
+                                                            <EditableValue value={row.value} editable={row.editable} onChange={trackEdit} />
                                                         </div>
                                                     ))}
                                                 </div>
@@ -361,17 +399,17 @@ export default function DocumentReviewModal({ isOpen, onClose, doc, onSave, onDo
                                                     {lineItems.map(li => (
                                                         <tr key={li.id} className="border-b border-border hover:bg-muted/20 transition-colors">
                                                             <td className="px-3 py-3"></td>
-                                                            <td className="px-3 py-3"><EditableValue value={li.productNumber} editable /></td>
-                                                            <td className="px-3 py-3"><EditableValue value={li.description} editable /></td>
+                                                            <td className="px-3 py-3"><EditableValue value={li.productNumber} editable onChange={trackEdit} /></td>
+                                                            <td className="px-3 py-3"><EditableValue value={li.description} editable onChange={trackEdit} /></td>
                                                             <td className="px-3 py-3"><CatalogVerifyPill sku={li.productNumber} onUseReplacement={handleReplaceSku} /></td>
-                                                            <td className="px-3 py-3"><EditableValue value={li.catalogCode || '—'} editable /></td>
-                                                            <td className="px-3 py-3"><EditableValue value={li.manufacturerCode || '—'} editable /></td>
-                                                            <td className="px-3 py-3"><EditableValue value={String(li.quantity)} editable /></td>
-                                                            <td className="px-3 py-3"><EditableValue value={li.uom} editable /></td>
-                                                            <td className="px-3 py-3"><EditableValue value={formatCurrency(li.listPrice)} editable /></td>
-                                                            <td className="px-3 py-3"><EditableValue value={formatCurrency(li.sellPrice)} editable /></td>
-                                                            <td className="px-3 py-3"><EditableValue value={formatCurrency(li.productCost)} editable /></td>
-                                                            <td className="px-3 py-3"><EditableValue value={`${li.discount.toFixed(2)}%`} editable /></td>
+                                                            <td className="px-3 py-3"><EditableValue value={li.catalogCode || '—'} editable onChange={trackEdit} /></td>
+                                                            <td className="px-3 py-3"><EditableValue value={li.manufacturerCode || '—'} editable onChange={trackEdit} /></td>
+                                                            <td className="px-3 py-3"><EditableValue value={String(li.quantity)} editable onChange={trackEdit} /></td>
+                                                            <td className="px-3 py-3"><EditableValue value={li.uom} editable onChange={trackEdit} /></td>
+                                                            <td className="px-3 py-3"><EditableValue value={formatCurrency(li.listPrice)} editable onChange={trackEdit} /></td>
+                                                            <td className="px-3 py-3"><EditableValue value={formatCurrency(li.sellPrice)} editable onChange={trackEdit} /></td>
+                                                            <td className="px-3 py-3"><EditableValue value={formatCurrency(li.productCost)} editable onChange={trackEdit} /></td>
+                                                            <td className="px-3 py-3"><EditableValue value={`${li.discount.toFixed(2)}%`} editable onChange={trackEdit} /></td>
                                                             <td className="px-3 py-3 text-right">
                                                                 <button aria-label="Remove line" className="p-1 rounded-md text-red-600 hover:bg-red-50 dark:hover:bg-red-500/15 transition-colors">
                                                                     <Trash2 className="h-4 w-4" />
@@ -429,5 +467,15 @@ export default function DocumentReviewModal({ isOpen, onClose, doc, onSave, onDo
                 </div>
             </Dialog>
         </Transition>
+
+        <AITrainingConsentModal
+            isOpen={showConsent}
+            editedCount={editedCount}
+            replacedCount={replacedCount}
+            onAccept={handleConsentAccept}
+            onDecline={handleConsentDecline}
+            onCancel={handleConsentCancel}
+        />
+        </>
     )
 }
