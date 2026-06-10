@@ -1,10 +1,12 @@
-import { useState } from 'react'
-import { ChevronDown, ChevronRight, Sparkles, ArrowRight, AlertTriangle } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { ChevronDown, ChevronRight, Sparkles, ArrowRight, AlertTriangle, Check, X as XMark, MessageSquareWarning, CheckCircle2 } from 'lucide-react'
 import type { BusinessSeverity, DecisionAction, Discrepancy } from './comparisonTypes'
 
 interface DiscrepancyListProps {
     discrepancies: Discrepancy[]
 }
+
+type DiscrepancyDecisionMap = Record<string, DecisionAction | null>
 
 function severityClasses(sev: BusinessSeverity): string {
     switch (sev) {
@@ -26,11 +28,23 @@ function actionLabel(action: DecisionAction): string {
     return action === 'REQUEST_REVIEW' ? 'Review' : action.charAt(0) + action.slice(1).toLowerCase()
 }
 
-function DiscrepancyRow({ d, defaultOpen }: { d: Discrepancy; defaultOpen: boolean }) {
+function DiscrepancyRow({
+    d,
+    defaultOpen,
+    decision,
+    onDecide,
+}: {
+    d: Discrepancy
+    defaultOpen: boolean
+    decision: DecisionAction | null
+    onDecide: (action: DecisionAction) => void
+}) {
     const [open, setOpen] = useState(defaultOpen)
+    const resolved = decision !== null
+    const borderColor = severityClasses(d.business_severity).split(' ').filter(c => c.startsWith('border-') || c.startsWith('dark:border-')).join(' ')
 
     return (
-        <div className={`rounded-xl border ${severityClasses(d.business_severity).split(' ').filter(c => c.startsWith('border-') || c.startsWith('dark:border-')).join(' ')} bg-card overflow-hidden`}>
+        <div className={`rounded-xl border ${resolved ? 'border-green-300 dark:border-green-500/40' : borderColor} bg-card overflow-hidden ${resolved ? 'opacity-80' : ''}`}>
             <button
                 onClick={() => setOpen(o => !o)}
                 className="w-full flex items-center gap-3 p-3 hover:bg-muted/30 transition-colors text-left"
@@ -40,10 +54,19 @@ function DiscrepancyRow({ d, defaultOpen }: { d: Discrepancy; defaultOpen: boole
                         ? <ChevronDown className="h-4 w-4 text-muted-foreground" />
                         : <ChevronRight className="h-4 w-4 text-muted-foreground" />}
                 </div>
-                <span className={`inline-flex items-center text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider ${severityClasses(d.business_severity)}`}>
-                    {d.business_severity}
+                {resolved ? (
+                    <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider ${actionClasses(decision!)}`}>
+                        <CheckCircle2 className="h-3 w-3" />
+                        {actionLabel(decision!)}ed
+                    </span>
+                ) : (
+                    <span className={`inline-flex items-center text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider ${severityClasses(d.business_severity)}`}>
+                        {d.business_severity}
+                    </span>
+                )}
+                <span className={`text-sm font-semibold flex-1 min-w-0 truncate ${resolved ? 'text-muted-foreground line-through decoration-muted-foreground/40' : 'text-foreground'}`}>
+                    {d.field_label}
                 </span>
-                <span className="text-sm font-semibold text-foreground flex-1 min-w-0 truncate">{d.field_label}</span>
                 <span className="hidden sm:inline-flex items-center gap-1 text-xs text-muted-foreground">
                     <span className="font-mono">{d.po_value}</span>
                     <ArrowRight className="h-3 w-3" />
@@ -53,7 +76,7 @@ function DiscrepancyRow({ d, defaultOpen }: { d: Discrepancy; defaultOpen: boole
 
             {open && (
                 <div className="px-3 pb-4 pt-1 space-y-3 border-t border-border">
-                    {/* Mobile diff (hidden on sm+) */}
+                    {/* Mobile diff */}
                     <div className="sm:hidden flex items-center gap-2 text-sm pt-3">
                         <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">PO</span>
                         <span className="font-mono">{d.po_value}</span>
@@ -69,16 +92,62 @@ function DiscrepancyRow({ d, defaultOpen }: { d: Discrepancy; defaultOpen: boole
                             <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">AI Analysis · {d.analysis_confidence}% confidence</span>
                         </div>
                         <p className="text-sm text-foreground leading-relaxed">{d.llm_analysis}</p>
+                        <div className="mt-2 flex items-center gap-2 flex-wrap">
+                            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Recommended:</span>
+                            <span className={`inline-flex items-center text-xs font-bold px-2 py-0.5 rounded-md ${actionClasses(d.recommended_action)}`}>
+                                {actionLabel(d.recommended_action)}
+                            </span>
+                            <span className="text-xs text-muted-foreground">— {d.recommendation}</span>
+                        </div>
                     </div>
 
-                    {/* Recommendation row */}
-                    <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Recommended:</span>
-                        <span className={`inline-flex items-center text-xs font-bold px-2 py-0.5 rounded-md ${actionClasses(d.recommended_action)}`}>
-                            {actionLabel(d.recommended_action)}
-                        </span>
-                        <span className="text-xs text-muted-foreground">— {d.recommendation}</span>
+                    {/* Per-discrepancy action buttons */}
+                    <div className="grid grid-cols-3 gap-2">
+                        <button
+                            onClick={() => onDecide('ACCEPT')}
+                            className={`inline-flex items-center justify-center gap-1.5 px-2 py-2 text-xs font-bold rounded-md transition-colors border ${
+                                decision === 'ACCEPT'
+                                    ? 'bg-green-600 text-white border-green-700'
+                                    : d.recommended_action === 'ACCEPT'
+                                        ? 'bg-green-50 text-green-700 border-green-200 hover:bg-green-100 dark:bg-green-500/10 dark:text-green-300 dark:border-green-500/30'
+                                        : 'bg-background text-foreground border-border hover:bg-muted'
+                            }`}
+                        >
+                            <Check className="h-3.5 w-3.5" />
+                            Accept
+                        </button>
+                        <button
+                            onClick={() => onDecide('REQUEST_REVIEW')}
+                            className={`inline-flex items-center justify-center gap-1.5 px-2 py-2 text-xs font-bold rounded-md transition-colors border ${
+                                decision === 'REQUEST_REVIEW'
+                                    ? 'bg-blue-600 text-white border-blue-700'
+                                    : d.recommended_action === 'REQUEST_REVIEW'
+                                        ? 'bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100 dark:bg-blue-500/10 dark:text-blue-300 dark:border-blue-500/30'
+                                        : 'bg-background text-foreground border-border hover:bg-muted'
+                            }`}
+                        >
+                            <MessageSquareWarning className="h-3.5 w-3.5" />
+                            Review
+                        </button>
+                        <button
+                            onClick={() => onDecide('REJECT')}
+                            className={`inline-flex items-center justify-center gap-1.5 px-2 py-2 text-xs font-bold rounded-md transition-colors border ${
+                                decision === 'REJECT'
+                                    ? 'bg-red-600 text-white border-red-700'
+                                    : d.recommended_action === 'REJECT'
+                                        ? 'bg-red-50 text-red-700 border-red-200 hover:bg-red-100 dark:bg-red-500/15 dark:text-red-300 dark:border-red-500/30'
+                                        : 'bg-background text-foreground border-border hover:bg-muted'
+                            }`}
+                        >
+                            <XMark className="h-3.5 w-3.5" />
+                            Reject
+                        </button>
                     </div>
+                    {resolved && (
+                        <p className="text-[11px] text-muted-foreground italic">
+                            Decision recorded. Click another to change, or the report-level button at the bottom to commit all decisions.
+                        </p>
+                    )}
                 </div>
             )}
         </div>
@@ -86,6 +155,13 @@ function DiscrepancyRow({ d, defaultOpen }: { d: Discrepancy; defaultOpen: boole
 }
 
 export default function DiscrepancyList({ discrepancies }: DiscrepancyListProps) {
+    const [decisions, setDecisions] = useState<DiscrepancyDecisionMap>({})
+
+    // Reset decisions when the discrepancy set changes (new report opened).
+    useEffect(() => {
+        setDecisions({})
+    }, [discrepancies])
+
     if (discrepancies.length === 0) {
         return (
             <div className="border-2 border-dashed border-border rounded-xl p-8 text-center bg-green-50/30 dark:bg-green-500/5">
@@ -96,15 +172,40 @@ export default function DiscrepancyList({ discrepancies }: DiscrepancyListProps)
         )
     }
 
+    const resolvedCount = discrepancies.filter(d => decisions[d.id]).length
+    const allResolved = resolvedCount === discrepancies.length
+    const progressPct = Math.round((resolvedCount / discrepancies.length) * 100)
+
     return (
         <div className="space-y-3">
-            <div className="flex items-center gap-2">
-                <AlertTriangle className="h-4 w-4 text-yellow-600 dark:text-yellow-300" />
-                <h3 className="text-sm font-bold text-foreground">Discrepancies ({discrepancies.length})</h3>
-                <span className="text-xs text-muted-foreground">— click each to see AI analysis</span>
+            <div className="flex items-center gap-3 flex-wrap">
+                <div className="flex items-center gap-2">
+                    <AlertTriangle className="h-4 w-4 text-yellow-600 dark:text-yellow-300" />
+                    <h3 className="text-sm font-bold text-foreground">Discrepancies ({discrepancies.length})</h3>
+                </div>
+                <div className="flex items-center gap-2 ml-auto">
+                    <span className={`text-xs font-semibold ${allResolved ? 'text-green-700 dark:text-green-300' : 'text-muted-foreground'}`}>
+                        {resolvedCount} of {discrepancies.length} resolved
+                    </span>
+                    <div className="w-24 h-1.5 rounded-full bg-muted overflow-hidden">
+                        <div
+                            className={`h-full transition-all duration-300 ${allResolved ? 'bg-green-500' : 'bg-yellow-500'}`}
+                            style={{ width: `${progressPct}%` }}
+                        />
+                    </div>
+                </div>
             </div>
+            <p className="text-xs text-muted-foreground">
+                Decide each discrepancy individually — accept the AI suggestion or override. The report-level button at the bottom commits all decisions at once.
+            </p>
             {discrepancies.map((d, idx) => (
-                <DiscrepancyRow key={d.id} d={d} defaultOpen={idx === 0 && d.business_severity === 'HIGH'} />
+                <DiscrepancyRow
+                    key={d.id}
+                    d={d}
+                    defaultOpen={idx === 0 && d.business_severity === 'HIGH'}
+                    decision={decisions[d.id] ?? null}
+                    onDecide={action => setDecisions(prev => ({ ...prev, [d.id]: action }))}
+                />
             ))}
         </div>
     )
