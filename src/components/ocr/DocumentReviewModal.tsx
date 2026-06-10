@@ -1,7 +1,8 @@
-import { Fragment, useState, useMemo } from 'react'
+import { Fragment, useState, useMemo, useEffect } from 'react'
 import { Dialog, Transition, TransitionChild, DialogPanel } from '@headlessui/react'
 import { X, ExternalLink, CheckCircle2, ChevronDown, Download, FileText, Pencil, Plus, Trash2, Box } from 'lucide-react'
 import type { OcrDocCardData } from './OcrDocCard'
+import CatalogVerifyPill from './CatalogVerifyPill'
 
 interface DocumentReviewModalProps {
     isOpen: boolean
@@ -144,7 +145,15 @@ export default function DocumentReviewModal({ isOpen, onClose, doc, onSave, onDo
     const [exportOpen, setExportOpen] = useState(false)
 
     const sections = useMemo(() => doc ? buildHeaderSections(doc) : [], [doc])
-    const lineItems = useMemo(() => doc ? buildLineItems(doc) : [], [doc])
+    // Local mutable copy so users can replace a SKU via the catalog verify popover.
+    const [lineItems, setLineItems] = useState<LineItem[]>([])
+    useEffect(() => {
+        setLineItems(doc ? buildLineItems(doc) : [])
+    }, [doc])
+
+    const handleReplaceSku = (originalSku: string, newSku: string) => {
+        setLineItems(prev => prev.map(li => li.productNumber === originalSku ? { ...li, productNumber: newSku } : li))
+    }
 
     if (!doc) return null
 
@@ -326,7 +335,7 @@ export default function DocumentReviewModal({ isOpen, onClose, doc, onSave, onDo
                                 {tab === 'lineItems' && (
                                     <div className="border border-border rounded-xl overflow-hidden">
                                         <div className="overflow-x-auto">
-                                            <table className="w-full min-w-[1200px]">
+                                            <table className="w-full min-w-[1340px]">
                                                 <thead>
                                                     <tr className="border-b border-border bg-muted/30">
                                                         <th className="px-3 py-3 w-10">
@@ -336,6 +345,7 @@ export default function DocumentReviewModal({ isOpen, onClose, doc, onSave, onDo
                                                         </th>
                                                         <th className="text-left text-[11px] font-bold text-muted-foreground uppercase tracking-wider px-3 py-3">Product Number</th>
                                                         <th className="text-left text-[11px] font-bold text-muted-foreground uppercase tracking-wider px-3 py-3">Description</th>
+                                                        <th className="text-left text-[11px] font-bold text-muted-foreground uppercase tracking-wider px-3 py-3">Verification</th>
                                                         <th className="text-left text-[11px] font-bold text-muted-foreground uppercase tracking-wider px-3 py-3">Catalog<br/>Code</th>
                                                         <th className="text-left text-[11px] font-bold text-muted-foreground uppercase tracking-wider px-3 py-3">Manufacturer<br/>Code</th>
                                                         <th className="text-left text-[11px] font-bold text-muted-foreground uppercase tracking-wider px-3 py-3">Quantity</th>
@@ -353,6 +363,7 @@ export default function DocumentReviewModal({ isOpen, onClose, doc, onSave, onDo
                                                             <td className="px-3 py-3"></td>
                                                             <td className="px-3 py-3"><EditableValue value={li.productNumber} editable /></td>
                                                             <td className="px-3 py-3"><EditableValue value={li.description} editable /></td>
+                                                            <td className="px-3 py-3"><CatalogVerifyPill sku={li.productNumber} onUseReplacement={handleReplaceSku} /></td>
                                                             <td className="px-3 py-3"><EditableValue value={li.catalogCode || '—'} editable /></td>
                                                             <td className="px-3 py-3"><EditableValue value={li.manufacturerCode || '—'} editable /></td>
                                                             <td className="px-3 py-3"><EditableValue value={String(li.quantity)} editable /></td>
@@ -369,6 +380,7 @@ export default function DocumentReviewModal({ isOpen, onClose, doc, onSave, onDo
                                                         </tr>
                                                     ))}
                                                     <tr className="bg-muted/20 font-bold">
+                                                        <td className="px-3 py-3"></td>
                                                         <td className="px-3 py-3"></td>
                                                         <td className="px-3 py-3"></td>
                                                         <td className="px-3 py-3"></td>
