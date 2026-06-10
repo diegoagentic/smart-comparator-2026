@@ -101,53 +101,65 @@ function DiscrepancyRow({
                         </div>
                     </div>
 
-                    {/* Per-discrepancy action buttons */}
-                    <div className="grid grid-cols-3 gap-2">
+                    {/* Per-discrepancy action — subtle inline pills (overrides the AI suggestion).
+                        The big report-level buttons in the footer commit all decisions to the report. */}
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mr-1">Your call:</span>
                         <button
                             onClick={() => onDecide('ACCEPT')}
-                            className={`inline-flex items-center justify-center gap-1.5 px-2 py-2 text-xs font-bold rounded-md transition-colors border ${
+                            title="Approve the ACK value as-is. The field will be applied to your records when you commit the report below."
+                            aria-label="Accept this discrepancy — approve the ACK value as-is"
+                            className={`inline-flex items-center gap-1 px-2 py-1 text-[11px] font-semibold rounded-md transition-colors ${
                                 decision === 'ACCEPT'
-                                    ? 'bg-green-600 text-white border-green-700'
+                                    ? 'bg-green-600 text-white'
                                     : d.recommended_action === 'ACCEPT'
-                                        ? 'bg-green-50 text-green-700 border-green-200 hover:bg-green-100 dark:bg-green-500/10 dark:text-green-300 dark:border-green-500/30'
-                                        : 'bg-background text-foreground border-border hover:bg-muted'
+                                        ? 'bg-green-50 text-green-700 ring-1 ring-green-200 hover:bg-green-100 dark:bg-green-500/10 dark:text-green-300 dark:ring-green-500/30'
+                                        : 'bg-transparent text-muted-foreground ring-1 ring-border hover:bg-muted hover:text-foreground'
                             }`}
                         >
-                            <Check className="h-3.5 w-3.5" />
+                            <Check className="h-3 w-3" />
                             Accept
                         </button>
                         <button
                             onClick={() => onDecide('REQUEST_REVIEW')}
-                            className={`inline-flex items-center justify-center gap-1.5 px-2 py-2 text-xs font-bold rounded-md transition-colors border ${
+                            title="Flag this discrepancy for second-pass review by another team member. The report will route to the review queue."
+                            aria-label="Request review for this discrepancy"
+                            className={`inline-flex items-center gap-1 px-2 py-1 text-[11px] font-semibold rounded-md transition-colors ${
                                 decision === 'REQUEST_REVIEW'
-                                    ? 'bg-blue-600 text-white border-blue-700'
+                                    ? 'bg-blue-600 text-white'
                                     : d.recommended_action === 'REQUEST_REVIEW'
-                                        ? 'bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100 dark:bg-blue-500/10 dark:text-blue-300 dark:border-blue-500/30'
-                                        : 'bg-background text-foreground border-border hover:bg-muted'
+                                        ? 'bg-blue-50 text-blue-700 ring-1 ring-blue-200 hover:bg-blue-100 dark:bg-blue-500/10 dark:text-blue-300 dark:ring-blue-500/30'
+                                        : 'bg-transparent text-muted-foreground ring-1 ring-border hover:bg-muted hover:text-foreground'
                             }`}
                         >
-                            <MessageSquareWarning className="h-3.5 w-3.5" />
+                            <MessageSquareWarning className="h-3 w-3" />
                             Review
                         </button>
                         <button
                             onClick={() => onDecide('REJECT')}
-                            className={`inline-flex items-center justify-center gap-1.5 px-2 py-2 text-xs font-bold rounded-md transition-colors border ${
+                            title="Discard the ACK value, keep the PO as the source of truth. The vendor will be notified of the rejection."
+                            aria-label="Reject this discrepancy — keep PO value, ask vendor to correct"
+                            className={`inline-flex items-center gap-1 px-2 py-1 text-[11px] font-semibold rounded-md transition-colors ${
                                 decision === 'REJECT'
-                                    ? 'bg-red-600 text-white border-red-700'
+                                    ? 'bg-red-600 text-white'
                                     : d.recommended_action === 'REJECT'
-                                        ? 'bg-red-50 text-red-700 border-red-200 hover:bg-red-100 dark:bg-red-500/15 dark:text-red-300 dark:border-red-500/30'
-                                        : 'bg-background text-foreground border-border hover:bg-muted'
+                                        ? 'bg-red-50 text-red-700 ring-1 ring-red-200 hover:bg-red-100 dark:bg-red-500/15 dark:text-red-300 dark:ring-red-500/30'
+                                        : 'bg-transparent text-muted-foreground ring-1 ring-border hover:bg-muted hover:text-foreground'
                             }`}
                         >
-                            <XMark className="h-3.5 w-3.5" />
+                            <XMark className="h-3 w-3" />
                             Reject
                         </button>
+                        {resolved && (
+                            <button
+                                onClick={() => onDecide(d.recommended_action)}
+                                title="Clear your override and follow the AI's suggestion again"
+                                className="inline-flex items-center gap-1 px-2 py-1 text-[11px] font-medium text-muted-foreground hover:text-foreground transition-colors"
+                            >
+                                Reset to AI
+                            </button>
+                        )}
                     </div>
-                    {resolved && (
-                        <p className="text-[11px] text-muted-foreground italic">
-                            Decision recorded. Click another to change, or the report-level button at the bottom to commit all decisions.
-                        </p>
-                    )}
                 </div>
             )}
         </div>
@@ -195,8 +207,8 @@ export default function DiscrepancyList({ discrepancies }: DiscrepancyListProps)
                     </div>
                 </div>
             </div>
-            <p className="text-xs text-muted-foreground">
-                Decide each discrepancy individually — accept the AI suggestion or override. The report-level button at the bottom commits all decisions at once.
+            <p className="text-xs text-muted-foreground leading-relaxed">
+                Each row already carries an <span className="font-semibold text-foreground">AI suggestion</span> (highlighted). Use the small inline buttons only to <span className="font-semibold text-foreground">override</span> a single discrepancy. The big <span className="font-semibold text-foreground">Accept / Review / Reject</span> at the bottom is what commits the whole report.
             </p>
             {discrepancies.map((d, idx) => (
                 <DiscrepancyRow
