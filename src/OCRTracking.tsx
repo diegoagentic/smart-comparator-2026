@@ -13,6 +13,7 @@ import { DEPRECATED_DOCS } from './components/deprecated/mockData'
 import type { DeprecatedDoc, DeprecationReason, ActiveStatus } from './components/deprecated/types'
 import OcrDocCard, { type OcrDocStatus, type OcrDocType } from './components/ocr/OcrDocCard'
 import UploadDocumentModal from './components/ocr/UploadDocumentModal'
+import PreflightSyncModal from './components/ocr/PreflightSyncModal'
 import { TEAM_MEMBERS, avatarGradient } from './components/team/teamMembers'
 import { openOriginalMockPdf } from './utils/viewOriginalMockPdf'
 
@@ -77,6 +78,7 @@ interface OCRTrackingProps {
 
 export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }: OCRTrackingProps) {
     const [showUpload, setShowUpload] = useState(false)
+    const [preflightDoc, setPreflightDoc] = useState<OcrDoc | null>(null)
     const [processingDoc, setProcessingDoc] = useState<string | null>(null)
     const [createRecordDoc, setCreateRecordDoc] = useState<typeof OCR_DOCUMENTS[0] | null>(null)
     const [previewDoc, setPreviewDoc] = useState<typeof OCR_DOCUMENTS[0] | null>(null)
@@ -94,7 +96,7 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
     }
 
     const handlePreflightSync = (doc: OcrDoc) => {
-        addToast('info', `Preflight sync started · ${doc.vendor}`)
+        setPreflightDoc(doc)
     }
 
     const recordTypeFromDoc = (doc: OcrDoc): RecordType =>
@@ -147,11 +149,10 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
         setDeprecationTarget(null)
         setPreviewDoc(null)
 
-        const reasonLabel = payload.reason === 'other' && payload.customReason
-            ? payload.customReason
-            : payload.reason.replace('_', ' ')
-        const linkSuffix = payload.replacementId ? ` → ${payload.replacementId}` : ''
-        addToast('info', `${original.id} archived as "${reasonLabel}"${linkSuffix}`, {
+        const reasonUpper = payload.reason === 'manually_archived' ? 'MANUALLY ARCHIVED'
+            : payload.reason === 'duplicate' ? 'DUPLICATED'
+            : 'OTHER'
+        addToast('success', `Document deprecated: ${reasonUpper}`, {
             label: 'Undo',
             onClick: () => {
                 setDeprecatedDocs(prev => prev.filter(d => d.id !== original.id))
@@ -592,6 +593,20 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                     const doc = createRecordDoc
                     setCreateRecordDoc(null)
                     if (doc) addToast('success', `Record ${recordId} created · ${doc.vendor}`)
+                }}
+            />
+
+            {/* Preflight Sync Modal — opens via airplane icon on Reconciled docs */}
+            <PreflightSyncModal
+                isOpen={!!preflightDoc}
+                onClose={() => setPreflightDoc(null)}
+                doc={preflightDoc}
+                onCreateRecord={(d) => {
+                    handleCreateRecord(d)
+                    addToast('success', `Record created · ${d.vendor}`)
+                }}
+                onDownloadOriginal={(d) => {
+                    openOriginalMockPdf(d).catch(() => addToast('error', `Could not open original PDF · ${d.name}`))
                 }}
             />
 
