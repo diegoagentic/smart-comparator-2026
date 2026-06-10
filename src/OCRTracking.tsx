@@ -40,13 +40,15 @@ interface OcrDoc {
 // AmTab, Magnuson Group, Leland Furniture. Rest is filler.
 const OCR_DOCUMENTS: OcrDoc[] = [
     // ── In-Progress (6) ──
+    // Order: Steelcase (CRITICAL_ISSUES) first so the most-urgent compare flow
+    // appears at the top of the funnel during demo walkthroughs. Other docs follow.
+    { id: 'OCR-003', name: 'PO-1027_Steelcase.pdf', vendor: 'Steelcase', type: 'Purchase Order', date: 'today', status: 'in_progress', lineItems: 4, assigneeId: 'marcus', relatedDocId: 'OCR-010', poNumber: 'PO-1027', ackId: 'ACK-7839' },
     { id: 'OCR-001', name: '330357 - 1.pdf', vendor: 'ergotron', type: 'Quote', date: '21 days ago', status: 'in_progress', lineItems: 3, assigneeId: 'noah', relatedDocId: 'OCR-019', poNumber: 'PO-330357', ackId: 'ACK-330357' },
     { id: 'OCR-002', name: 'Custer - Func.pdf', vendor: 'Better Source', type: 'Quote', date: '21 days ago', status: 'in_progress', lineItems: 2, assigneeId: 'noah' },
+    { id: 'OCR-006', name: 'PO-2055_AIS.pdf', vendor: 'AIS Furniture', type: 'Purchase Order', date: '3 days ago', status: 'in_progress', lineItems: 6, assigneeId: 'daniel', relatedDocId: 'OCR-015', poNumber: 'PO-2055', ackId: 'ACK-3099' },
     // filler — not from prod screenshot
-    { id: 'OCR-003', name: 'PO-1027_Steelcase.pdf', vendor: 'Steelcase', type: 'Purchase Order', date: 'today', status: 'in_progress', lineItems: 4, assigneeId: 'marcus', relatedDocId: 'OCR-010', poNumber: 'PO-1027', ackId: 'ACK-7839' },
     { id: 'OCR-004', name: 'ACK-7855_Knoll.pdf', vendor: 'Knoll', type: 'Acknowledgment', date: 'yesterday', status: 'in_progress', lineItems: 3, assigneeId: 'sarah' },
     { id: 'OCR-005', name: 'QT-2891_HermanMiller.pdf', vendor: 'Herman Miller', type: 'Quote', date: 'today', status: 'in_progress', lineItems: 5, assigneeId: 'priya' },
-    { id: 'OCR-006', name: 'PO-2055_AIS.pdf', vendor: 'AIS Furniture', type: 'Purchase Order', date: '3 days ago', status: 'in_progress', lineItems: 6, assigneeId: 'daniel', relatedDocId: 'OCR-015', poNumber: 'PO-2055', ackId: 'ACK-3099' },
 
     // ── Reconciled (15) ──
     { id: 'OCR-007', name: 'S-QUO017792.pdf', vendor: 'AmTab', type: 'Quote', date: '21 days ago', status: 'processed', lineItems: 5, assigneeId: 'noah' },
