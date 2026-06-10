@@ -93,7 +93,7 @@ export default function ComparisonReviewModal({ isOpen, onClose, report, process
                         leaveFrom="opacity-100 scale-100"
                         leaveTo="opacity-0 scale-95"
                     >
-                        <DialogPanel className="w-full max-w-2xl h-[85vh] max-h-[760px] rounded-2xl border border-border bg-card shadow-2xl overflow-hidden flex flex-col">
+                        <DialogPanel className="w-full max-w-4xl h-[85vh] max-h-[800px] rounded-2xl border border-border bg-card shadow-2xl overflow-hidden flex flex-col">
 
                             {/* Processing state */}
                             {processing && (
