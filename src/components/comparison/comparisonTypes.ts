@@ -1,0 +1,97 @@
+// Types aligned with the ai-python-strata-ack-comparison v2.1.0 contract.
+// Demo-only: nothing here hits a real backend, but the shapes mirror the
+// Python service so the UI maps 1:1 when integration happens later.
+
+// --- Enums --------------------------------------------------------
+
+/** Headline status badge — drives top-of-page color and copy. */
+export type DerivedStatus =
+    | 'EXACT_MATCH'
+    | 'VERIFIED_WITH_MINOR_CHANGES'
+    | 'REQUIRES_REVIEW'
+    | 'CRITICAL_ISSUES'
+    | 'PROCESSING_FAILED'
+
+/** IN-199 LLM-derived business severity for a single discrepancy. */
+export type BusinessSeverity = 'LOW' | 'MEDIUM' | 'HIGH'
+
+/** Ack-level overall severity. */
+export type OverallSeverity = 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'
+
+/** What the routing engine recommends for the report as a whole. */
+export type RoutingDecision = 'MANDATORY_REVIEW' | 'SUGGESTED_REVIEW' | 'AUTO_APPLY_ELIGIBLE'
+
+/** Per-discrepancy LLM analysis status. */
+export type AnalysisStatus = 'PENDING' | 'IN_PROGRESS' | 'COMPLETED' | 'FAILED' | 'SKIPPED'
+
+/** User-facing decision on a comparison report. */
+export type DecisionAction = 'ACCEPT' | 'REJECT' | 'REQUEST_REVIEW'
+
+/** Email draft state machine. */
+export type EmailDraftStatus = 'draft' | 'edited' | 'sent' | 'failed' | 'cancelled'
+
+/** Field categories used to group discrepancies in the UI. */
+export type DiscrepancyCategory = 'header' | 'line_item' | 'pricing' | 'logistics' | 'terms'
+
+// --- Core data shapes ---------------------------------------------
+
+export interface Discrepancy {
+    id: string
+    field_path: string          // e.g. "lineItems.5.quantity"
+    field_label: string         // human label, e.g. "Line 5 Qty (Lounge)"
+    category: DiscrepancyCategory
+    po_value: string | number
+    ack_value: string | number
+    business_severity: BusinessSeverity
+    llm_analysis: string        // LLM paragraph explaining what changed and why
+    recommendation: string      // one-liner like "Backordered — accept partial"
+    recommended_action: DecisionAction
+    analysis_status: AnalysisStatus
+    analysis_confidence: number // 0-100
+}
+
+export interface AckLevelSummary {
+    what_changed_summary: string
+    business_impact: {
+        estimated_cost_impact: string   // "+$180 (2.2% increase)" or "-$2,095 (backorder)"
+        timeline_impact: string         // "No impact" / "+12 days delay"
+        risk_level: OverallSeverity
+    }
+    recommended_actions: Array<{
+        action: string
+        priority: number
+        rationale: string
+    }>
+}
+
+export interface ComparisonReport {
+    report_id: number
+    po_number: string
+    ack_id: string
+    vendor: string
+    derived_status: DerivedStatus
+    overall_similarity_score: number    // 0-1, render as %
+    total_fields_compared: number
+    run_number: number
+    is_latest: boolean
+    summary: AckLevelSummary
+    discrepancies: Discrepancy[]
+    routing: {
+        routing_decision: RoutingDecision
+        confidence_score: number        // 0-100
+        rationale: string
+        suggested_action?: DecisionAction
+    }
+    created_at: string                  // ISO 8601
+}
+
+export interface EmailDraft {
+    draft_id: number
+    report_id: number
+    subject: string
+    body_text: string
+    recipient_email: string
+    recipient_type: 'manufacturer' | 'dealer'
+    status: EmailDraftStatus
+    include_discrepancy_ids: string[]
+}

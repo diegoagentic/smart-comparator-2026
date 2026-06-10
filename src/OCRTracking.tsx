@@ -16,6 +16,7 @@ import UploadDocumentModal from './components/ocr/UploadDocumentModal'
 import PreflightSyncModal from './components/ocr/PreflightSyncModal'
 import { TEAM_MEMBERS, avatarGradient } from './components/team/teamMembers'
 import { openOriginalMockPdf } from './utils/viewOriginalMockPdf'
+import ComparisonLauncher from './components/comparison/ComparisonLauncher'
 
 interface OcrDoc {
     id: string
@@ -27,6 +28,11 @@ interface OcrDoc {
     lineItems: number
     /** Team member id who owns this document (drives the top-right avatar). */
     assigneeId?: string
+    /** Linked counterpart doc id (PO ↔ ACK pairing) for the compare flow. */
+    relatedDocId?: string
+    /** PO and ACK identifiers for the comparison launcher mock. */
+    poNumber?: string
+    ackId?: string
 }
 
 // Mock seed sized to match prod counts (All 21 · In-Progress 6 · Reconciled 15).
@@ -34,13 +40,13 @@ interface OcrDoc {
 // AmTab, Magnuson Group, Leland Furniture. Rest is filler.
 const OCR_DOCUMENTS: OcrDoc[] = [
     // ── In-Progress (6) ──
-    { id: 'OCR-001', name: '330357 - 1.pdf', vendor: 'ergotron', type: 'Quote', date: '21 days ago', status: 'in_progress', lineItems: 3, assigneeId: 'noah' },
+    { id: 'OCR-001', name: '330357 - 1.pdf', vendor: 'ergotron', type: 'Quote', date: '21 days ago', status: 'in_progress', lineItems: 3, assigneeId: 'noah', relatedDocId: 'OCR-019', poNumber: 'PO-330357', ackId: 'ACK-330357' },
     { id: 'OCR-002', name: 'Custer - Func.pdf', vendor: 'Better Source', type: 'Quote', date: '21 days ago', status: 'in_progress', lineItems: 2, assigneeId: 'noah' },
     // filler — not from prod screenshot
-    { id: 'OCR-003', name: 'PO-1027_Steelcase.pdf', vendor: 'Steelcase', type: 'Purchase Order', date: 'today', status: 'in_progress', lineItems: 4, assigneeId: 'marcus' },
+    { id: 'OCR-003', name: 'PO-1027_Steelcase.pdf', vendor: 'Steelcase', type: 'Purchase Order', date: 'today', status: 'in_progress', lineItems: 4, assigneeId: 'marcus', relatedDocId: 'OCR-010', poNumber: 'PO-1027', ackId: 'ACK-7839' },
     { id: 'OCR-004', name: 'ACK-7855_Knoll.pdf', vendor: 'Knoll', type: 'Acknowledgment', date: 'yesterday', status: 'in_progress', lineItems: 3, assigneeId: 'sarah' },
     { id: 'OCR-005', name: 'QT-2891_HermanMiller.pdf', vendor: 'Herman Miller', type: 'Quote', date: 'today', status: 'in_progress', lineItems: 5, assigneeId: 'priya' },
-    { id: 'OCR-006', name: 'PO-1031_ApexFurniture.pdf', vendor: 'Apex Furniture', type: 'Purchase Order', date: '3 days ago', status: 'in_progress', lineItems: 6, assigneeId: 'daniel' },
+    { id: 'OCR-006', name: 'PO-2055_AIS.pdf', vendor: 'AIS Furniture', type: 'Purchase Order', date: '3 days ago', status: 'in_progress', lineItems: 6, assigneeId: 'daniel', relatedDocId: 'OCR-015', poNumber: 'PO-2055', ackId: 'ACK-3099' },
 
     // ── Reconciled (15) ──
     { id: 'OCR-007', name: 'S-QUO017792.pdf', vendor: 'AmTab', type: 'Quote', date: '21 days ago', status: 'processed', lineItems: 5, assigneeId: 'noah' },
@@ -79,6 +85,7 @@ interface OCRTrackingProps {
 export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }: OCRTrackingProps) {
     const [showUpload, setShowUpload] = useState(false)
     const [preflightDoc, setPreflightDoc] = useState<OcrDoc | null>(null)
+    const [compareDoc, setCompareDoc] = useState<OcrDoc | null>(null)
     const [processingDoc, setProcessingDoc] = useState<string | null>(null)
     const [createRecordDoc, setCreateRecordDoc] = useState<typeof OCR_DOCUMENTS[0] | null>(null)
     const [previewDoc, setPreviewDoc] = useState<typeof OCR_DOCUMENTS[0] | null>(null)
@@ -394,6 +401,7 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                                                         onMarkCompleted={() => handleMarkCompleted(doc.id)}
                                                         onPreflightSync={() => handlePreflightSync(doc)}
                                                         onDeprecate={() => openDeprecation(doc)}
+                                                        onCompare={doc.relatedDocId ? () => setCompareDoc(doc) : undefined}
                                                     />
                                                 ))}
                                                 {docs.length === 0 && (
@@ -593,6 +601,18 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                     const doc = createRecordDoc
                     setCreateRecordDoc(null)
                     if (doc) addToast('success', `Record ${recordId} created · ${doc.vendor}`)
+                }}
+            />
+
+            {/* PO vs ACK Comparison launcher — simulates async compare (2.5s) → review modal */}
+            <ComparisonLauncher
+                isOpen={!!compareDoc}
+                onClose={() => setCompareDoc(null)}
+                poNumber={compareDoc?.poNumber ?? compareDoc?.id ?? ''}
+                ackId={compareDoc?.ackId ?? compareDoc?.relatedDocId ?? ''}
+                onDecision={(report, action) => {
+                    const verb = action === 'ACCEPT' ? 'accepted' : action === 'REJECT' ? 'rejected' : 'flagged for review'
+                    addToast('success', `${report.po_number} vs ${report.ack_id} ${verb} (simulated)`)
                 }}
             />
 
