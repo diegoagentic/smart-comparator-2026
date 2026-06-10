@@ -43,7 +43,12 @@ export interface Discrepancy {
     po_value: string | number
     ack_value: string | number
     business_severity: BusinessSeverity
-    llm_analysis: string        // LLM paragraph explaining what changed and why
+    llm_analysis: string        // LLM paragraph explaining what changed and why (fallback)
+    /** One-line summary of what changed. Renders as the visual diff caption. */
+    what_changed?: string
+    /** 1-3 bullet points explaining the business impact. Bullets render as a
+        list instead of the long llm_analysis paragraph. */
+    why_it_matters?: string[]
     recommendation: string      // one-liner like "Backordered — accept partial"
     recommended_action: DecisionAction
     analysis_status: AnalysisStatus

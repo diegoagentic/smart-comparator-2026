@@ -44,6 +44,12 @@ const AIS_REQUIRES_REVIEW: ComparisonReport = {
             business_severity: 'HIGH',
             llm_analysis:
                 'AIS confirms both Lounge 2-Seat units are on backorder. Vendor reports stock arriving Nov 27, 2025 — this is a separate shipment from the main delivery. Accepting this discrepancy means the install date for the lounge area moves to early December.',
+            what_changed: 'Both lounge units dropped to 0 — backorder confirmed by vendor',
+            why_it_matters: [
+                'Vendor reports restock arriving Nov 27, 2025 (separate shipment)',
+                'Install for the lounge area moves to early December',
+                'Main delivery is unaffected — split shipment',
+            ],
             recommendation: 'Accept with split shipment',
             recommended_action: 'ACCEPT',
             analysis_status: 'COMPLETED',
@@ -59,6 +65,12 @@ const AIS_REQUIRES_REVIEW: ComparisonReport = {
             business_severity: 'HIGH',
             llm_analysis:
                 '2 of 8 triple lockers are on allocation. Vendor estimates the remaining units in 3 weeks. Suggest partial acceptance: take the 6 units now, request a follow-up shipment for the remaining 2.',
+            what_changed: '2 of 8 lockers held on allocation — partial fulfillment',
+            why_it_matters: [
+                'Remaining 2 units ETA: +3 weeks per vendor',
+                'You can take the 6 ready units now without delaying install',
+                'Backorder is a known supply issue, not a vendor error',
+            ],
             recommendation: 'Accept partial — 6 of 8',
             recommended_action: 'REQUEST_REVIEW',
             analysis_status: 'COMPLETED',
@@ -74,6 +86,12 @@ const AIS_REQUIRES_REVIEW: ComparisonReport = {
             business_severity: 'HIGH',
             llm_analysis:
                 'The -$2,095.39 delta is driven entirely by the backordered line items. Once the second shipment arrives, the original total will reconcile. No unit-price changes detected.',
+            what_changed: 'Total drops $2,095.39 — entirely driven by short ships',
+            why_it_matters: [
+                'No unit-price changes detected — vendor honored quoted prices',
+                'Backorder shipment will reconcile the delta to original total',
+                'Customer change-order acknowledgment recommended',
+            ],
             recommendation: 'Will reconcile on backorder shipment',
             recommended_action: 'ACCEPT',
             analysis_status: 'COMPLETED',
@@ -89,6 +107,12 @@ const AIS_REQUIRES_REVIEW: ComparisonReport = {
             business_severity: 'MEDIUM',
             llm_analysis:
                 '12-day delay due to the backordered items. Within the tolerance window for the Dec 1 install date, but tight. Worth confirming the lounge backorder ETA before committing.',
+            what_changed: 'Ship date pushed +12 days — Nov 15 → Nov 27',
+            why_it_matters: [
+                'Still inside Dec 1 install tolerance — but tight',
+                'Lounge backorder is the root cause',
+                'Confirm vendor ETA before locking the new date',
+            ],
             recommendation: 'Confirm vendor ETA',
             recommended_action: 'REQUEST_REVIEW',
             analysis_status: 'COMPLETED',
@@ -104,6 +128,12 @@ const AIS_REQUIRES_REVIEW: ComparisonReport = {
             business_severity: 'LOW',
             llm_analysis:
                 'Manufacturer substituted Ocean Blue with Azure Blue — same fabric grade, no price impact. This kind of color sub is common when a specific dye lot is unavailable.',
+            what_changed: 'Color swap — Ocean Blue → Azure Blue, same fabric grade',
+            why_it_matters: [
+                'No price impact — same fabric tier',
+                'Common substitution when a dye lot is unavailable',
+                'Visually close — customer is unlikely to notice',
+            ],
             recommendation: 'Acceptable color substitution',
             recommended_action: 'ACCEPT',
             analysis_status: 'COMPLETED',
@@ -170,6 +200,12 @@ const STEELCASE_CRITICAL: ComparisonReport = {
             business_severity: 'HIGH',
             llm_analysis:
                 'Steelcase substituted Series 2 with Amia without prior authorization. Amia is one product tier below Series 2 in their lineup. The customer specced Series 2 specifically for the ergonomic adjustability — Amia lacks the same lumbar support feature.',
+            what_changed: 'Unauthorized model swap — Series 2 → Amia (one tier down)',
+            why_it_matters: [
+                'Customer specced Series 2 for ergonomic adjustability',
+                'Amia lacks the lumbar support feature Series 2 has',
+                'No authorization was given to substitute',
+            ],
             recommendation: 'Reject substitution',
             recommended_action: 'REJECT',
             analysis_status: 'COMPLETED',
@@ -185,6 +221,12 @@ const STEELCASE_CRITICAL: ComparisonReport = {
             business_severity: 'HIGH',
             llm_analysis:
                 'Only 3 of 12 chairs shipped. Steelcase notes the remaining 9 are in production with a 30-day lead time. Combined with the unauthorized model swap, this is a serious vendor compliance issue.',
+            what_changed: 'Major short ship — 12 ordered, 3 shipped (75% missing)',
+            why_it_matters: [
+                'Remaining 9 units stuck in production — +30 days lead time',
+                'Combined with the model swap = vendor compliance issue',
+                'Customer install date is at risk',
+            ],
             recommendation: 'Reject and re-quote',
             recommended_action: 'REJECT',
             analysis_status: 'COMPLETED',

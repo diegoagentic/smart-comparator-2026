@@ -83,35 +83,74 @@ function DiscrepancyRow({
             </button>
 
             {open && (
-                <div className="px-3 pb-4 pt-1 space-y-3 border-t border-border">
-                    {/* Mobile diff */}
-                    <div className="sm:hidden flex items-center gap-2 text-sm pt-3">
-                        <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">PO</span>
-                        <span className="font-mono">{d.po_value}</span>
-                        <ArrowRight className="h-3.5 w-3.5 text-muted-foreground" />
-                        <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">ACK</span>
-                        <span className="font-mono font-bold text-foreground">{d.ack_value}</span>
+                <div className="px-3 pb-4 pt-3 space-y-3 border-t border-border">
+                    {/* 3-column layout — Before · After · AI Analysis. Stacks
+                        to single column on small screens. The AI column gets
+                        more width because it carries the most content. */}
+                    <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr_1.6fr] gap-2">
+                        {/* Col 1 — Before · PO */}
+                        <div className="rounded-lg border border-border bg-muted/20 p-3 flex flex-col">
+                            <div className="flex items-center gap-1.5 mb-2">
+                                <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Before · PO</span>
+                            </div>
+                            <div className="text-sm font-mono font-semibold text-muted-foreground line-through decoration-muted-foreground/40 break-all">
+                                {d.po_value}
+                            </div>
+                            <div className="text-[10px] text-muted-foreground mt-auto pt-2">What was ordered</div>
+                        </div>
+
+                        {/* Col 2 — After · ACK */}
+                        <div className="rounded-lg border border-red-200 bg-red-50/40 dark:border-red-500/30 dark:bg-red-500/10 p-3 flex flex-col relative">
+                            {/* Arrow connector — visible on lg only, points from PO to ACK */}
+                            <ArrowRight className="hidden lg:block absolute -left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-red-500 bg-card rounded-full p-0.5 z-10" />
+                            <div className="flex items-center gap-1.5 mb-2">
+                                <span className="text-[10px] font-bold text-red-700 dark:text-red-300 uppercase tracking-wider">After · ACK</span>
+                            </div>
+                            <div className="text-sm font-mono font-bold text-red-700 dark:text-red-200 break-all">
+                                {d.ack_value}
+                            </div>
+                            <div className="text-[10px] text-red-700/80 dark:text-red-300/80 mt-auto pt-2">What vendor sent</div>
+                        </div>
+
+                        {/* Col 3 — AI Analysis */}
+                        <div className="rounded-lg bg-muted/40 p-3 flex flex-col gap-2">
+                            <div className="flex items-center gap-1.5">
+                                <Sparkles className="h-3.5 w-3.5 text-zinc-800 dark:text-zinc-200" />
+                                <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">AI Analysis · {d.analysis_confidence}% confidence</span>
+                            </div>
+                            {d.what_changed && (
+                                <div className="text-[11px] font-bold text-foreground leading-snug border-l-2 border-foreground/30 pl-2">
+                                    {d.what_changed}
+                                </div>
+                            )}
+                            {d.why_it_matters && d.why_it_matters.length > 0 ? (
+                                <ul className="space-y-1">
+                                    {d.why_it_matters.map((point, i) => (
+                                        <li key={i} className="flex items-start gap-2 text-[12px] text-foreground leading-snug">
+                                            <span className="mt-1.5 h-1 w-1 rounded-full bg-muted-foreground/60 shrink-0" />
+                                            <span>{point}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            ) : (
+                                <p className="text-[12px] text-foreground leading-relaxed">{d.llm_analysis}</p>
+                            )}
+                        </div>
                     </div>
 
-                    {/* LLM analysis */}
-                    <div className="rounded-lg bg-muted/40 p-3">
-                        <div className="flex items-center gap-1.5 mb-1.5">
-                            <Sparkles className="h-3.5 w-3.5 text-zinc-800 dark:text-zinc-200" />
-                            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">AI Analysis · {d.analysis_confidence}% confidence</span>
-                        </div>
-                        <p className="text-sm text-foreground leading-relaxed">{d.llm_analysis}</p>
-                        <div className="mt-2 flex items-center gap-2 flex-wrap">
+                    {/* Recommendation + Your-call merged onto a single row,
+                        right-aligned. Recommended sits on the left of the cluster,
+                        Your call on the right, with a divider between them. */}
+                    <div className="flex items-center justify-end gap-3 flex-wrap px-1">
+                        <div className="flex items-center gap-2 flex-wrap">
                             <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Recommended:</span>
                             <span className={`inline-flex items-center text-xs font-bold px-2 py-0.5 rounded-md ${actionClasses(d.recommended_action)}`}>
                                 {actionLabel(d.recommended_action)}
                             </span>
                             <span className="text-xs text-muted-foreground">— {d.recommendation}</span>
                         </div>
-                    </div>
-
-                    {/* Per-discrepancy action — subtle inline pills (overrides the AI suggestion).
-                        The big report-level buttons in the footer commit all decisions to the report. */}
-                    <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="h-4 w-px bg-border hidden sm:block" aria-hidden />
+                        <div className="flex items-center gap-1.5 flex-wrap">
                         <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mr-1">Your call:</span>
                         <button
                             onClick={() => onDecide('ACCEPT')}
@@ -167,6 +206,7 @@ function DiscrepancyRow({
                                 Reset to AI
                             </button>
                         )}
+                        </div>
                     </div>
                 </div>
             )}

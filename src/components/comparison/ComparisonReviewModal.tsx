@@ -1,12 +1,20 @@
 import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Transition, TransitionChild, DialogPanel } from '@headlessui/react'
-import { X, ArrowLeftRight, Loader2, CheckCircle2, XCircle, MessageSquareWarning, GitCompare, Check, X as XMark } from 'lucide-react'
+import { X, ArrowLeftRight, Loader2, CheckCircle2, XCircle, MessageSquareWarning, GitCompare, Check, X as XMark, FileText } from 'lucide-react'
 import type { ComparisonReport, DecisionAction } from './comparisonTypes'
 import type { TeamMember } from '../team/teamMembers'
 import DerivedStatusBadge from './DerivedStatusBadge'
 import AckSummaryCard from './AckSummaryCard'
 import DiscrepancyList from './DiscrepancyList'
 import AssignReviewerModal from './AssignReviewerModal'
+import PdfPreviewModal from './PdfPreviewModal'
+
+interface PreviewDoc {
+    id: string
+    name: string
+    vendor: string
+    type: string
+}
 
 interface ComparisonReviewModalProps {
     isOpen: boolean
@@ -67,12 +75,14 @@ function MatchedPill({ matched }: { matched: boolean }) {
 export default function ComparisonReviewModal({ isOpen, onClose, report, processing, onDecision }: ComparisonReviewModalProps) {
     const [tab, setTab] = useState<ReviewTab>('summary')
     const [showAssignReviewer, setShowAssignReviewer] = useState(false)
+    const [previewDoc, setPreviewDoc] = useState<PreviewDoc | null>(null)
 
     // Reset to Summary every time the modal re-opens (avoid sticky tabs across reports).
     useEffect(() => {
         if (isOpen) {
             setTab('summary')
             setShowAssignReviewer(false)
+            setPreviewDoc(null)
         }
     }, [isOpen, report?.report_id])
 
@@ -133,7 +143,7 @@ export default function ComparisonReviewModal({ isOpen, onClose, report, process
                                                 <X className="h-5 w-5" />
                                             </button>
                                         </div>
-                                        <div className="flex items-center gap-2 text-xs text-muted-foreground flex-wrap">
+                                        <div className="flex items-center gap-2 text-xs text-muted-foreground flex-wrap mb-3">
                                             <span className="font-mono font-semibold text-foreground">{report.po_number}</span>
                                             <ArrowLeftRight className="h-3 w-3" />
                                             <span className="font-mono font-semibold text-foreground">{report.ack_id}</span>
@@ -143,6 +153,38 @@ export default function ComparisonReviewModal({ isOpen, onClose, report, process
                                             <span>{Math.round(report.overall_similarity_score * 100)}% match</span>
                                             <span>·</span>
                                             <span>Run #{report.run_number}</span>
+                                        </div>
+                                        {/* View original documents — same pattern as DocumentReviewModal */}
+                                        <div className="flex items-center gap-2 flex-wrap">
+                                            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mr-1">View originals:</span>
+                                            <button
+                                                onClick={() => setPreviewDoc({
+                                                    id: report.po_number,
+                                                    name: `${report.po_number}.pdf`,
+                                                    vendor: report.vendor,
+                                                    type: 'Purchase Order',
+                                                })}
+                                                title={`Preview the original Purchase Order ${report.po_number}`}
+                                                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold text-foreground border border-border rounded-lg hover:bg-muted transition-colors"
+                                            >
+                                                <FileText className="h-3.5 w-3.5 text-muted-foreground" />
+                                                <span className="font-mono">{report.po_number}</span>
+                                                <span className="text-muted-foreground hidden sm:inline">· PO</span>
+                                            </button>
+                                            <button
+                                                onClick={() => setPreviewDoc({
+                                                    id: report.ack_id,
+                                                    name: `${report.ack_id}.pdf`,
+                                                    vendor: report.vendor,
+                                                    type: 'Acknowledgement',
+                                                })}
+                                                title={`Preview the original Acknowledgement ${report.ack_id}`}
+                                                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold text-foreground border border-border rounded-lg hover:bg-muted transition-colors"
+                                            >
+                                                <FileText className="h-3.5 w-3.5 text-muted-foreground" />
+                                                <span className="font-mono">{report.ack_id}</span>
+                                                <span className="text-muted-foreground hidden sm:inline">· ACK</span>
+                                            </button>
                                         </div>
                                     </div>
 
@@ -324,6 +366,12 @@ export default function ComparisonReviewModal({ isOpen, onClose, report, process
                     setShowAssignReviewer(false)
                     onDecision?.('REQUEST_REVIEW', member)
                 }}
+            />
+
+            <PdfPreviewModal
+                isOpen={previewDoc !== null}
+                onClose={() => setPreviewDoc(null)}
+                doc={previewDoc}
             />
         </Transition>
     )

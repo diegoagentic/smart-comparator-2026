@@ -1,6 +1,6 @@
 import { Fragment, useState, useMemo, useEffect } from 'react'
 import { Dialog, Transition, TransitionChild, DialogPanel } from '@headlessui/react'
-import { X, ExternalLink, CheckCircle2, ChevronDown, Download, FileText, Pencil, Plus, Trash2, Box } from 'lucide-react'
+import { X, ExternalLink, CheckCircle2, ChevronDown, Download, FileText, Pencil, Plus, Trash2, Box, Info } from 'lucide-react'
 import type { OcrDocCardData } from './OcrDocCard'
 import CatalogVerifyPill from './CatalogVerifyPill'
 import AITrainingConsentModal from './AITrainingConsentModal'
@@ -383,7 +383,19 @@ export default function DocumentReviewModal({ isOpen, onClose, doc, onSave, onDo
                                                         </th>
                                                         <th className="text-left text-[11px] font-bold text-muted-foreground uppercase tracking-wider px-3 py-3">Product Number</th>
                                                         <th className="text-left text-[11px] font-bold text-muted-foreground uppercase tracking-wider px-3 py-3">Description</th>
-                                                        <th className="text-left text-[11px] font-bold text-muted-foreground uppercase tracking-wider px-3 py-3">Verification</th>
+                                                        <th
+                                                            className="text-left text-[11px] font-bold text-muted-foreground uppercase tracking-wider px-3 py-3"
+                                                            title={
+                                                                'Catalog verification — each SKU is checked against the Strata Catalog Database (vendor catalogs + historical orders + replacement catalogs). ' +
+                                                                'Verified = the SKU exists and is active. Sync = the SKU is not in the catalog; click for AI-suggested replacements. ' +
+                                                                'Source: Strata internal catalog + vendor feed (last refreshed 12h ago).'
+                                                            }
+                                                        >
+                                                            <span className="inline-flex items-center gap-1 cursor-help">
+                                                                Verification
+                                                                <Info className="h-3 w-3 text-muted-foreground/70" />
+                                                            </span>
+                                                        </th>
                                                         <th className="text-left text-[11px] font-bold text-muted-foreground uppercase tracking-wider px-3 py-3">Catalog<br/>Code</th>
                                                         <th className="text-left text-[11px] font-bold text-muted-foreground uppercase tracking-wider px-3 py-3">Manufacturer<br/>Code</th>
                                                         <th className="text-left text-[11px] font-bold text-muted-foreground uppercase tracking-wider px-3 py-3">Quantity</th>
