@@ -180,24 +180,27 @@ function DiscrepancyRow({
                                     ev.tone === 'warning'  ? 'hover:text-yellow-800 dark:hover:text-yellow-200' :
                                                              'hover:text-blue-800 dark:hover:text-blue-200'
                                 return (
-                                    <div className={`border-l-2 ${toneBorder} pl-2 py-0.5 space-y-0.5`}>
-                                        <div className="flex items-center gap-1.5 text-[11px]">
-                                            <FileSearch className={`h-3 w-3 shrink-0 ${toneText}`} />
-                                            <span className="text-muted-foreground">AI found:</span>
-                                            {ev.doc && onPreviewDoc ? (
-                                                <button
-                                                    onClick={() => onPreviewDoc(ev.doc!)}
-                                                    title={`Preview ${ev.doc.name}`}
-                                                    className={`font-semibold underline underline-offset-2 decoration-dotted hover:decoration-solid transition-all ${toneText} ${toneLinkHover}`}
-                                                >
-                                                    {ev.label}
-                                                </button>
-                                            ) : (
-                                                <span className={`font-semibold ${toneText}`}>{ev.label}</span>
-                                            )}
+                                    <div className={`border-l-2 ${toneBorder} pl-2 py-0.5 space-y-1`}>
+                                        <div className="flex items-start gap-1.5 text-[11.5px] leading-snug">
+                                            <FileSearch className={`h-3 w-3 shrink-0 mt-0.5 ${toneText}`} />
+                                            <span className="text-foreground">
+                                                Strata AI found a document that supports the missing items:
+                                                {' '}
+                                                {ev.doc && onPreviewDoc ? (
+                                                    <button
+                                                        onClick={() => onPreviewDoc(ev.doc!)}
+                                                        title={`Preview ${ev.doc.name}`}
+                                                        className={`font-semibold underline underline-offset-2 decoration-dotted hover:decoration-solid transition-all ${toneText} ${toneLinkHover}`}
+                                                    >
+                                                        {ev.label}
+                                                    </button>
+                                                ) : (
+                                                    <span className={`font-semibold ${toneText}`}>{ev.label}</span>
+                                                )}
+                                            </span>
                                         </div>
                                         {ev.description && (
-                                            <p className="text-[11.5px] text-foreground leading-snug">{ev.description}</p>
+                                            <p className="text-[11.5px] text-muted-foreground leading-snug pl-[18px]">{ev.description}</p>
                                         )}
                                     </div>
                                 )

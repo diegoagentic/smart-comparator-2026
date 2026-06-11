@@ -48,6 +48,7 @@ const OCR_DOCUMENTS: OcrDoc[] = [
     { id: 'OCR-002', name: 'Custer - Func.pdf', vendor: 'Better Source', type: 'Quote', date: '21 days ago', status: 'in_progress', lineItems: 2, assigneeId: 'noah' },
     { id: 'OCR-006', name: 'PO-2055_AIS.pdf', vendor: 'AIS Furniture', type: 'Purchase Order', date: '3 days ago', status: 'in_progress', lineItems: 6, assigneeId: 'daniel', relatedDocId: 'OCR-015', poNumber: 'PO-2055', ackId: 'ACK-3099' },
     // filler — not from prod screenshot
+    { id: 'OCR-021', name: 'PO-4501_Knoll.pdf', vendor: 'Knoll', type: 'Purchase Order', date: 'today', status: 'in_progress', lineItems: 3, assigneeId: 'sarah', relatedDocId: 'OCR-004', poNumber: 'PO-4501', ackId: 'ACK-7855' },
     { id: 'OCR-004', name: 'ACK-7855_Knoll.pdf', vendor: 'Knoll', type: 'Acknowledgment', date: 'yesterday', status: 'in_progress', lineItems: 3, assigneeId: 'sarah' },
     { id: 'OCR-005', name: 'QT-2891_HermanMiller.pdf', vendor: 'Herman Miller', type: 'Quote', date: 'today', status: 'in_progress', lineItems: 5, assigneeId: 'priya' },
 
