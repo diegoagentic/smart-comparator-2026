@@ -1,9 +1,20 @@
 import { useEffect, useState } from 'react'
-import { ChevronDown, ChevronRight, Sparkles, ArrowRight, AlertTriangle, Check, X as XMark, MessageSquareWarning, CheckCircle2 } from 'lucide-react'
+import { ChevronDown, ChevronRight, Sparkles, ArrowRight, AlertTriangle, Check, X as XMark, MessageSquareWarning, CheckCircle2, FileSearch } from 'lucide-react'
 import type { BusinessSeverity, DecisionAction, Discrepancy } from './comparisonTypes'
+import DocTypeChip from '../ocr/DocTypeChip'
+
+interface PreviewDocLike {
+    id: string
+    name: string
+    vendor: string
+    type: string
+}
 
 interface DiscrepancyListProps {
     discrepancies: Discrepancy[]
+    /** Optional preview opener — when set, supporting-evidence doc names
+        render as hyperlinks that open the PDF preview modal. */
+    onPreviewDoc?: (doc: PreviewDocLike) => void
 }
 
 type DiscrepancyDecisionMap = Record<string, DecisionAction | null>
@@ -25,7 +36,11 @@ function actionClasses(action: DecisionAction): string {
 }
 
 function actionLabel(action: DecisionAction): string {
-    return action === 'REQUEST_REVIEW' ? 'Review' : action.charAt(0) + action.slice(1).toLowerCase()
+    // Per-discrepancy actions: "Flag" instead of "Review" so the verb
+    // matches the result (the row becomes Flagged). The report-level
+    // footer button still uses "Review" — that's a different action
+    // that assigns the whole report to a reviewer.
+    return action === 'REQUEST_REVIEW' ? 'Flag' : action.charAt(0) + action.slice(1).toLowerCase()
 }
 
 function decisionPillLabel(action: DecisionAction): string {
@@ -36,16 +51,43 @@ function decisionPillLabel(action: DecisionAction): string {
     }
 }
 
+/** Pull the field type out of a discrepancy label.
+    "Line 1 · Qty (Task Chair)" → "Quantity"
+    "Line 5 · Finish (Lounge)"  → "Finish"
+    "Total Amount"              → "Total Amount"
+    "Estimated Ship Date"       → "Estimated Ship Date" */
+function extractFieldType(label: string): string {
+    const parts = label.split(' · ')
+    let raw = label
+    if (parts.length >= 2) {
+        const middle = parts[1].replace(/\s*\([^)]+\)\s*$/, '').trim()
+        if (middle) raw = middle
+    }
+    // Expand common abbreviations — columns have plenty of room and full
+    // words read more naturally than tabular shorthand.
+    const expansions: Record<string, string> = {
+        'Qty':  'Quantity',
+        'QTY':  'Quantity',
+        'Mfg':  'Manufacturer',
+        'PO':   'Purchase Order',
+        'Ack':  'Acknowledgement',
+        'UOM':  'Unit of Measure',
+    }
+    return expansions[raw] ?? raw
+}
+
 function DiscrepancyRow({
     d,
     defaultOpen,
     decision,
     onDecide,
+    onPreviewDoc,
 }: {
     d: Discrepancy
     defaultOpen: boolean
     decision: DecisionAction | null
     onDecide: (action: DecisionAction) => void
+    onPreviewDoc?: (doc: PreviewDocLike) => void
 }) {
     const [open, setOpen] = useState(defaultOpen)
     const resolved = decision !== null
@@ -88,28 +130,28 @@ function DiscrepancyRow({
                         to single column on small screens. The AI column gets
                         more width because it carries the most content. */}
                     <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr_1.6fr] gap-2">
-                        {/* Col 1 — Before · PO */}
+                        {/* Col 1 — Purchase Order value */}
                         <div className="rounded-lg border border-border bg-muted/20 p-3 flex flex-col">
-                            <div className="flex items-center gap-1.5 mb-2">
-                                <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Before · PO</span>
+                            <div className="flex items-center justify-between gap-2 mb-2">
+                                <DocTypeChip type="Purchase Order" size="sm" />
+                                <span className="text-[11px] font-semibold text-muted-foreground">{extractFieldType(d.field_label)}</span>
                             </div>
                             <div className="text-sm font-mono font-semibold text-muted-foreground line-through decoration-muted-foreground/40 break-all">
                                 {d.po_value}
                             </div>
-                            <div className="text-[10px] text-muted-foreground mt-auto pt-2">What was ordered</div>
                         </div>
 
-                        {/* Col 2 — After · ACK */}
+                        {/* Col 2 — Acknowledgement value */}
                         <div className="rounded-lg border border-red-200 bg-red-50/40 dark:border-red-500/30 dark:bg-red-500/10 p-3 flex flex-col relative">
                             {/* Arrow connector — visible on lg only, points from PO to ACK */}
                             <ArrowRight className="hidden lg:block absolute -left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-red-500 bg-card rounded-full p-0.5 z-10" />
-                            <div className="flex items-center gap-1.5 mb-2">
-                                <span className="text-[10px] font-bold text-red-700 dark:text-red-300 uppercase tracking-wider">After · ACK</span>
+                            <div className="flex items-center justify-between gap-2 mb-2">
+                                <DocTypeChip type="Acknowledgment" size="sm" />
+                                <span className="text-[11px] font-semibold text-red-700/80 dark:text-red-300/80">{extractFieldType(d.field_label)}</span>
                             </div>
                             <div className="text-sm font-mono font-bold text-red-700 dark:text-red-200 break-all">
                                 {d.ack_value}
                             </div>
-                            <div className="text-[10px] text-red-700/80 dark:text-red-300/80 mt-auto pt-2">What vendor sent</div>
                         </div>
 
                         {/* Col 3 — AI Analysis */}
@@ -118,6 +160,49 @@ function DiscrepancyRow({
                                 <Sparkles className="h-3.5 w-3.5 text-zinc-800 dark:text-zinc-200" />
                                 <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">AI Analysis · {d.analysis_confidence}% confidence</span>
                             </div>
+
+                            {/* Supporting evidence — sits at the TOP of the AI
+                                column so the user reads "AI did the homework"
+                                BEFORE the analysis bullets. Doc name renders as
+                                a hyperlink when a descriptor is provided. */}
+                            {d.supporting_evidence && (() => {
+                                const ev = d.supporting_evidence
+                                const toneText =
+                                    ev.tone === 'positive' ? 'text-green-700 dark:text-green-300' :
+                                    ev.tone === 'warning'  ? 'text-yellow-700 dark:text-yellow-300' :
+                                                             'text-blue-700 dark:text-blue-300'
+                                const toneBorder =
+                                    ev.tone === 'positive' ? 'border-green-300/60 dark:border-green-500/40' :
+                                    ev.tone === 'warning'  ? 'border-yellow-300/60 dark:border-yellow-500/40' :
+                                                             'border-blue-300/60 dark:border-blue-500/40'
+                                const toneLinkHover =
+                                    ev.tone === 'positive' ? 'hover:text-green-800 dark:hover:text-green-200' :
+                                    ev.tone === 'warning'  ? 'hover:text-yellow-800 dark:hover:text-yellow-200' :
+                                                             'hover:text-blue-800 dark:hover:text-blue-200'
+                                return (
+                                    <div className={`border-l-2 ${toneBorder} pl-2 py-0.5 space-y-0.5`}>
+                                        <div className="flex items-center gap-1.5 text-[11px]">
+                                            <FileSearch className={`h-3 w-3 shrink-0 ${toneText}`} />
+                                            <span className="text-muted-foreground">AI found:</span>
+                                            {ev.doc && onPreviewDoc ? (
+                                                <button
+                                                    onClick={() => onPreviewDoc(ev.doc!)}
+                                                    title={`Preview ${ev.doc.name}`}
+                                                    className={`font-semibold underline underline-offset-2 decoration-dotted hover:decoration-solid transition-all ${toneText} ${toneLinkHover}`}
+                                                >
+                                                    {ev.label}
+                                                </button>
+                                            ) : (
+                                                <span className={`font-semibold ${toneText}`}>{ev.label}</span>
+                                            )}
+                                        </div>
+                                        {ev.description && (
+                                            <p className="text-[11.5px] text-foreground leading-snug">{ev.description}</p>
+                                        )}
+                                    </div>
+                                )
+                            })()}
+
                             {d.what_changed && (
                                 <div className="text-[11px] font-bold text-foreground leading-snug border-l-2 border-foreground/30 pl-2">
                                     {d.what_changed}
@@ -159,9 +244,7 @@ function DiscrepancyRow({
                             className={`inline-flex items-center gap-1 px-2 py-1 text-[11px] font-semibold rounded-md transition-colors ${
                                 decision === 'ACCEPT'
                                     ? 'bg-green-600 text-white'
-                                    : d.recommended_action === 'ACCEPT'
-                                        ? 'bg-green-50 text-green-700 ring-1 ring-green-200 hover:bg-green-100 dark:bg-green-500/10 dark:text-green-300 dark:ring-green-500/30'
-                                        : 'bg-transparent text-muted-foreground ring-1 ring-border hover:bg-muted hover:text-foreground'
+                                    : 'bg-transparent text-muted-foreground ring-1 ring-border hover:bg-muted hover:text-foreground'
                             }`}
                         >
                             <Check className="h-3 w-3" />
@@ -169,18 +252,16 @@ function DiscrepancyRow({
                         </button>
                         <button
                             onClick={() => onDecide('REQUEST_REVIEW')}
-                            title="Flag this discrepancy for second-pass review by another team member. The report will route to the review queue."
-                            aria-label="Request review for this discrepancy"
+                            title="Flag this item for second-pass review by another team member. The report will route to the review queue."
+                            aria-label="Flag this discrepancy for review"
                             className={`inline-flex items-center gap-1 px-2 py-1 text-[11px] font-semibold rounded-md transition-colors ${
                                 decision === 'REQUEST_REVIEW'
                                     ? 'bg-blue-600 text-white'
-                                    : d.recommended_action === 'REQUEST_REVIEW'
-                                        ? 'bg-blue-50 text-blue-700 ring-1 ring-blue-200 hover:bg-blue-100 dark:bg-blue-500/10 dark:text-blue-300 dark:ring-blue-500/30'
-                                        : 'bg-transparent text-muted-foreground ring-1 ring-border hover:bg-muted hover:text-foreground'
+                                    : 'bg-transparent text-muted-foreground ring-1 ring-border hover:bg-muted hover:text-foreground'
                             }`}
                         >
                             <MessageSquareWarning className="h-3 w-3" />
-                            Review
+                            Flag item
                         </button>
                         <button
                             onClick={() => onDecide('REJECT')}
@@ -189,9 +270,7 @@ function DiscrepancyRow({
                             className={`inline-flex items-center gap-1 px-2 py-1 text-[11px] font-semibold rounded-md transition-colors ${
                                 decision === 'REJECT'
                                     ? 'bg-red-600 text-white'
-                                    : d.recommended_action === 'REJECT'
-                                        ? 'bg-red-50 text-red-700 ring-1 ring-red-200 hover:bg-red-100 dark:bg-red-500/15 dark:text-red-300 dark:ring-red-500/30'
-                                        : 'bg-transparent text-muted-foreground ring-1 ring-border hover:bg-muted hover:text-foreground'
+                                    : 'bg-transparent text-muted-foreground ring-1 ring-border hover:bg-muted hover:text-foreground'
                             }`}
                         >
                             <XMark className="h-3 w-3" />
@@ -214,7 +293,7 @@ function DiscrepancyRow({
     )
 }
 
-export default function DiscrepancyList({ discrepancies }: DiscrepancyListProps) {
+export default function DiscrepancyList({ discrepancies, onPreviewDoc }: DiscrepancyListProps) {
     const [decisions, setDecisions] = useState<DiscrepancyDecisionMap>({})
 
     // Reset decisions when the discrepancy set changes (new report opened).
@@ -264,6 +343,7 @@ export default function DiscrepancyList({ discrepancies }: DiscrepancyListProps)
                     d={d}
                     defaultOpen={idx === 0 && d.business_severity === 'HIGH'}
                     decision={decisions[d.id] ?? null}
+                    onPreviewDoc={onPreviewDoc}
                     onDecide={action => setDecisions(prev => ({ ...prev, [d.id]: action }))}
                 />
             ))}

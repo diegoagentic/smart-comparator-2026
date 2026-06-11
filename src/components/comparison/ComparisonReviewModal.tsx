@@ -111,7 +111,7 @@ export default function ComparisonReviewModal({ isOpen, onClose, report, process
                         leaveFrom="opacity-100 scale-100"
                         leaveTo="opacity-0 scale-95"
                     >
-                        <DialogPanel className="w-full max-w-4xl h-[85vh] max-h-[800px] rounded-2xl border border-border bg-card shadow-2xl overflow-hidden flex flex-col">
+                        <DialogPanel className="w-[95vw] max-w-[1400px] h-[90vh] max-h-[920px] rounded-2xl border border-border bg-card shadow-2xl overflow-hidden flex flex-col">
 
                             {/* Processing state */}
                             {processing && (
@@ -119,8 +119,8 @@ export default function ComparisonReviewModal({ isOpen, onClose, report, process
                                     <div className="h-14 w-14 rounded-full bg-brand-300/30 dark:bg-brand-500/20 flex items-center justify-center mb-4">
                                         <Loader2 className="h-7 w-7 text-zinc-800 dark:text-zinc-200 animate-spin" />
                                     </div>
-                                    <h2 className="text-lg font-bold text-foreground mb-1">Comparing PO and ACK…</h2>
-                                    <p className="text-sm text-muted-foreground">Strata AI is analyzing the documents and computing discrepancies.</p>
+                                    <h2 className="text-lg font-bold text-foreground mb-1">Comparing documents…</h2>
+                                    <p className="text-sm text-muted-foreground">Strata AI is validating a Purchase Order against an Acknowledgement — checking fields, line items, quantities, and pricing.</p>
                                 </div>
                             )}
 
@@ -132,7 +132,7 @@ export default function ComparisonReviewModal({ isOpen, onClose, report, process
                                         <div className="flex items-start justify-between gap-3 mb-3">
                                             <div className="flex items-center gap-2 flex-wrap">
                                                 <GitCompare className="h-4 w-4 text-muted-foreground" />
-                                                <h2 className="text-base font-bold text-foreground">PO vs ACK comparison</h2>
+                                                <h2 className="text-base font-bold text-foreground">Compare linked documents</h2>
                                                 <DerivedStatusBadge status={report.derived_status} size="sm" />
                                             </div>
                                             <button
@@ -143,9 +143,11 @@ export default function ComparisonReviewModal({ isOpen, onClose, report, process
                                                 <X className="h-5 w-5" />
                                             </button>
                                         </div>
-                                        <div className="flex items-center gap-2 text-xs text-muted-foreground flex-wrap mb-3">
+                                        <div className="flex items-center gap-2 text-xs text-muted-foreground whitespace-nowrap overflow-x-auto">
+                                            <span className="text-muted-foreground">Purchase Order:</span>
                                             <span className="font-mono font-semibold text-foreground">{report.po_number}</span>
-                                            <ArrowLeftRight className="h-3 w-3" />
+                                            <ArrowLeftRight className="h-3 w-3 shrink-0" />
+                                            <span className="text-muted-foreground">Acknowledgement:</span>
                                             <span className="font-mono font-semibold text-foreground">{report.ack_id}</span>
                                             <span>·</span>
                                             <span>{report.vendor}</span>
@@ -153,38 +155,6 @@ export default function ComparisonReviewModal({ isOpen, onClose, report, process
                                             <span>{Math.round(report.overall_similarity_score * 100)}% match</span>
                                             <span>·</span>
                                             <span>Run #{report.run_number}</span>
-                                        </div>
-                                        {/* View original documents — same pattern as DocumentReviewModal */}
-                                        <div className="flex items-center gap-2 flex-wrap">
-                                            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mr-1">View originals:</span>
-                                            <button
-                                                onClick={() => setPreviewDoc({
-                                                    id: report.po_number,
-                                                    name: `${report.po_number}.pdf`,
-                                                    vendor: report.vendor,
-                                                    type: 'Purchase Order',
-                                                })}
-                                                title={`Preview the original Purchase Order ${report.po_number}`}
-                                                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold text-foreground border border-border rounded-lg hover:bg-muted transition-colors"
-                                            >
-                                                <FileText className="h-3.5 w-3.5 text-muted-foreground" />
-                                                <span className="font-mono">{report.po_number}</span>
-                                                <span className="text-muted-foreground hidden sm:inline">· PO</span>
-                                            </button>
-                                            <button
-                                                onClick={() => setPreviewDoc({
-                                                    id: report.ack_id,
-                                                    name: `${report.ack_id}.pdf`,
-                                                    vendor: report.vendor,
-                                                    type: 'Acknowledgement',
-                                                })}
-                                                title={`Preview the original Acknowledgement ${report.ack_id}`}
-                                                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold text-foreground border border-border rounded-lg hover:bg-muted transition-colors"
-                                            >
-                                                <FileText className="h-3.5 w-3.5 text-muted-foreground" />
-                                                <span className="font-mono">{report.ack_id}</span>
-                                                <span className="text-muted-foreground hidden sm:inline">· ACK</span>
-                                            </button>
                                         </div>
                                     </div>
 
@@ -246,6 +216,38 @@ export default function ComparisonReviewModal({ isOpen, onClose, report, process
                                                     <span className="text-[10px] font-bold bg-card border border-border text-muted-foreground px-1.5 py-0.5 rounded-full">{report.validated_line_items?.length ?? 0}</span>
                                                     {tab === 'lineItems' && <span className="absolute -bottom-1 left-2 right-2 h-0.5 bg-primary rounded-t-full" />}
                                                 </button>
+
+                                                {/* View originals — pushed to the right of the tabs row */}
+                                                <div className="ml-auto flex items-center gap-1.5 my-1">
+                                                    <button
+                                                        onClick={() => setPreviewDoc({
+                                                            id: report.po_number,
+                                                            name: `${report.po_number}.pdf`,
+                                                            vendor: report.vendor,
+                                                            type: 'Purchase Order',
+                                                        })}
+                                                        title={`Preview the original Purchase Order ${report.po_number}`}
+                                                        className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold text-foreground border border-border rounded-lg hover:bg-muted transition-colors"
+                                                    >
+                                                        <FileText className="h-3.5 w-3.5 text-muted-foreground" />
+                                                        <span className="hidden md:inline">Purchase Order:</span>
+                                                        <span className="font-mono">{report.po_number}</span>
+                                                    </button>
+                                                    <button
+                                                        onClick={() => setPreviewDoc({
+                                                            id: report.ack_id,
+                                                            name: `${report.ack_id}.pdf`,
+                                                            vendor: report.vendor,
+                                                            type: 'Acknowledgement',
+                                                        })}
+                                                        title={`Preview the original Acknowledgement ${report.ack_id}`}
+                                                        className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold text-foreground border border-border rounded-lg hover:bg-muted transition-colors"
+                                                    >
+                                                        <FileText className="h-3.5 w-3.5 text-muted-foreground" />
+                                                        <span className="hidden md:inline">Acknowledgement:</span>
+                                                        <span className="font-mono">{report.ack_id}</span>
+                                                    </button>
+                                                </div>
                                             </div>
                                         )
                                     })()}
@@ -255,7 +257,7 @@ export default function ComparisonReviewModal({ isOpen, onClose, report, process
                                         {tab === 'summary' && (
                                             <div className="space-y-5">
                                                 <AckSummaryCard summary={report.summary} discrepancies={report.discrepancies} />
-                                                <DiscrepancyList discrepancies={report.discrepancies} />
+                                                <DiscrepancyList discrepancies={report.discrepancies} onPreviewDoc={setPreviewDoc} />
                                             </div>
                                         )}
                                         {tab === 'fields' && (

@@ -21,7 +21,7 @@ const AIS_REQUIRES_REVIEW: ComparisonReport = {
     is_latest: true,
     summary: {
         what_changed_summary:
-            'AIS confirmed your order but two line items shipped short of requested quantity, which pushes the ship date by 12 days and reduces the total amount by $2,095.',
+            'AIS confirmed your order but two line items will ship short of the requested quantity, which pushes the ship date by 12 days and reduces the total amount by $2,095.',
         business_impact: {
             estimated_cost_impact: '-$2,095.39 (-7.6%)',
             timeline_impact: 'Ship date pushed +12 days',
@@ -86,7 +86,7 @@ const AIS_REQUIRES_REVIEW: ComparisonReport = {
             business_severity: 'HIGH',
             llm_analysis:
                 'The -$2,095.39 delta is driven entirely by the backordered line items. Once the second shipment arrives, the original total will reconcile. No unit-price changes detected.',
-            what_changed: 'Total drops $2,095.39 — entirely driven by short ships',
+            what_changed: 'Total drops $2,095.39 — entirely driven by upcoming short shipments',
             why_it_matters: [
                 'No unit-price changes detected — vendor honored quoted prices',
                 'Backorder shipment will reconcile the delta to original total',
@@ -178,15 +178,16 @@ const STEELCASE_CRITICAL: ComparisonReport = {
     is_latest: true,
     summary: {
         what_changed_summary:
-            'Steelcase shipped 3 of 12 task chairs and changed the model from Series 2 to Amia, which is a significant downgrade. Pricing is the same. This requires immediate intervention.',
+            'Steelcase will ship 3 of 12 task chairs now and committed the remaining 9 on a back-order (BO-7839A, +30 days) — the partial fulfillment is documented and acceptable. However, the model was switched from Series 2 to Amia without authorization, which is the critical issue.',
         business_impact: {
             estimated_cost_impact: '$0 (same total)',
-            timeline_impact: '+30 days for the missing 9 units',
+            timeline_impact: '+30 days for the back-ordered 9 units',
             risk_level: 'HIGH',
         },
         recommended_actions: [
             { action: 'Reject the model substitution', priority: 1, rationale: 'Amia is one tier below the spec sold to customer' },
-            { action: 'Escalate to vendor account manager', priority: 2, rationale: 'Significant short ship and unauthorized substitution' },
+            { action: 'Accept the back-order on quantity', priority: 2, rationale: 'BO-7839A is attached — vendor commitment is documented' },
+            { action: 'Escalate the model swap to vendor account manager', priority: 3, rationale: 'Unauthorized substitutions need to be flagged at the relationship level' },
         ],
     },
     discrepancies: [
@@ -220,23 +221,34 @@ const STEELCASE_CRITICAL: ComparisonReport = {
             ack_value: 3,
             business_severity: 'HIGH',
             llm_analysis:
-                'Only 3 of 12 chairs shipped. Steelcase notes the remaining 9 are in production with a 30-day lead time. Combined with the unauthorized model swap, this is a serious vendor compliance issue.',
-            what_changed: 'Major short ship — 12 ordered, 3 shipped (75% missing)',
+                'Steelcase does not have all 12 chairs in stock today. The ACK ships 3 now and the vendor attached back-order BO-7839A committing the remaining 9 for Nov 25 (+30 days). Because the back-order document is in place, the partial fulfillment is contractually binding — this is the normal pattern for split shipments and can be accepted. If the vendor had short-shipped without the back-order doc, this would warrant a rejection.',
+            what_changed: 'Partial fulfillment — 3 now + 9 on back-order',
             why_it_matters: [
-                'Remaining 9 units stuck in production — +30 days lead time',
-                'Combined with the model swap = vendor compliance issue',
-                'Customer install date is at risk',
+                'Back-order BO-7839A attached to the ACK — vendor commitment is documented and binding',
+                'Remaining 9 units ETA Nov 25 (+30 days)',
+                'Without a back-order doc this would be a rejection — but the doc is in place',
             ],
-            recommendation: 'Reject and re-quote',
-            recommended_action: 'REJECT',
+            supporting_evidence: {
+                label: 'BO-7839A',
+                description: 'Back-order acknowledgement covering the remaining 9 chairs — vendor commits to ship them on Nov 25 (+30 days). Same product line, same unit price.',
+                tone: 'positive',
+                doc: {
+                    id: 'BO-7839A',
+                    name: 'BO-7839A.pdf',
+                    vendor: 'Steelcase',
+                    type: 'Acknowledgement',
+                },
+            },
+            recommendation: 'Accept — back-order commitment is documented',
+            recommended_action: 'ACCEPT',
             analysis_status: 'COMPLETED',
-            analysis_confidence: 95,
+            analysis_confidence: 92,
         },
     ],
     routing: {
         routing_decision: 'MANDATORY_REVIEW',
         confidence_score: 35,
-        rationale: 'Two HIGH-severity issues including an unauthorized product substitution. Mandatory user review before any action.',
+        rationale: 'Quantity is on a documented back-order — acceptable as partial fulfillment — but the unauthorized model substitution (Series 2 → Amia) is a HIGH-severity issue that requires manual review before any action.',
         suggested_action: 'REJECT',
     },
     validated_fields: [

@@ -1,5 +1,6 @@
 import { FileText, AlertCircle, CheckCircle2, CheckSquare, Send, Trash2, GitCompare } from 'lucide-react'
 import { getTeamMember, avatarGradient } from '../team/teamMembers'
+import DocTypeChip from './DocTypeChip'
 
 export type OcrDocStatus = 'identified' | 'capturing' | 'inconsistencies' | 'in_progress' | 'processed' | 'completed' | 'deprecated'
 export type OcrDocType = 'Purchase Order' | 'Acknowledgment' | 'Invoice' | 'Quote'
@@ -46,26 +47,6 @@ function formatRelativeTime(input: string): string {
     return input
 }
 
-// QUOTE uses raw Tailwind purple — DS has no semantic violet token yet.
-// Other types map to existing semantic tokens.
-function typeBadgeClasses(type: OcrDocType): string {
-    switch (type) {
-        case 'Quote': return 'bg-purple-100 text-purple-700 dark:bg-purple-500/15 dark:text-purple-300'
-        case 'Purchase Order': return 'bg-info-light text-info dark:bg-info/15'
-        case 'Acknowledgment': return 'bg-success-light text-success dark:bg-success/15'
-        case 'Invoice': return 'bg-warning-light text-warning dark:bg-warning/15'
-        default: return 'bg-muted text-muted-foreground'
-    }
-}
-
-function typeLabel(type: OcrDocType): string {
-    if (type === 'Quote') return 'QUOTE'
-    if (type === 'Purchase Order') return 'PO'
-    if (type === 'Acknowledgment') return 'ACK'
-    if (type === 'Invoice') return 'INVOICE'
-    return String(type).toUpperCase()
-}
-
 export default function OcrDocCard({ doc, onPreview, onMarkCompleted, onPreflightSync, onDeprecate, onCompare }: OcrDocCardProps) {
     const assignee = getTeamMember(doc.assigneeId)
     // For non-Reconciled/Completed states the 4 icons default to In-Progress mapping
@@ -83,9 +64,7 @@ export default function OcrDocCard({ doc, onPreview, onMarkCompleted, onPrefligh
                         <div className="min-w-0">
                             <div className="flex items-center gap-2">
                                 <span className="text-sm font-bold text-foreground truncate">{doc.vendor}</span>
-                                <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-md uppercase tracking-wide ${typeBadgeClasses(doc.type)}`}>
-                                    {typeLabel(doc.type)}
-                                </span>
+                                <DocTypeChip type={doc.type} size="sm" />
                             </div>
                             <div className="text-[11px] text-muted-foreground font-mono truncate">{doc.id}</div>
                         </div>
@@ -114,12 +93,12 @@ export default function OcrDocCard({ doc, onPreview, onMarkCompleted, onPrefligh
                 {onCompare && (
                     <button
                         onClick={(e) => { e.stopPropagation(); onCompare() }}
-                        title="Compare PO vs ACK"
-                        aria-label="Compare PO vs ACK"
+                        title="Compare linked documents"
+                        aria-label="Compare linked documents"
                         className="mb-3 w-full inline-flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-md bg-brand-300/30 text-foreground border border-brand-300/50 hover:bg-brand-300/50 dark:bg-brand-500/15 dark:border-brand-500/40 dark:hover:bg-brand-500/25 transition-colors"
                     >
                         <GitCompare className="h-3.5 w-3.5" />
-                        Compare with linked ACK
+                        Compare linked documents
                     </button>
                 )}
 

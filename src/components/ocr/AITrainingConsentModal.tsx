@@ -1,14 +1,16 @@
 import { Fragment } from 'react'
 import { Dialog, Transition, TransitionChild, DialogPanel } from '@headlessui/react'
-import { Sparkles, Pencil, FileText, ShieldCheck } from 'lucide-react'
+import { Sparkles } from 'lucide-react'
 
 interface AITrainingConsentModalProps {
     isOpen: boolean
     onAccept: () => void
     onDecline: () => void
     onCancel: () => void
-    editedCount: number
-    replacedCount: number
+    /** Kept for caller compatibility; the modal no longer surfaces specifics
+        about what is shared — it just asks for consent. */
+    editedCount?: number
+    replacedCount?: number
 }
 
 export default function AITrainingConsentModal({
@@ -16,8 +18,6 @@ export default function AITrainingConsentModal({
     onAccept,
     onDecline,
     onCancel,
-    editedCount,
-    replacedCount,
 }: AITrainingConsentModalProps) {
     return (
         <Transition show={isOpen} as={Fragment}>
@@ -53,42 +53,12 @@ export default function AITrainingConsentModal({
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <h2 className="text-lg font-bold text-foreground">Help train Strata AI?</h2>
-                                        <p className="text-xs text-muted-foreground mt-0.5">Your input improves future suggestions</p>
+                                        <p className="text-xs text-muted-foreground mt-0.5">Make Strata smarter with every review</p>
                                     </div>
                                 </div>
                                 <p className="text-sm text-muted-foreground leading-relaxed">
-                                    Your edits help our AI understand documents like yours. With your permission, we'll use this session's changes anonymously to improve future suggestions.
+                                    Your review helps Strata get better at understanding documents like yours, so future suggestions need less manual work.
                                 </p>
-                            </div>
-
-                            {/* What's shared */}
-                            <div className="px-6 pb-4">
-                                <div className="rounded-xl border border-border bg-muted/30 p-3 space-y-2">
-                                    <div className="flex items-center gap-1.5 mb-1">
-                                        <ShieldCheck className="h-3.5 w-3.5 text-muted-foreground" />
-                                        <h3 className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">What we'd share</h3>
-                                    </div>
-                                    {editedCount > 0 && (
-                                        <div className="flex items-center gap-2 text-sm">
-                                            <Pencil className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
-                                            <span className="text-foreground">
-                                                <span className="font-bold">{editedCount}</span> field{editedCount === 1 ? '' : 's'} you edited
-                                            </span>
-                                        </div>
-                                    )}
-                                    {replacedCount > 0 && (
-                                        <div className="flex items-center gap-2 text-sm">
-                                            <Sparkles className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
-                                            <span className="text-foreground">
-                                                <span className="font-bold">{replacedCount}</span> SKU{replacedCount === 1 ? '' : 's'} you replaced via AI suggestions
-                                            </span>
-                                        </div>
-                                    )}
-                                    <div className="flex items-center gap-2 text-sm">
-                                        <FileText className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
-                                        <span className="text-foreground">Anonymized document metadata (vendor, type, line count)</span>
-                                    </div>
-                                </div>
                             </div>
 
                             {/* Actions */}

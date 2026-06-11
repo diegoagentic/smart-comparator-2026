@@ -1204,7 +1204,7 @@ export default function Transactions({ onLogout, onNavigateToDetail, onNavigateT
                                     <span className="text-sm font-medium text-muted-foreground">Quick Actions:</span>
                                     {[
                                         { icon: <PlusIcon className="w-5 h-5" />, label: "Create PO", action: () => setIsCreateOrderOpen(true) },
-                                        { icon: <ClipboardDocumentCheckIcon className="w-5 h-5" />, label: "Compare PO vs ACK", action: () => { setLifecycleTab('acknowledgments'); triggerToast('Compare Mode', 'Select an Acknowledgement to compare against this PO', 'info'); } },
+                                        { icon: <ClipboardDocumentCheckIcon className="w-5 h-5" />, label: "Compare documents", action: () => { setLifecycleTab('acknowledgments'); triggerToast('Compare Mode', 'Select a linked document to compare against this one', 'info'); } },
                                         { icon: <DocumentTextIcon className="w-5 h-5" />, label: "Export PDF", action: () => setIsMultiSelectMode(!isMultiSelectMode) },
                                         { icon: <ArrowDownTrayIcon className="w-5 h-5" />, label: "Export SIF", action: () => handleExportSIF('PO') },
                                     ].map((action, i) => (
@@ -1423,7 +1423,7 @@ export default function Transactions({ onLogout, onNavigateToDetail, onNavigateT
                                                         <button onClick={() => setIsMultiSelectMode(!isMultiSelectMode)} className={cn("p-2 rounded-lg transition-colors", isMultiSelectMode ? "bg-brand-300 dark:bg-brand-500 text-zinc-900" : "hover:bg-brand-300 dark:hover:bg-brand-600/50 text-muted-foreground hover:text-foreground")} title="Export PDF">
                                                             <DocumentTextIcon className="w-5 h-5" />
                                                         </button>
-                                                        <button onClick={() => setIsReconciliationOpen(true)} className="p-2 rounded-lg hover:bg-brand-300 dark:hover:bg-brand-600/50 text-muted-foreground hover:text-foreground transition-colors" title="Reconcile PO vs ACK">
+                                                        <button onClick={() => setIsReconciliationOpen(true)} className="p-2 rounded-lg hover:bg-brand-300 dark:hover:bg-brand-600/50 text-muted-foreground hover:text-foreground transition-colors" title="Compare linked documents">
                                                             <DocumentMagnifyingGlassIcon className="w-5 h-5" />
                                                         </button>
                                                     </>)}

@@ -12,6 +12,7 @@ import DocumentDeprecationModal from './components/DocumentDeprecationModal'
 import { DEPRECATED_DOCS } from './components/deprecated/mockData'
 import type { DeprecatedDoc, DeprecationReason, ActiveStatus } from './components/deprecated/types'
 import OcrDocCard, { type OcrDocStatus, type OcrDocType } from './components/ocr/OcrDocCard'
+import DocTypeChip from './components/ocr/DocTypeChip'
 import UploadDocumentModal from './components/ocr/UploadDocumentModal'
 import PreflightSyncModal from './components/ocr/PreflightSyncModal'
 import { TEAM_MEMBERS, avatarGradient } from './components/team/teamMembers'
@@ -457,13 +458,8 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                                                     </td>
                                                     <td className="px-4 py-3">
                                                         <div className="text-sm font-bold text-foreground">{doc.vendor}</div>
-                                                        <div className="mt-0.5">
-                                                            <span className={`inline-block text-[10px] font-bold px-1.5 py-0.5 rounded-md uppercase tracking-wide ${
-                                                                doc.type === 'Quote' ? 'bg-purple-100 text-purple-700 dark:bg-purple-500/15 dark:text-purple-300' :
-                                                                doc.type === 'Purchase Order' ? 'bg-muted text-muted-foreground' :
-                                                                doc.type === 'Acknowledgment' ? 'bg-muted text-muted-foreground' :
-                                                                'bg-muted text-muted-foreground'
-                                                            }`}>{doc.type}</span>
+                                                        <div className="mt-1">
+                                                            <DocTypeChip type={doc.type} size="sm" />
                                                         </div>
                                                     </td>
                                                     <td className="px-4 py-3">
@@ -505,8 +501,8 @@ export default function OCRTracking({ onLogout, onNavigate, onConvertDocument }:
                                                                 <button
                                                                     onClick={() => setCompareDoc(doc)}
                                                                     className="p-1.5 rounded-md text-foreground bg-brand-300/30 hover:bg-brand-300/50 dark:bg-brand-500/15 dark:hover:bg-brand-500/25 ring-1 ring-brand-300/50 dark:ring-brand-500/30 transition-colors"
-                                                                    title="Compare PO vs linked ACK"
-                                                                    aria-label="Compare PO vs linked ACK"
+                                                                    title="Compare linked documents"
+                                                                    aria-label="Compare linked documents"
                                                                 >
                                                                     <GitCompare className="h-4 w-4" />
                                                                 </button>

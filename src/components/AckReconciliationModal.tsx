@@ -507,7 +507,7 @@ export default function AckReconciliationModal({ isOpen, onClose, triggerToast }
                                             <div>
                                                 <Dialog.Title as="h3" className="text-xl font-brand font-bold text-foreground mb-1 flex items-center gap-2.5">
                                                     <DocumentMagnifyingGlassIcon className="w-6 h-6 text-indigo-500" />
-                                                    PO vs ACK Value Reconciliation
+                                                    Document value reconciliation
                                                 </Dialog.Title>
                                                 <p className="text-sm text-muted-foreground">
                                                     Select a PO–ACK pair to review. "Pending Review" pairs require full validation. "Matched" pairs are pre-verified.

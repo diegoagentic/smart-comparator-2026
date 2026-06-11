@@ -49,6 +49,26 @@ export interface Discrepancy {
     /** 1-3 bullet points explaining the business impact. Bullets render as a
         list instead of the long llm_analysis paragraph. */
     why_it_matters?: string[]
+    /** Supporting evidence the AI located while analyzing the docs — e.g.
+        a back-order acknowledgement, a substitution memo, a revised quote.
+        Shown at the top of the AI Analysis column with a one-line headline,
+        a contextual sentence, and an optional link to the source document. */
+    supporting_evidence?: {
+        /** Short doc reference rendered as a hyperlink. e.g. "BO-7839A" */
+        label: string
+        /** Optional one-line context — what this evidence proves or contains.
+            e.g. "covers the 9 remaining units with ETA Nov 25" */
+        description?: string
+        tone: 'positive' | 'warning' | 'info'
+        /** Optional doc descriptor — when present, clicking the label opens
+            the same floating PDF preview the View-originals buttons use. */
+        doc?: {
+            id: string
+            name: string
+            vendor: string
+            type: string
+        }
+    }
     recommendation: string      // one-liner like "Backordered — accept partial"
     recommended_action: DecisionAction
     analysis_status: AnalysisStatus

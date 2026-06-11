@@ -1,6 +1,8 @@
 import { FileText, Info, RotateCcw, Download, AlertTriangle, AlertOctagon, Copy, Archive } from 'lucide-react'
 import type { DeprecatedDoc, DeprecationReason } from './types'
 import { formatRelativeDate } from './mockData'
+import DocTypeChip from '../ocr/DocTypeChip'
+import type { OcrDocType } from '../ocr/OcrDocCard'
 
 interface DeprecatedCardProps {
     doc: DeprecatedDoc
@@ -62,14 +64,6 @@ function categorize(reason: DeprecationReason): CategoryStyle {
     }
 }
 
-function shortType(t: string): string {
-    if (t === 'Purchase Order') return 'QUOTE'
-    if (t === 'Quote') return 'QUOTE'
-    if (t === 'Acknowledgment') return 'QUOTE'
-    if (t === 'Invoice') return 'INVOICE'
-    return t.toUpperCase()
-}
-
 export default function DeprecatedCard({ doc, onPreview, onRestore, onDownloadOriginal }: DeprecatedCardProps) {
     const cat = categorize(doc.deprecationReason)
     const CatIcon = cat.icon
@@ -123,7 +117,7 @@ export default function DeprecatedCard({ doc, onPreview, onRestore, onDownloadOr
                 <div className="space-y-1.5 mb-4">
                     <div className="flex items-center justify-between text-sm">
                         <span className="text-muted-foreground">Document Type</span>
-                        <span className="font-semibold text-foreground">{shortType(doc.type)}</span>
+                        <DocTypeChip type={doc.type as OcrDocType} size="sm" />
                     </div>
                     <div className="flex items-center justify-between text-sm">
                         <span className="text-muted-foreground">Filename</span>
