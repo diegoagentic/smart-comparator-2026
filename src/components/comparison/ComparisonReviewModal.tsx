@@ -341,7 +341,7 @@ export default function ComparisonReviewModal({ isOpen, onClose, report, process
                                                 className={`inline-flex items-center justify-center gap-1.5 px-3 py-2.5 text-sm font-bold rounded-lg transition-colors ${actionButtonClasses('REQUEST_REVIEW', report.routing.suggested_action)}`}
                                             >
                                                 <MessageSquareWarning className="h-4 w-4" />
-                                                Review
+                                                Assign reviewer
                                             </button>
                                             <button
                                                 onClick={() => onDecision?.('REJECT')}
