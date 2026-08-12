@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+# expert-catalog · pre-commit hook · security scan
+#
+# Detecta el payload obfuscado documentado en SECURITY.md. Ver historial
+# de incidentes (jun 23 · commit 0b0cc3b · y jul 14 · commit 751690f).
+#
+# Activación una-vez-por-clone:
+#   git config core.hooksPath .githooks
+#
+# Este hook es best-effort · si alguien clona y no activa el hook, el
+# scan del build (`npm run build`) es la segunda línea de defensa.
+
+set -e
+
+# Pattern signature del payload conocido. Cualquier match aborta el commit.
+# Cubre v1 (raw) y v2 (eval+atob) · ver scripts/scan-security.mjs y SECURITY.md.
+PATTERN='_\$_[0-9a-f]{4}|global\.[a-z]='"'"'5-2-234|global\[["'"'"']e["'"'"']\]='"'"'NPM'"'"'|/\*(C260521A|RS260605)\*/|Tmx\('"'"'sorcpf|rEf\(4950\)|eval\(["'"'"']global\.o=|atob\(["'"'"']dmFyIF8kX2FlYjA'
+
+# Solo escaneamos archivos staged para commit (fast + relevant).
+STAGED=$(git diff --cached --name-only --diff-filter=ACM)
+
+if [ -z "$STAGED" ]; then
+    exit 0
+fi
+
+HITS=""
+for f in $STAGED; do
+    # Excluir archivos que documentan intencionalmente el pattern.
+    case "$f" in
+        scripts/scan-security.mjs|SECURITY.md)
+            continue
+            ;;
+    esac
+    # Solo aplica al patrón en archivos de código · skip binarios, imágenes, etc.
+    case "$f" in
+        *.mjs|*.cjs|*.js|*.ts|*.tsx|*.jsx|*.json|*.mts|*.cts)
+            if [ -f "$f" ] && grep -qE "$PATTERN" "$f" 2>/dev/null; then
+                HITS="$HITS  $f"$'\n'
+            fi
+            ;;
+    esac
+done
+
+if [ -n "$HITS" ]; then
+    echo ""
+    echo "╔══════════════════════════════════════════════════════════════╗"
+    echo "║ 🛑  SECURITY · MALWARE PATTERN DETECTED IN STAGED FILES     ║"
+    echo "╚══════════════════════════════════════════════════════════════╝"
+    echo ""
+    echo "Archivos infectados (staged):"
+    printf "%s" "$HITS"
+    echo ""
+    echo "Signatures cubiertas (v1 abr · v2 jul · v3 ago 2026):"
+    echo "  · global.o='5-2-234-du'  /  global.i='5-2-234'"
+    echo "  · global['e']='NPM'"
+    echo "  · _\$_aeb0 · _\$_7752  (shuffler, cualquier sufijo hex)"
+    echo "  · /*C260521A*/  ·  /*RS260605*/"
+    echo "  · Tmx('sorcpf...') decoder"
+    echo ""
+    echo "Ver SECURITY.md · procedimiento de limpieza (checkout desde"
+    echo "último commit limpio + git reset del archivo staged)."
+    echo ""
+    echo "El commit fue ABORTADO."
+    exit 1
+fi
+
+exit 0

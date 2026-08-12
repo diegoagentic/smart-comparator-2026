@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+# post-merge hook · security scan
+#
+# Cierra el hueco que permitió las reinfecciones de jun 23 y jul 14 de 2026:
+# `pre-commit` solo dispara al hacer commit, pero el payload llegó por
+# `git pull`. Este hook revisa lo que ACABA de entrar desde el remoto.
+#
+# No puede abortar nada — el merge ya ocurrió — pero avisa antes de que
+# ejecutes `npm install` o `npm run build` sobre código comprometido,
+# que es el momento en que el payload se activa.
+#
+# Activación una-vez-por-clone:
+#   git config core.hooksPath .githooks
+#
+# Ver SECURITY.md · procedimiento de limpieza.
+
+set -e
+
+PATTERN='_\$_[0-9a-f]{4}|global\.[a-z]='"'"'5-2-234|global\[["'"'"']e["'"'"']\]='"'"'NPM'"'"'|/\*(C260521A|RS260605)\*/|Tmx\('"'"'sorcpf|rEf\(4950\)|eval\(["'"'"']global\.o=|atob\(["'"'"']dmFyIF8kX2FlYjA'
+
+# Archivos que cambiaron con este merge. ORIG_HEAD apunta al estado previo.
+if ! git rev-parse --verify -q ORIG_HEAD >/dev/null; then
+    exit 0
+fi
+
+CHANGED=$(git diff-tree -r --name-only --diff-filter=ACM ORIG_HEAD HEAD 2>/dev/null)
+
+if [ -z "$CHANGED" ]; then
+    exit 0
+fi
+
+HITS=""
+for f in $CHANGED; do
+    case "$f" in
+        scripts/scan-security.mjs|SECURITY.md)
+            continue
+            ;;
+    esac
+    case "$f" in
+        *.mjs|*.cjs|*.js|*.ts|*.tsx|*.jsx|*.json|*.mts|*.cts)
+            if [ -f "$f" ] && grep -qE "$PATTERN" "$f" 2>/dev/null; then
+                HITS="$HITS  $f"$'\n'
+            fi
+            ;;
+    esac
+done
+
+if [ -n "$HITS" ]; then
+    echo ""
+    echo "╔══════════════════════════════════════════════════════════════╗"
+    echo "║ 🛑  SECURITY · MALWARE LLEGÓ DESDE EL REMOTO                ║"
+    echo "╚══════════════════════════════════════════════════════════════╝"
+    echo ""
+    echo "Archivos comprometidos que acaban de entrar:"
+    printf "%s" "$HITS"
+    echo ""
+    echo "NO ejecutes npm install, npm run build ni ningún script."
+    echo "El payload se activa al ejecutarse, no al descargarse."
+    echo ""
+    echo "Pasos:"
+    echo "  1. git reset --hard ORIG_HEAD     · vuelve al estado previo"
+    echo "  2. Revisa el acceso al repositorio en GitHub"
+    echo "  3. Ver SECURITY.md · procedimiento completo"
+    echo ""
+    exit 1
+fi
+
+exit 0
